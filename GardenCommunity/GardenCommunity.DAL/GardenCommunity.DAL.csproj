@@ -71,7 +71,11 @@
     <Compile Include="DBConfiguration\MemberConfiguration.cs" />
     <Compile Include="DBConfiguration\PaymentConfiguration.cs" />
     <Compile Include="DBConfiguration\RateConfiguration.cs" />
-    <Compile Include="DBManager.cs" />
+    <Compile Include="DBManagerArea.cs" />
+    <Compile Include="DBManagerIndication.cs" />
+    <Compile Include="DBManagerMember.cs" />
+    <Compile Include="DBManagerPayment.cs" />
+    <Compile Include="DBManagerRate.cs" />
     <Compile Include="Entities\Indication.cs" />
     <Compile Include="Entities\Member.cs" />
     <Compile Include="Entities\Payment.cs" />
@@ -96,6 +100,11 @@
     <Compile Include="Indications.cs">
       <DependentUpon>GardenCommunityDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IDBManagerArea.cs" />
+    <Compile Include="Interfaces\IDBManagerIndication.cs" />
+    <Compile Include="Interfaces\IDBManagerMember.cs" />
+    <Compile Include="Interfaces\IDBManagerPayment.cs" />
+    <Compile Include="Interfaces\IDBManagerRate.cs" />
     <Compile Include="Members.cs">
       <DependentUpon>GardenCommunityDataModel.tt</DependentUpon>
     </Compile>
@@ -274,5 +283,6 @@
       <LastGenOutput>GardenCommunityDataModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
