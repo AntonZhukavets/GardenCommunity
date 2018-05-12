@@ -8,7 +8,7 @@ namespace GardenCommunity.DAL.DBConfiguration
         public PaymentConfiguration()
         {
             HasRequired(x => x.Indication)
-                .WithRequiredPrincipal(x => x.Payment);                        
+                .WithRequiredPrincipal(x => x.Payment);              
         }
     }
 }

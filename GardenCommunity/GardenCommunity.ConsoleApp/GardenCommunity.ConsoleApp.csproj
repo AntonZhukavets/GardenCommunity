@@ -57,6 +57,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GardenCommunity.Business\GardenCommunity.Business.csproj">
+      <Project>{AAEA05D4-5CCB-4801-B514-CECFC36251E4}</Project>
+      <Name>GardenCommunity.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GardenCommunity.DAL\GardenCommunity.DAL.csproj">
       <Project>{220D424D-F16F-4EE4-9A7B-BC05181E3416}</Project>
       <Name>GardenCommunity.DAL</Name>

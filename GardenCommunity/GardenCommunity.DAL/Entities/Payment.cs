@@ -14,7 +14,7 @@ namespace GardenCommunity.DAL.Entities
         public double ToPay { get; set; }
         public Rate Rate { get; set; }   
         public int RateId { get; set; }
-        public Indication Indication { get; set; }        
+        public Indication Indication { get; set; }         
         public Member Member { get; set; }
         public int MemberId { get; set; }
     }
