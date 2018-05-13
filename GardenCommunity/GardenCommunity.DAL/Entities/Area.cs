@@ -9,9 +9,9 @@ namespace GardenCommunity.DAL.Entities
         public int Square { get; set; }
         public bool IsPrivate { get; set; }
         public bool HasElectricity { get; set; }
-        public Area AdditionalArea { get; set; }
-        public int? AdditionalAreaId { get; set; }
+        public Area ParentArea { get; set; }
+        public int? ParentAreaId { get; set; }
         public Member Member { get; set; }        
-        public int MemberId { get; set; }
+        public int? MemberId { get; set; }
     }
 }

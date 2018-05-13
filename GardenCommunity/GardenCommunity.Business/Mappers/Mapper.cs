@@ -47,7 +47,7 @@ namespace GardenCommunity.Business.Mappers
             var dataAccessArea = new DataAccess.Area()
             {
                 Id = area.Id,
-                AdditionalAreaId = area.AdditionalAreaId,
+                ParentAreaId = area.ParentAreaId,
                 HasElectricity = area.HasElectricity,
                 IsPrivate = area.IsPrivate,
                 Square = area.Square,
@@ -108,13 +108,19 @@ namespace GardenCommunity.Business.Mappers
         {
             var areas = new List<Area>();
             var payments = new List<Payment>();
-            foreach(var area in member.Areas)
+            if (member.Areas != null)
             {
-                areas.Add(AreaFromDalToDtoMap(area));
+                foreach (var area in member.Areas)
+                {
+                    areas.Add(AreaFromDalToDtoMap(area));
+                }
             }
-            foreach(var payment in member.Payments)
+            if (member.Payments != null)
             {
-                payments.Add(PaymentFromDalToDtoMap(payment));
+                foreach (var payment in member.Payments)
+                {
+                    payments.Add(PaymentFromDalToDtoMap(payment));
+                }
             }
             var dTOMember = new Member()
             {
@@ -139,7 +145,7 @@ namespace GardenCommunity.Business.Mappers
                 IsPrivate = area.IsPrivate,
                 HasElectricity = area.HasElectricity,
                 Square = area.Square,
-                AdditionalAreaId = area.AdditionalAreaId
+                ParentAreaId = area.ParentAreaId
 
             };
             return dTOArea;

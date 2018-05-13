@@ -9,7 +9,6 @@ namespace GardenCommunity.Business.Interfaces
         void AddIndication(Indication indication);
         void UpdateIndication(Indication indication);
         void RemoveIndication(int id);
-        IEnumerable<Indication> GetIndicationsByMemberId(int id);
-        IEnumerable<Indication> GetIndicationsByMemberId(int id, DateTime beginDate, DateTime endDate);
+        IEnumerable<Indication> GetIndicationsByMemberId(int id);        
     }
 }

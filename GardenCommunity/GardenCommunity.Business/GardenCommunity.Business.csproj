@@ -52,7 +52,11 @@
     <Compile Include="Interfaces\IRateProvider.cs" />
     <Compile Include="Mappers\Mapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\AreaProvider.cs" />
+    <Compile Include="Providers\IndicationProvider.cs" />
     <Compile Include="Providers\MemberProvider.cs" />
+    <Compile Include="Providers\PaymentProvider.cs" />
+    <Compile Include="Providers\RateProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GardenCommunity.DAL\GardenCommunity.DAL.csproj">

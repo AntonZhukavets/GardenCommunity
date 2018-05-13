@@ -17,3 +17,16 @@ namespace GardenCommunity.DAL.Entities
         public ICollection<Payment> Payments { get; set; }
     }
 }
+
+//static void TheRealQuery()
+//{
+//    using (var context = new AdventureWorksDWEntities())
+//    {
+//        Decimal salesMinimum = 1000;
+//        var query = from customer in context.Customers.Where(c => c.InternetSales.Any()).Take(100)
+//                    select new { customer, Sales = customer.InternetSales };
+//        IEnumerable customers = query.ToList();
+//        context.ContextOptions.LazyLoadingEnabled = false;
+//        EnumerateCustomers(customers);
+//    }
+//}

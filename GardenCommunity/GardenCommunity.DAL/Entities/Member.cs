@@ -18,7 +18,6 @@ namespace GardenCommunity.DAL.Entities
         public string AdditionalInfo { get; set; }
         public bool IsActiveMember { get; set; }
         public ICollection<Area> Areas { get; set; }
-        public ICollection<Payment> Payments { get; set; }
-        
+        public ICollection<Payment> Payments { get; set; }       
     }
 }

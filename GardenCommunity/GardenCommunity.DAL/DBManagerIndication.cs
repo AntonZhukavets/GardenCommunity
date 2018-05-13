@@ -22,6 +22,8 @@ namespace GardenCommunity.DAL
             return indications;
         }
 
+        
+
         public void AddIndication(Indication indication)
         {
             using (var db = new GardenCommunityDB())

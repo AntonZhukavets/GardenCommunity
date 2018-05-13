@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using GardenCommunity.Business.DTO;
 using GardenCommunity.Business.Interfaces;
 using GardenCommunity.Business.Mappers;
@@ -18,31 +17,51 @@ namespace GardenCommunity.Business.Providers
 
         public void AddMember(Member member)
         {
+            if(member==null)
+            {
+                throw new ArgumentNullException("member");
+            }
             dBManagerMember.AddMember(Mapper.MemberFromDtoToDalMap(member));
         }
 
         public Member GetMember(int id)
         {
-            throw new NotImplementedException();
+            var member = dBManagerMember.GetMember(id);
+            return Mapper.MemberFromDalToDtoMap(member);
         }
 
         public Member GetMemberByAreaId(int id)
         {
-            throw new NotImplementedException();
+            var member = dBManagerMember.GetMemberByAreaId(id);
+            return Mapper.MemberFromDalToDtoMap(member);
         }
 
         public IEnumerable<Member> GetMembers()
-        {
-            throw new NotImplementedException();
+        {            
+            var dALMembers = dBManagerMember.GetMembers();
+            if (dALMembers != null)
+            {
+                var members = new List<Member>();
+                foreach (var dALMember in dALMembers)
+                {
+                    members.Add(Mapper.MemberFromDalToDtoMap(dALMember));
+                }
+                return members;
+            }
+            return null;
         }
 
         public void RemoveMember(int id)
         {
-            throw new NotImplementedException();
+            dBManagerMember.RemoveMember(id);
         }
 
         public void UpdateMember(Member member)
         {
+            if (member == null)
+            {
+                throw new ArgumentNullException("member");
+            }
             dBManagerMember.UpdateMember(Mapper.MemberFromDtoToDalMap(member));
         }
     }

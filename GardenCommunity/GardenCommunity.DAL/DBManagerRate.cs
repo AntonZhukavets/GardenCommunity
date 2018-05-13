@@ -44,5 +44,14 @@ namespace GardenCommunity.DAL
                 db.SaveChanges();
             }
         }
+
+        public IEnumerable<Rate> GetRates(DateTime beginDate, DateTime endTime)
+        {
+            using (var db = new GardenCommunityDB())
+            {
+                var rates = db.Rates.Where(x => x.Date >= beginDate && x.Date <= endTime).ToList();
+                return rates;
+            }
+        }
     }
 }

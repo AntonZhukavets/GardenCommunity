@@ -17,6 +17,19 @@ namespace GardenCommunity.DAL
 
         }
 
+        public IEnumerable<Payment> GetPayments(DateTime beginDate, DateTime endDate)
+        {
+            using (var db = new GardenCommunityDB())
+            {
+                return db.Payments
+                    .Include("Member")
+                    .Include("Rate")
+                    .Where(x => x.DateOfPayment >= beginDate && x.DateOfPayment <= endDate)
+                    .ToList();
+            }
+
+        }
+
         public IEnumerable<Payment> GetPaymentsByMemberId(int id)
         {
             using (var db = new GardenCommunityDB())

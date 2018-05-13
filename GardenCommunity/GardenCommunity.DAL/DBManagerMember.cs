@@ -12,7 +12,7 @@ namespace GardenCommunity.DAL
         {
             using (var db = new GardenCommunityDB())
             {
-                return db.Members.ToList();
+                return db.Members.Include("Areas").ToList();
             }
         }
 
@@ -27,6 +27,10 @@ namespace GardenCommunity.DAL
 
         public void AddMember(Member member)
         {
+            if (member == null)
+            {
+                throw new ArgumentNullException("member");
+            }
             using (var db = new GardenCommunityDB())
             {
                 db.Members.Add(member);
@@ -36,6 +40,10 @@ namespace GardenCommunity.DAL
 
         public void UpdateMember(Member member)
         {
+            if (member == null)
+            {
+                throw new ArgumentNullException("member");
+            }
             using (var db = new GardenCommunityDB())
             {
                 var updatableMember = db.Members.Where(x => x.Id == member.Id).First();
@@ -61,24 +69,18 @@ namespace GardenCommunity.DAL
             }
         }
 
-        public IEnumerable<Member> GetMembersByAreaId(int id)
+        public Member GetMemberByAreaId(int id)
         {
             using (var db = new GardenCommunityDB())
-            {
-                var members = new List<Member>();
-                int mainAreaId = 0;
-                var area = db.Areas.Include("Members").Where(x => x.Id == id).FirstOrDefault();
-                //if (area.Members.Count != 0)
-                //{
-                //    members.AddRange(area.Members);
-                //}
-                //if (area.AdditionalAreaId != null)
-                //{
-                //    mainAreaId = area.AdditionalAreaId.Value;
-                //    area = db.Areas.Include("Members").Where(x => x.Id == mainAreaId).FirstOrDefault();
-                //    members.AddRange(area.Members);
-                //}             
-                return members;
+            {                
+                var area = db.Areas.Include("Member").Where(x => x.Id == id).First();
+                int parentAreaId;
+                if (area.MemberId==null)
+                {
+                    parentAreaId = area.ParentAreaId.Value;
+                    return GetMemberByAreaId(parentAreaId);
+                }                            
+                return area.Member;
             }
         }
     }
