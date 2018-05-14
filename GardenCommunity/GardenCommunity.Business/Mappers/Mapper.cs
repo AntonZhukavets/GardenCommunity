@@ -51,7 +51,7 @@ namespace GardenCommunity.Business.Mappers
                 HasElectricity = area.HasElectricity,
                 IsPrivate = area.IsPrivate,
                 Square = area.Square,
-                MemberId = area.MemberId
+                //MemberId = area.MemberId
             };
             return dataAccessArea;
         }
@@ -183,9 +183,13 @@ namespace GardenCommunity.Business.Mappers
         public static Rate RateFromDalToDtoMap(DataAccess.Rate rate)
         {
             var paymets = new List<Payment>();
-            foreach(var payment in rate.Payments)
-            {
-                paymets.Add(PaymentFromDalToDtoMap(payment));
+            var payments = rate.Payments;
+            if (payments != null)
+            { 
+                foreach (var payment in payments)
+                {
+                    paymets.Add(PaymentFromDalToDtoMap(payment));
+                }
             }
             var dTORate = new Rate()
             {

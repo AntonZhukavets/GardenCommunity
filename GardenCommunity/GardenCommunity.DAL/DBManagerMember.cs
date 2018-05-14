@@ -69,18 +69,37 @@ namespace GardenCommunity.DAL
             }
         }
 
-        public Member GetMemberByAreaId(int id)
+        public IEnumerable<Member> GetMembersByAreaId(int id)
         {
             using (var db = new GardenCommunityDB())
-            {                
-                var area = db.Areas.Include("Member").Where(x => x.Id == id).First();
-                int parentAreaId;
-                if (area.MemberId==null)
+            {
+                var members = new List<Member>();
+                var area = db.Areas.Include("Members").Where(x => x.Id == id).First();
+                if(area.Members!=null)
                 {
-                    parentAreaId = area.ParentAreaId.Value;
-                    return GetMemberByAreaId(parentAreaId);
-                }                            
-                return area.Member;
+                    members.AddRange(area.Members);
+                }
+                if(area.ParentAreaId!=null)
+                {
+                    members.AddRange(GetMembersByAreaId(area.ParentAreaId.Value));
+                }
+                //var childAreas = db.Areas.Include("Members").Where(x => x.ParentAreaId == id).ToList();
+                //if(childAreas != null)
+                //{
+                //    foreach(var childArea in childAreas)
+                //    {
+                //        GetMembersByAreaId(childArea.Id);
+                //    }
+                //}
+                //int parentAreaId;
+
+
+                //if (area.MemberId==null)
+                //{
+                //    parentAreaId = area.ParentAreaId.Value;
+                //    return GetMemberByAreaId(parentAreaId);
+                //}                            
+                return members;
             }
         }
     }

@@ -15,7 +15,7 @@ namespace GardenCommunity.DAL
             {
                 Database.CreateIfNotExists();
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 throw ex;
             }
@@ -30,7 +30,9 @@ namespace GardenCommunity.DAL
             modelBuilder.Configurations.Add(new MemberConfiguration());
             modelBuilder.Configurations.Add(new RateConfiguration());
             modelBuilder.Configurations.Add(new PaymentConfiguration());
-            modelBuilder.Configurations.Add(new AreaConfiguration());
+            //Database.SetInitializer<GardenCommunityDB>(null);
+            //modelBuilder.Configurations.Add(new AreaConfiguration());
+            Database.SetInitializer<GardenCommunity.DAL.GardenCommunityDB>(new DropCreateDatabaseIfModelChanges<GardenCommunity.DAL.GardenCommunityDB>());
         }
     }
 

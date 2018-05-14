@@ -1,0 +1,13 @@
+﻿@model IEnumerable<GardenCommunity.Web.Models.Rate>
+
+@{
+    ViewBag.Title = "GetRates";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Avaliable rates</h2>
+@foreach(var rate in Model)
+{
+    <h2>@rate.Id @rate.RateName @rate.RateValue</h2>
+}
+

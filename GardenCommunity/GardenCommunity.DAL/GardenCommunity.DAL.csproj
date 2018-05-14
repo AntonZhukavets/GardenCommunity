@@ -196,6 +196,14 @@
     <Compile Include="Migrations\201805121919334_DataBase_created_20.Designer.cs">
       <DependentUpon>201805121919334_DataBase_created_20.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805131519342_DataBase_created_21.cs" />
+    <Compile Include="Migrations\201805131519342_DataBase_created_21.Designer.cs">
+      <DependentUpon>201805131519342_DataBase_created_21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805141435345_DataBase_Created_22.cs" />
+    <Compile Include="Migrations\201805141435345_DataBase_Created_22.Designer.cs">
+      <DependentUpon>201805141435345_DataBase_Created_22.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Payments.cs">
       <DependentUpon>GardenCommunityDataModel.tt</DependentUpon>
@@ -285,6 +293,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805121919334_DataBase_created_20.resx">
       <DependentUpon>201805121919334_DataBase_created_20.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805131519342_DataBase_created_21.resx">
+      <DependentUpon>201805131519342_DataBase_created_21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805141435345_DataBase_Created_22.resx">
+      <DependentUpon>201805141435345_DataBase_Created_22.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

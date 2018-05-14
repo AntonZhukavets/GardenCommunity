@@ -11,7 +11,7 @@ namespace GardenCommunity.Business.Interfaces
         void UpdateMember(Member member);
         void RemoveMember(int id);
         IEnumerable<Member> GetMembers();
-        Member GetMember(int id);
-        Member GetMemberByAreaId(int id);
+        IEnumerable<Member> GetMembersByAreaId(int id);
+        Member GetMember(int id);        
     }
 }

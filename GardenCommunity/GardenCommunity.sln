@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GardenCommunity.ConsoleApp"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GardenCommunity.Business", "GardenCommunity.Business\GardenCommunity.Business.csproj", "{AAEA05D4-5CCB-4801-B514-CECFC36251E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GardenCommunity.Web", "GardenCommunity.Web\GardenCommunity.Web.csproj", "{A69A2C1B-591F-4AC6-9C48-BA816BB40AE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{AAEA05D4-5CCB-4801-B514-CECFC36251E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAEA05D4-5CCB-4801-B514-CECFC36251E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAEA05D4-5CCB-4801-B514-CECFC36251E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A69A2C1B-591F-4AC6-9C48-BA816BB40AE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A69A2C1B-591F-4AC6-9C48-BA816BB40AE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A69A2C1B-591F-4AC6-9C48-BA816BB40AE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A69A2C1B-591F-4AC6-9C48-BA816BB40AE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

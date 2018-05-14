@@ -12,7 +12,7 @@ namespace GardenCommunity.ConsoleApp
     {
         static void Main(string[] args)
         {
-            var memberProvider = new MemberProvider(new DBManagerMember());
+            //var memberProvider = new MemberProvider(new DBManagerMember());
             //var member = new Member()
             //{
             //    Id=8,
@@ -34,9 +34,25 @@ namespace GardenCommunity.ConsoleApp
             //payments.Add(payment);
             //member.Payments = payments;
             //memberProvider.UpdateMember(member);
-            foreach(var member in memberProvider.GetMembers())
+            //foreach(var member in memberProvider.GetMembers())
+            //{
+            //    Console.WriteLine("{0} {1}", member.FirstName, member.LastName);
+            //    foreach(var area in member.Areas)
+            //    {
+            //        Console.WriteLine("Id:{0} ParentAreaId:{1} Square:{2}", area.Id, area.ParentAreaId, area.Square);
+            //    }
+            //}
+            //var areaProvider = new AreaProvider(new DBManagerArea());
+            //var areas = areaProvider.GetAreasByMemberId(3);
+            //foreach(var area in areas)
+            //{
+            //    Console.WriteLine("Id:{0} ParentAreaId:{1} Square:{2}", area.Id, area.ParentAreaId, area.Square);
+            //}
+            var rateProvider = new RateProvider(new DBManagerRate());
+            var rates = rateProvider.GetRates(DateTime.Now,DateTime.Now);
+            foreach (var rate in rates)
             {
-                Console.WriteLine("{0} {1} {2}", member.FirstName, member.LastName, member.Areas.Count);
+                Console.WriteLine("Id:{0} RateName:{1} RateValue:{2} ",rate.Id,rate.RateName,rate.RateValue);
             }
             Console.WriteLine("Done");
             Console.Read();            

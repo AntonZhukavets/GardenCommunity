@@ -11,7 +11,7 @@ namespace GardenCommunity.DAL.Entities
         public bool HasElectricity { get; set; }
         public Area ParentArea { get; set; }
         public int? ParentAreaId { get; set; }
-        public Member Member { get; set; }        
-        public int? MemberId { get; set; }
+        public ICollection<Member> Members { get; set; }        
+        //public int? MemberId { get; set; }
     }
 }

@@ -49,7 +49,8 @@ namespace GardenCommunity.DAL
         {
             using (var db = new GardenCommunityDB())
             {
-                var rates = db.Rates.Where(x => x.Date >= beginDate && x.Date <= endTime).ToList();
+                var rates = db.Rates.ToList();
+                //var rates = db.Rates.Where(x => x.Date >= beginDate && x.Date <= endTime).ToList();
                 return rates;
             }
         }

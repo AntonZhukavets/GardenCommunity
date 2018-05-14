@@ -30,10 +30,19 @@ namespace GardenCommunity.Business.Providers
             return Mapper.MemberFromDalToDtoMap(member);
         }
 
-        public Member GetMemberByAreaId(int id)
+        public IEnumerable<Member> GetMembersByAreaId(int id)
         {
-            var member = dBManagerMember.GetMemberByAreaId(id);
-            return Mapper.MemberFromDalToDtoMap(member);
+            var dALMembers = dBManagerMember.GetMembersByAreaId(id);
+            if (dALMembers != null)
+            {
+                var members = new List<Member>();
+                foreach (var dALMember in dALMembers)
+                {
+                    members.Add(Mapper.MemberFromDalToDtoMap(dALMember));
+                }
+                return members;
+            }
+            return null;
         }
 
         public IEnumerable<Member> GetMembers()
