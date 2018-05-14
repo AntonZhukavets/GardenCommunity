@@ -16,9 +16,7 @@ namespace GardenCommunity.Web
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
-            //Database.SetInitializer<GardenCommunity.DAL.GardenCommunityDB>(null);
-            
+            BundleConfig.RegisterBundles(BundleTable.Bundles);       
         }
     }
 }

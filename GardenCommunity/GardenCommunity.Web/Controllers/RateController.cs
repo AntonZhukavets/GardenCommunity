@@ -14,25 +14,29 @@ namespace GardenCommunity.Web.Controllers
     public class RateController : Controller
     {
         private readonly IRateProvider rateProvider;
+        private readonly IMemberProvider memberProvider;
         public RateController()
         {
             rateProvider = new RateProvider(new DBManagerRate());
+            memberProvider = new MemberProvider(new DBManagerMember());
         }
         [HttpGet]
         public ActionResult GetRates()
         {
-            var beginDate = new DateTime(2017, 1, 1);
-            var endDate = new DateTime(2018, 12, 31);
-            var rates = rateProvider.GetRates(beginDate, endDate);
-            var modelRate = new List<Rate>();
-            if (rates!=null)
-            {                
-                foreach(var rate in rates)
+            //var beginDate = new DateTime(2017, 1, 1);
+            //var endDate = new DateTime(2018, 12, 31);
+            //var rates = rateProvider.GetRates(beginDate, endDate);
+            var members = memberProvider.GetMembers();
+            var modelMembers = new List<Member>();
+            //var modelRate = new List<Rate>();
+            //if (members != null)
+            //{                
+                foreach(var member in members)
                 {
-                    modelRate.Add(Mapper.FromDtoToMVCModelMap(rate));
+                    modelMembers.Add(Mapper.FromDtoToMVCModelMap(member));
                 }
-            }
-            return View(modelRate);
+            //}
+            return View(modelMembers);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.SqlClient;
 using GardenCommunity.DAL.DBConfiguration;
 using GardenCommunity.DAL.Entities;
@@ -27,12 +28,14 @@ namespace GardenCommunity.DAL
         public DbSet<Rate> Rates { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            Database.SetInitializer<GardenCommunityDB>(new DropCreateDatabaseIfModelChanges<GardenCommunityDB>());
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Configurations.Add(new MemberConfiguration());
             modelBuilder.Configurations.Add(new RateConfiguration());
-            modelBuilder.Configurations.Add(new PaymentConfiguration());
+            modelBuilder.Configurations.Add(new PaymentConfiguration());            
             //Database.SetInitializer<GardenCommunityDB>(null);
             //modelBuilder.Configurations.Add(new AreaConfiguration());
-            Database.SetInitializer<GardenCommunity.DAL.GardenCommunityDB>(new DropCreateDatabaseIfModelChanges<GardenCommunity.DAL.GardenCommunityDB>());
+           // 
         }
     }
 

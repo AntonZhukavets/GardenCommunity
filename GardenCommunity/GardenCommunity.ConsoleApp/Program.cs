@@ -12,7 +12,13 @@ namespace GardenCommunity.ConsoleApp
     {
         static void Main(string[] args)
         {
-            //var memberProvider = new MemberProvider(new DBManagerMember());
+            var memberProvider = new MemberProvider(new DBManagerMember());
+            var members = memberProvider.GetMembers();
+            foreach (var member in members)
+            {
+
+                Console.WriteLine("Id:{0} RateName:{1} RateValue:{2} ", member.Id, member.FirstName, member.LastName);
+            }
             //var member = new Member()
             //{
             //    Id=8,
@@ -48,12 +54,12 @@ namespace GardenCommunity.ConsoleApp
             //{
             //    Console.WriteLine("Id:{0} ParentAreaId:{1} Square:{2}", area.Id, area.ParentAreaId, area.Square);
             //}
-            var rateProvider = new RateProvider(new DBManagerRate());
-            var rates = rateProvider.GetRates(DateTime.Now,DateTime.Now);
-            foreach (var rate in rates)
-            {
-                Console.WriteLine("Id:{0} RateName:{1} RateValue:{2} ",rate.Id,rate.RateName,rate.RateValue);
-            }
+            //var rateProvider = new RateProvider(new DBManagerRate());
+            //var rates = rateProvider.GetRates(DateTime.Now,DateTime.Now);
+            //foreach (var rate in rates)
+            //{
+            //    Console.WriteLine("Id:{0} RateName:{1} RateValue:{2} ",rate.Id,rate.RateName,rate.RateValue);
+            //}
             Console.WriteLine("Done");
             Console.Read();            
         }

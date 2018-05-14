@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GardenCommunity.Web.Models.Rate>
+﻿@model IEnumerable<GardenCommunity.Web.Models.Member>
 
 @{
     ViewBag.Title = "GetRates";
@@ -6,8 +6,9 @@
 }
 
 <h2>Avaliable rates</h2>
-@foreach(var rate in Model)
+@foreach (var member in Model)
 {
-    <h2>@rate.Id @rate.RateName @rate.RateValue</h2>
+    <h2>@member.Id</h2>
+    <h2>@member.FirstName</h2>
 }
 

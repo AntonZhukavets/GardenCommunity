@@ -108,101 +108,9 @@
     <Compile Include="Members.cs">
       <DependentUpon>GardenCommunityDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805051611400_DataBase_created_1.cs" />
-    <Compile Include="Migrations\201805051611400_DataBase_created_1.Designer.cs">
-      <DependentUpon>201805051611400_DataBase_created_1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805051620047_DataBase_created_2.cs" />
-    <Compile Include="Migrations\201805051620047_DataBase_created_2.Designer.cs">
-      <DependentUpon>201805051620047_DataBase_created_2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805051624138_DataBase_created_3.cs" />
-    <Compile Include="Migrations\201805051624138_DataBase_created_3.Designer.cs">
-      <DependentUpon>201805051624138_DataBase_created_3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805051637043_DataBase_created_4.cs" />
-    <Compile Include="Migrations\201805051637043_DataBase_created_4.Designer.cs">
-      <DependentUpon>201805051637043_DataBase_created_4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805051707026_DataBase_created_5.cs" />
-    <Compile Include="Migrations\201805051707026_DataBase_created_5.Designer.cs">
-      <DependentUpon>201805051707026_DataBase_created_5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805051724382_DataBase_created_6.cs" />
-    <Compile Include="Migrations\201805051724382_DataBase_created_6.Designer.cs">
-      <DependentUpon>201805051724382_DataBase_created_6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805051726040_DataBase_created_7.cs" />
-    <Compile Include="Migrations\201805051726040_DataBase_created_7.Designer.cs">
-      <DependentUpon>201805051726040_DataBase_created_7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805051733528_DataBase_created_8.cs" />
-    <Compile Include="Migrations\201805051733528_DataBase_created_8.Designer.cs">
-      <DependentUpon>201805051733528_DataBase_created_8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805051739374_DataBase_created_81.cs" />
-    <Compile Include="Migrations\201805051739374_DataBase_created_81.Designer.cs">
-      <DependentUpon>201805051739374_DataBase_created_81.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805051740167_DataBase_created_82.cs" />
-    <Compile Include="Migrations\201805051740167_DataBase_created_82.Designer.cs">
-      <DependentUpon>201805051740167_DataBase_created_82.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805051745184_DataBase_created_9.cs" />
-    <Compile Include="Migrations\201805051745184_DataBase_created_9.Designer.cs">
-      <DependentUpon>201805051745184_DataBase_created_9.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805051805137_DataBase_created_10.cs" />
-    <Compile Include="Migrations\201805051805137_DataBase_created_10.Designer.cs">
-      <DependentUpon>201805051805137_DataBase_created_10.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805051833397_DataBase_created_11.cs" />
-    <Compile Include="Migrations\201805051833397_DataBase_created_11.Designer.cs">
-      <DependentUpon>201805051833397_DataBase_created_11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805051836047_DataBase_created_12.cs" />
-    <Compile Include="Migrations\201805051836047_DataBase_created_12.Designer.cs">
-      <DependentUpon>201805051836047_DataBase_created_12.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805061506401_DataBase_created_13.cs" />
-    <Compile Include="Migrations\201805061506401_DataBase_created_13.Designer.cs">
-      <DependentUpon>201805061506401_DataBase_created_13.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805071737411_DataBase_created_14.cs" />
-    <Compile Include="Migrations\201805071737411_DataBase_created_14.Designer.cs">
-      <DependentUpon>201805071737411_DataBase_created_14.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805071806409_DataBase_created_15.cs" />
-    <Compile Include="Migrations\201805071806409_DataBase_created_15.Designer.cs">
-      <DependentUpon>201805071806409_DataBase_created_15.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805071822354_DataBase_created_16.cs" />
-    <Compile Include="Migrations\201805071822354_DataBase_created_16.Designer.cs">
-      <DependentUpon>201805071822354_DataBase_created_16.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805121416188_DataBase-created_17.cs" />
-    <Compile Include="Migrations\201805121416188_DataBase-created_17.Designer.cs">
-      <DependentUpon>201805121416188_DataBase-created_17.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805121438354_DataBase-created_18.cs" />
-    <Compile Include="Migrations\201805121438354_DataBase-created_18.Designer.cs">
-      <DependentUpon>201805121438354_DataBase-created_18.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805121821570_DataBase_created_19.cs" />
-    <Compile Include="Migrations\201805121821570_DataBase_created_19.Designer.cs">
-      <DependentUpon>201805121821570_DataBase_created_19.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805121919334_DataBase_created_20.cs" />
-    <Compile Include="Migrations\201805121919334_DataBase_created_20.Designer.cs">
-      <DependentUpon>201805121919334_DataBase_created_20.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805131519342_DataBase_created_21.cs" />
-    <Compile Include="Migrations\201805131519342_DataBase_created_21.Designer.cs">
-      <DependentUpon>201805131519342_DataBase_created_21.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805141435345_DataBase_Created_22.cs" />
-    <Compile Include="Migrations\201805141435345_DataBase_Created_22.Designer.cs">
-      <DependentUpon>201805141435345_DataBase_Created_22.cs</DependentUpon>
+    <Compile Include="Migrations\201805141833173_Create_DataBase_1.cs" />
+    <Compile Include="Migrations\201805141833173_Create_DataBase_1.Designer.cs">
+      <DependentUpon>201805141833173_Create_DataBase_1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Payments.cs">
@@ -228,80 +136,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805051611400_DataBase_created_1.resx">
-      <DependentUpon>201805051611400_DataBase_created_1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805051620047_DataBase_created_2.resx">
-      <DependentUpon>201805051620047_DataBase_created_2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805051624138_DataBase_created_3.resx">
-      <DependentUpon>201805051624138_DataBase_created_3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805051637043_DataBase_created_4.resx">
-      <DependentUpon>201805051637043_DataBase_created_4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805051707026_DataBase_created_5.resx">
-      <DependentUpon>201805051707026_DataBase_created_5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805051724382_DataBase_created_6.resx">
-      <DependentUpon>201805051724382_DataBase_created_6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805051726040_DataBase_created_7.resx">
-      <DependentUpon>201805051726040_DataBase_created_7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805051733528_DataBase_created_8.resx">
-      <DependentUpon>201805051733528_DataBase_created_8.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805051739374_DataBase_created_81.resx">
-      <DependentUpon>201805051739374_DataBase_created_81.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805051740167_DataBase_created_82.resx">
-      <DependentUpon>201805051740167_DataBase_created_82.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805051745184_DataBase_created_9.resx">
-      <DependentUpon>201805051745184_DataBase_created_9.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805051805137_DataBase_created_10.resx">
-      <DependentUpon>201805051805137_DataBase_created_10.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805051833397_DataBase_created_11.resx">
-      <DependentUpon>201805051833397_DataBase_created_11.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805051836047_DataBase_created_12.resx">
-      <DependentUpon>201805051836047_DataBase_created_12.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805061506401_DataBase_created_13.resx">
-      <DependentUpon>201805061506401_DataBase_created_13.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805071737411_DataBase_created_14.resx">
-      <DependentUpon>201805071737411_DataBase_created_14.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805071806409_DataBase_created_15.resx">
-      <DependentUpon>201805071806409_DataBase_created_15.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805071822354_DataBase_created_16.resx">
-      <DependentUpon>201805071822354_DataBase_created_16.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805121416188_DataBase-created_17.resx">
-      <DependentUpon>201805121416188_DataBase-created_17.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805121438354_DataBase-created_18.resx">
-      <DependentUpon>201805121438354_DataBase-created_18.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805121821570_DataBase_created_19.resx">
-      <DependentUpon>201805121821570_DataBase_created_19.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805121919334_DataBase_created_20.resx">
-      <DependentUpon>201805121919334_DataBase_created_20.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805131519342_DataBase_created_21.resx">
-      <DependentUpon>201805131519342_DataBase_created_21.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805141435345_DataBase_Created_22.resx">
-      <DependentUpon>201805141435345_DataBase_Created_22.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
@@ -325,6 +159,10 @@
       <LastGenOutput>GardenCommunityDataModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201805141833173_Create_DataBase_1.resx">
+      <DependentUpon>201805141833173_Create_DataBase_1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
