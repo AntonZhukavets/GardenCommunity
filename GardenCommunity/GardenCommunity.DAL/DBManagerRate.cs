@@ -25,7 +25,7 @@ namespace GardenCommunity.DAL
             }
             using (var db = new GardenCommunityDB())
             {
-                var updatableRate = db.Rates.Where(x => x.Id == rate.Id).First();
+                var updatableRate = db.Rates.First(x => x.Id == rate.Id);
                 updatableRate.RateName = rate.RateName;
                 updatableRate.RateValue = rate.RateValue;
                 updatableRate.BankCollectionPercent = rate.BankCollectionPercent;
@@ -39,7 +39,7 @@ namespace GardenCommunity.DAL
         {
             using (var db = new GardenCommunityDB())
             {
-                var rate = db.Rates.Where(x => x.Id == id).First();
+                var rate = db.Rates.First(x => x.Id == id);
                 db.Rates.Remove(rate);
                 db.SaveChanges();
             }
@@ -52,6 +52,14 @@ namespace GardenCommunity.DAL
                 var rates = db.Rates.ToList();
                 //var rates = db.Rates.Where(x => x.Date >= beginDate && x.Date <= endTime).ToList();
                 return rates;
+            }
+        }
+
+        public Rate GetRate(int id)
+        {
+            using (var db = new GardenCommunityDB())
+            {
+                return db.Rates.First(x => x.Id == id);
             }
         }
     }

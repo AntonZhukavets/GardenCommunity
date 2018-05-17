@@ -87,9 +87,12 @@ namespace GardenCommunity.Business.Mappers
         public static DataAccess.Rate RateFromDtoToDalMap(Rate rate)
         {
             var payments = new List<DataAccess.Payment>();
-            foreach(var payment in rate.Payments)
+            if (rate.Payments != null)
             {
-                payments.Add(PaymentFromDtoToDalMap(payment));
+                foreach (var payment in rate.Payments)
+                {
+                    payments.Add(PaymentFromDtoToDalMap(payment));
+                }
             }
             var dataAccessRate = new DataAccess.Rate()
             {

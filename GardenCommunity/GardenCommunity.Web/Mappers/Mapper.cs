@@ -1,15 +1,17 @@
-﻿using GardenCommunity.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System;
+using GardenCommunity.Web.Models;
 using DTO = GardenCommunity.Business.DTO;
+
 namespace GardenCommunity.Web.Mappers
 {
     public static class Mapper
     {
         public static Member FromDtoToMVCModelMap(DTO.Member member)
         {
+            if(member==null)
+            {
+                throw new ArgumentNullException("member");
+            }
             var mVCModelMember = new Member()
             {
                 Id = member.Id,
@@ -26,6 +28,10 @@ namespace GardenCommunity.Web.Mappers
 
         public static Area FromDtoToMVCModelMap(DTO.Area area)
         {
+            if(area==null)
+            {
+                throw new ArgumentNullException("area");
+            }
             var mVCModelArea = new Area()
             {
                 Id = area.Id,
@@ -39,6 +45,10 @@ namespace GardenCommunity.Web.Mappers
 
         public static Payment FromDtoToMVCModelMap(DTO.Payment payment)
         {
+            if(payment==null)
+            {
+                throw new ArgumentNullException("payment");
+            }
             var mVCModelPayment = new Payment()
             {
                 Id = payment.Id,
@@ -53,6 +63,10 @@ namespace GardenCommunity.Web.Mappers
 
         public static Indication FromDtoToMVCModelMap(DTO.Indication indication)
         {
+            if(indication==null)
+            {
+                throw new ArgumentNullException("indication");
+            }
             var mVCModelIndication = new Indication()
             {
                 Id = indication.Id,
@@ -66,6 +80,10 @@ namespace GardenCommunity.Web.Mappers
         }
         public static Rate FromDtoToMVCModelMap(DTO.Rate rate)
         {
+            if(rate==null)
+            {
+                throw new ArgumentNullException("rate");
+            }
             var mVCModelRate = new Rate()
             {
                 Id = rate.Id,
@@ -74,9 +92,46 @@ namespace GardenCommunity.Web.Mappers
                 Date = rate.Date,
                 BankCollectionPercent = rate.BankCollectionPercent,
                 FinePercent = rate.FinePercent
-
             };
             return mVCModelRate;
+        }
+
+        public static DTO.Rate FromMVCModelToDtoMap(Rate rate)
+        { 
+            if(rate==null)
+            {
+                throw new ArgumentNullException("rate");
+            }
+            var dTORate = new DTO.Rate()
+            {
+                Id = rate.Id,
+                RateName = rate.RateName,
+                RateValue = rate.RateValue,
+                FinePercent = rate.FinePercent,
+                BankCollectionPercent = rate.BankCollectionPercent,
+                Date = rate.Date
+            };
+            return dTORate;
+        }
+
+        public static DTO.Member FromMVCModelToDtoMap(Member member)
+        {
+            if (member == null)
+            {
+                throw new ArgumentNullException("member");
+            }
+            var dTOMember = new DTO.Member()
+            {
+                Id = member.Id,
+                LastName = member.LastName,
+                FirstName = member.FirstName,
+                MiddleName = member.MiddleName,
+                Address = member.Address,
+                Phone = member.Phone,
+                AdditionalInfo=member.AdditionalInfo,
+                IsActiveMember=member.IsActiveMember
+            };
+            return dTOMember;
         }
     }
 }

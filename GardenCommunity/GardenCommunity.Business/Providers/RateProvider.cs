@@ -24,6 +24,11 @@ namespace GardenCommunity.Business.Providers
             dBManagerRate.AddRate(Mapper.RateFromDtoToDalMap(rate));
         }
 
+        public Rate GetRate(int id)
+        {
+            return Mapper.RateFromDalToDtoMap(dBManagerRate.GetRate(id));
+        }
+
         public IEnumerable<Rate> GetRates(DateTime beginDate, DateTime endDate)
         {
             var dALRates = dBManagerRate.GetRates(beginDate, endDate);

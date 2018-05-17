@@ -14,29 +14,70 @@ namespace GardenCommunity.Web.Controllers
     public class RateController : Controller
     {
         private readonly IRateProvider rateProvider;
-        private readonly IMemberProvider memberProvider;
+        
         public RateController()
         {
-            rateProvider = new RateProvider(new DBManagerRate());
-            memberProvider = new MemberProvider(new DBManagerMember());
+            this.rateProvider = new RateProvider(new DBManagerRate());           
         }
+
         [HttpGet]
         public ActionResult GetRates()
         {
-            //var beginDate = new DateTime(2017, 1, 1);
-            //var endDate = new DateTime(2018, 12, 31);
-            //var rates = rateProvider.GetRates(beginDate, endDate);
-            var members = memberProvider.GetMembers();
-            var modelMembers = new List<Member>();
-            //var modelRate = new List<Rate>();
-            //if (members != null)
-            //{                
-                foreach(var member in members)
+            var beginDate = new DateTime(2017, 1, 1);
+            var endDate = new DateTime(2018, 12, 31);
+            var rates = rateProvider.GetRates(beginDate, endDate);           
+            var modelRates = new List<Rate>();
+            if (rates != null)
+            {
+                foreach (var rate in rates)
                 {
-                    modelMembers.Add(Mapper.FromDtoToMVCModelMap(member));
+                    modelRates.Add(Mapper.FromDtoToMVCModelMap(rate));
                 }
-            //}
-            return View(modelMembers);
+            }
+            return View(modelRates);
+        }
+
+        [HttpGet]
+        public ActionResult AddRate()
+        {
+            return View("AddRate");
+        }
+
+        [HttpPost]
+        public ActionResult AddRate(Rate rate)
+        {
+            if(ModelState.IsValid)
+            {
+                rateProvider.AddRate(Mapper.FromMVCModelToDtoMap(rate));
+                return RedirectToAction("GetRates", "Rate");
+            }            
+            return View(rate);
+        }
+
+        [HttpGet]
+        public ActionResult EditRate(int id)
+        {
+            var rate = rateProvider.GetRate(id);
+            var modelRate = Mapper.FromDtoToMVCModelMap(rate);
+            return View("EditRate", modelRate);
+        }
+
+        [HttpPost]
+        public ActionResult EditRate(Rate rate)
+        {
+            if (ModelState.IsValid)
+            {
+                rateProvider.UpdateRate(Mapper.FromMVCModelToDtoMap(rate));
+                return RedirectToAction("GetRates", "Rate");
+            }
+            return View(rate);
+        }
+
+        [HttpGet]
+        public ActionResult RemoveRate(int id)
+        {
+            rateProvider.RemoveRate(id);
+            return RedirectToAction("GetRates", "Rate");
         }
     }
 }
