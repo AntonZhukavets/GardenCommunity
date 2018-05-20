@@ -57,13 +57,13 @@ namespace GardenCommunity.DAL
         {
             using (var db = new GardenCommunityDB())
             {
-                var updatabePayment = db.Payments.Where(x => x.Id == payment.Id).First();
+                var updatabePayment = db.Payments.First(x => x.Id == payment.Id);
                 updatabePayment.DateOfPayment = payment.DateOfPayment;
                 updatabePayment.Indication = payment.Indication;
-                updatabePayment.Member = payment.Member;
+                updatabePayment.MemberId = payment.MemberId;
                 updatabePayment.PaidFor = payment.PaidFor;
                 updatabePayment.ToPay = payment.ToPay;
-                updatabePayment.Rate = payment.Rate;
+                updatabePayment.RateId = payment.RateId;
                 db.SaveChanges();
             }
         }
@@ -75,6 +75,14 @@ namespace GardenCommunity.DAL
                 var deletablePayment = db.Payments.Where(x => x.Id == id).First();
                 db.Payments.Remove(deletablePayment);
                 db.SaveChanges();
+            }
+        }
+
+        public Payment GetPayment(int id)
+        {
+            using (var db = new GardenCommunityDB())
+            {
+                return db.Payments.First(x => x.Id == id);
             }
         }
     }

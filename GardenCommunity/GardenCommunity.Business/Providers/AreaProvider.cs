@@ -21,13 +21,13 @@ namespace GardenCommunity.Business.Providers
             {
                 throw new ArgumentException("area");                
             }
-            dBManagerArea.AddArea(Mapper.AreaFromDtoToDalMap(area));
+            dBManagerArea.AddArea(Mapper.FromDtoToDalMap(area));
 
         }
 
         public Area GetArea(int id)
         {
-            return Mapper.AreaFromDalToDtoMap(dBManagerArea.GetArea(id));
+            return Mapper.FromDalToDtoMap(dBManagerArea.GetArea(id));
         }
 
         public IEnumerable<Area> GetAreas()
@@ -38,7 +38,7 @@ namespace GardenCommunity.Business.Providers
                 var dTOAreas = new List<Area>();
                 foreach (var dALArea in dALAreas)
                 {
-                    dTOAreas.Add(Mapper.AreaFromDalToDtoMap(dALArea));
+                    dTOAreas.Add(Mapper.FromDalToDtoMap(dALArea));
                 }
                 return dTOAreas;
             }
@@ -53,7 +53,7 @@ namespace GardenCommunity.Business.Providers
                 var dTOAreas = new List<Area>();
                 foreach (var dALArea in dALAreas)
                 {
-                    dTOAreas.Add(Mapper.AreaFromDalToDtoMap(dALArea));
+                    dTOAreas.Add(Mapper.FromDalToDtoMap(dALArea));
                 }
                 return dTOAreas;
             }
@@ -71,7 +71,7 @@ namespace GardenCommunity.Business.Providers
             {
                 throw new ArgumentNullException("area");
             }
-            dBManagerArea.UpdateArea(Mapper.AreaFromDtoToDalMap(area));
+            dBManagerArea.UpdateArea(Mapper.FromDtoToDalMap(area));
         }
     }
 }

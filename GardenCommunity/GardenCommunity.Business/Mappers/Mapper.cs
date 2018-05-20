@@ -8,7 +8,7 @@ namespace GardenCommunity.Business.Mappers
 {
     public static class Mapper
     {
-        public static DataAccess.Member MemberFromDtoToDalMap(Member member)
+        public static DataAccess.Member FromDtoToDalMap(Member member)
         {
             var areas = new List<DataAccess.Area>();
             var payments = new List<DataAccess.Payment>();
@@ -16,14 +16,14 @@ namespace GardenCommunity.Business.Mappers
             {
                 foreach (var area in member.Areas)
                 {
-                    areas.Add(AreaFromDtoToDalMap(area));
+                    areas.Add(FromDtoToDalMap(area));
                 }
             }
             if (member.Payments != null)
             {
                 foreach (var payment in member.Payments)
                 {
-                    payments.Add(PaymentFromDtoToDalMap(payment));
+                    payments.Add(FromDtoToDalMap(payment));
                 }
             }
             var dataAccessMember = new DataAccess.Member()
@@ -42,7 +42,7 @@ namespace GardenCommunity.Business.Mappers
             return dataAccessMember;
         }
 
-        public static DataAccess.Area AreaFromDtoToDalMap(Area area)
+        public static DataAccess.Area FromDtoToDalMap(Area area)
         {
             var dataAccessArea = new DataAccess.Area()
             {
@@ -56,7 +56,7 @@ namespace GardenCommunity.Business.Mappers
             return dataAccessArea;
         }
 
-        public static DataAccess.Payment PaymentFromDtoToDalMap(Payment payment)
+        public static DataAccess.Payment FromDtoToDalMap(Payment payment)
         {
             var dataAccessPayment = new DataAccess.Payment()
             {
@@ -70,7 +70,7 @@ namespace GardenCommunity.Business.Mappers
             return dataAccessPayment;
         }
 
-        public static DataAccess.Indication IndicationFromDtoToDalMap(Indication indication)
+        public static DataAccess.Indication FromDtoToDalMap(Indication indication)
         {
             var dataAccessIndication = new DataAccess.Indication()
             {
@@ -84,14 +84,14 @@ namespace GardenCommunity.Business.Mappers
             return dataAccessIndication;
         }
 
-        public static DataAccess.Rate RateFromDtoToDalMap(Rate rate)
+        public static DataAccess.Rate FromDtoToDalMap(Rate rate)
         {
             var payments = new List<DataAccess.Payment>();
             if (rate.Payments != null)
             {
                 foreach (var payment in rate.Payments)
                 {
-                    payments.Add(PaymentFromDtoToDalMap(payment));
+                    payments.Add(FromDtoToDalMap(payment));
                 }
             }
             var dataAccessRate = new DataAccess.Rate()
@@ -107,7 +107,7 @@ namespace GardenCommunity.Business.Mappers
             return dataAccessRate;
         }
 
-        public static Member MemberFromDalToDtoMap(DataAccess.Member member)
+        public static Member FromDalToDtoMap(DataAccess.Member member)
         {
             var areas = new List<Area>();
             var payments = new List<Payment>();
@@ -115,14 +115,14 @@ namespace GardenCommunity.Business.Mappers
             {
                 foreach (var area in member.Areas)
                 {
-                    areas.Add(AreaFromDalToDtoMap(area));
+                    areas.Add(FromDalToDtoMap(area));
                 }
             }
             if (member.Payments != null)
             {
                 foreach (var payment in member.Payments)
                 {
-                    payments.Add(PaymentFromDalToDtoMap(payment));
+                    payments.Add(FromDalToDtoMap(payment));
                 }
             }
             var dTOMember = new Member()
@@ -140,7 +140,7 @@ namespace GardenCommunity.Business.Mappers
             };
             return dTOMember;
         }
-        public static Area AreaFromDalToDtoMap(DataAccess.Area area)
+        public static Area FromDalToDtoMap(DataAccess.Area area)
         {
             var dTOArea = new Area()
             {
@@ -154,7 +154,7 @@ namespace GardenCommunity.Business.Mappers
             return dTOArea;
         }
 
-        public static Payment PaymentFromDalToDtoMap(DataAccess.Payment payment)
+        public static Payment FromDalToDtoMap(DataAccess.Payment payment)
         {
             var dTOPayment = new Payment()
             {
@@ -168,7 +168,7 @@ namespace GardenCommunity.Business.Mappers
             return dTOPayment;
         }
 
-        public static Indication IndicationFromDalToDtoMap(DataAccess.Indication indication)
+        public static Indication FromDalToDtoMap(DataAccess.Indication indication)
         {
             var dTOindication = new Indication()
             {
@@ -178,12 +178,12 @@ namespace GardenCommunity.Business.Mappers
                 LoosesPercent = indication.LoosesPercent,
                 Month = indication.Month,
                 Year = indication.Year,
-                Payment = PaymentFromDalToDtoMap(indication.Payment)
+                Payment = FromDalToDtoMap(indication.Payment)
             };
             return dTOindication;
         }
 
-        public static Rate RateFromDalToDtoMap(DataAccess.Rate rate)
+        public static Rate FromDalToDtoMap(DataAccess.Rate rate)
         {
             var paymets = new List<Payment>();
             var payments = rate.Payments;
@@ -191,7 +191,7 @@ namespace GardenCommunity.Business.Mappers
             { 
                 foreach (var payment in payments)
                 {
-                    paymets.Add(PaymentFromDalToDtoMap(payment));
+                    paymets.Add(FromDalToDtoMap(payment));
                 }
             }
             var dTORate = new Rate()

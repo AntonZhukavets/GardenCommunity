@@ -21,7 +21,13 @@ namespace GardenCommunity.Business.Providers
             {
                 throw new ArgumentNullException("payment");
             }
-            dBManagerPayment.AddPayment(Mapper.PaymentFromDtoToDalMap(payment));            
+            dBManagerPayment.AddPayment(Mapper.FromDtoToDalMap(payment));            
+        }
+
+        public Payment GetPayment(int id)
+        {
+            var payment = dBManagerPayment.GetPayment(id);
+            return Mapper.FromDalToDtoMap(payment);
         }
 
         public IEnumerable<Payment> GetPayments()
@@ -32,7 +38,7 @@ namespace GardenCommunity.Business.Providers
                 var dTOPayments = new List<Payment>();
                 foreach (var dALPayment in dALPayments)
                 {
-                    dTOPayments.Add(Mapper.PaymentFromDalToDtoMap(dALPayment));
+                    dTOPayments.Add(Mapper.FromDalToDtoMap(dALPayment));
                 }
                 return dTOPayments;
             }
@@ -55,7 +61,7 @@ namespace GardenCommunity.Business.Providers
                 var dTOPayments = new List<Payment>();
                 foreach (var dALPayment in dALPayments)
                 {
-                    dTOPayments.Add(Mapper.PaymentFromDalToDtoMap(dALPayment));
+                    dTOPayments.Add(Mapper.FromDalToDtoMap(dALPayment));
                 }
                 return dTOPayments;
             }
@@ -70,7 +76,7 @@ namespace GardenCommunity.Business.Providers
                 var dTOPayments = new List<Payment>();
                 foreach (var dALPayment in dALPayments)
                 {
-                    dTOPayments.Add(Mapper.PaymentFromDalToDtoMap(dALPayment));
+                    dTOPayments.Add(Mapper.FromDalToDtoMap(dALPayment));
                 }
                 return dTOPayments;
             }
@@ -85,7 +91,7 @@ namespace GardenCommunity.Business.Providers
                 var dTOPayments = new List<Payment>();
                 foreach (var dALPayment in dALPayments)
                 {
-                    dTOPayments.Add(Mapper.PaymentFromDalToDtoMap(dALPayment));
+                    dTOPayments.Add(Mapper.FromDalToDtoMap(dALPayment));
                 }
                 return dTOPayments;
             }
@@ -103,7 +109,7 @@ namespace GardenCommunity.Business.Providers
             {
                 throw new ArgumentNullException("payment");
             }
-            dBManagerPayment.UpdatePayment(Mapper.PaymentFromDtoToDalMap(payment));
+            dBManagerPayment.UpdatePayment(Mapper.FromDtoToDalMap(payment));
         }
     }
 }

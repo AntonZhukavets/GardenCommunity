@@ -21,7 +21,7 @@ namespace GardenCommunity.Business.Providers
             {
                 throw new ArgumentNullException("indication");
             }
-            dBManagerIndication.AddIndication(Mapper.IndicationFromDtoToDalMap(indication));
+            dBManagerIndication.AddIndication(Mapper.FromDtoToDalMap(indication));
         }
 
         public IEnumerable<Indication> GetIndicationsByMemberId(int id)
@@ -32,7 +32,7 @@ namespace GardenCommunity.Business.Providers
                 var dTOIndications = new List<Indication>();
                 foreach (var dALIndication in dALIndications)
                 {
-                    dTOIndications.Add(Mapper.IndicationFromDalToDtoMap(dALIndication));
+                    dTOIndications.Add(Mapper.FromDalToDtoMap(dALIndication));
                 }
                 return dTOIndications;
             }
@@ -50,7 +50,7 @@ namespace GardenCommunity.Business.Providers
             {
                 throw new ArgumentNullException("indication");
             }
-            dBManagerIndication.UpdateIndication(Mapper.IndicationFromDtoToDalMap(indication));
+            dBManagerIndication.UpdateIndication(Mapper.FromDtoToDalMap(indication));
         }
     }
 }

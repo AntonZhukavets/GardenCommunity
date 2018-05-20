@@ -9,6 +9,7 @@ namespace GardenCommunity.DAL.Interfaces
         void AddPayment(Payment payment);
         void UpdatePayment(Payment payment);
         void RemovePayment(int id);
+        Payment GetPayment(int id);
         IEnumerable<Payment> GetPayments();
         IEnumerable<Payment> GetPayments(DateTime beginDate, DateTime endDate);
         IEnumerable<Payment> GetPaymentsByMemberId(int id);

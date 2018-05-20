@@ -21,12 +21,12 @@ namespace GardenCommunity.Business.Providers
             {
                 throw new ArgumentNullException("rate");
             }
-            dBManagerRate.AddRate(Mapper.RateFromDtoToDalMap(rate));
+            dBManagerRate.AddRate(Mapper.FromDtoToDalMap(rate));
         }
 
         public Rate GetRate(int id)
         {
-            return Mapper.RateFromDalToDtoMap(dBManagerRate.GetRate(id));
+            return Mapper.FromDalToDtoMap(dBManagerRate.GetRate(id));
         }
 
         public IEnumerable<Rate> GetRates(DateTime beginDate, DateTime endDate)
@@ -37,7 +37,7 @@ namespace GardenCommunity.Business.Providers
                 var dTORates = new List<Rate>();
                 foreach(var dALRate in dALRates)
                 {
-                    dTORates.Add(Mapper.RateFromDalToDtoMap(dALRate));
+                    dTORates.Add(Mapper.FromDalToDtoMap(dALRate));
                 }
                 return dTORates;
             }
@@ -55,7 +55,7 @@ namespace GardenCommunity.Business.Providers
             {
                 throw new ArgumentNullException("rate");
             }
-            dBManagerRate.UpdateRate(Mapper.RateFromDtoToDalMap(rate));
+            dBManagerRate.UpdateRate(Mapper.FromDtoToDalMap(rate));
         }
     }
 }

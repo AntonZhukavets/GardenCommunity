@@ -21,13 +21,13 @@ namespace GardenCommunity.Business.Providers
             {
                 throw new ArgumentNullException("member");
             }
-            dBManagerMember.AddMember(Mapper.MemberFromDtoToDalMap(member));
+            dBManagerMember.AddMember(Mapper.FromDtoToDalMap(member));
         }
 
         public Member GetMember(int id)
         {
             var member = dBManagerMember.GetMember(id);
-            return Mapper.MemberFromDalToDtoMap(member);
+            return Mapper.FromDalToDtoMap(member);
         }
 
         public IEnumerable<Member> GetMembersByAreaId(int id)
@@ -38,7 +38,7 @@ namespace GardenCommunity.Business.Providers
                 var members = new List<Member>();
                 foreach (var dALMember in dALMembers)
                 {
-                    members.Add(Mapper.MemberFromDalToDtoMap(dALMember));
+                    members.Add(Mapper.FromDalToDtoMap(dALMember));
                 }
                 return members;
             }
@@ -53,7 +53,7 @@ namespace GardenCommunity.Business.Providers
                 var members = new List<Member>();
                 foreach (var dALMember in dALMembers)
                 {
-                    members.Add(Mapper.MemberFromDalToDtoMap(dALMember));
+                    members.Add(Mapper.FromDalToDtoMap(dALMember));
                 }
                 return members;
             }
@@ -71,7 +71,7 @@ namespace GardenCommunity.Business.Providers
             {
                 throw new ArgumentNullException("member");
             }
-            dBManagerMember.UpdateMember(Mapper.MemberFromDtoToDalMap(member));
+            dBManagerMember.UpdateMember(Mapper.FromDtoToDalMap(member));
         }
     }
 }

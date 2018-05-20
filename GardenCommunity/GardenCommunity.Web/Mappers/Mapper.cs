@@ -150,5 +150,23 @@ namespace GardenCommunity.Web.Mappers
             };
             return dTOArea;
         }
+
+        public static DTO.Payment FromMVCModelToDtoMap(Payment payment)
+        {
+            if (payment == null)
+            {
+                throw new ArgumentNullException("payment");
+            }
+            var dTOPayment = new DTO.Payment()
+            {
+                Id = payment.Id,
+                DateOfPayment = payment.DateOfPayment,
+                PaidFor = payment.PaidFor,
+                ToPay = payment.ToPay,
+                RateId = payment.RateId,
+                MemberId = payment.MemberId
+            };
+            return dTOPayment;
+        }
     }
 }
