@@ -72,7 +72,7 @@ namespace GardenCommunity.DAL
                     targetArea.Square = area.Square;
                     targetArea.IsPrivate = area.IsPrivate;
                     targetArea.HasElectricity = area.HasElectricity;
-                    targetArea.ParentArea = area.ParentArea;
+                    targetArea.ParentAreaId = area.ParentAreaId;
                     db.SaveChanges();
                 }
             }

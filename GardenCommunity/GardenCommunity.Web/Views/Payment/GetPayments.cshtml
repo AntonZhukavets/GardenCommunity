@@ -1,0 +1,39 @@
+﻿@model IEnumerable<GardenCommunity.Web.Models.Payment>
+
+@{
+    ViewBag.Title = "GetPayments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Avalible payments</h2>
+
+<p>
+    @Html.ActionLink("Add new payment", "AddPayment", "Payment", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Id)</th>
+        <th>@Html.DisplayNameFor(model => model.DateOfPayment)</th>
+        <th>@Html.DisplayNameFor(model => model.PaidFor)</th>
+        <th>@Html.DisplayNameFor(model => model.ToPay)</th>
+        <th>@Html.DisplayNameFor(model => model.RateId)</th>
+        <th>@Html.DisplayNameFor(model => model.MemberId)</th>
+        <th></th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
+        <td>@Html.DisplayFor(modelItem => item.DateOfPayment)</td>
+        <td>@Html.DisplayFor(modelItem => item.PaidFor)</td>
+        <td>@Html.DisplayFor(modelItem => item.ToPay)</td>
+        <td>@Html.DisplayFor(modelItem => item.RateId)</td>
+        <td>@Html.DisplayFor(modelItem => item.MemberId)</td>
+        <td>@Html.ActionLink("Edit", "EditPayment", "Payment", new { @id = item.Id }, new { @class = "btn btn-primary" })</td>
+        <td>@Html.ActionLink("Remove", "RemovePayment", "Payment", new { @id = item.Id }, new { @class = "btn btn-primary", @onclick = "return confirm('Are you sure you wish to remove this payment?');" })</td>
+
+    </tr>
+}
+
+</table>

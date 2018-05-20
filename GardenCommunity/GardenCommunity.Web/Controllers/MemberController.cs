@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using GardenCommunity.Business.Interfaces;
 using GardenCommunity.Business.Providers;
@@ -45,6 +43,32 @@ namespace GardenCommunity.Web.Controllers
                 return RedirectToAction("GetMembers", "Member");
             }
             return View(member);
+        }
+
+        [HttpGet]
+        public ActionResult EditMember(int id)
+        {
+            var member = memberProvider.GetMember(id);
+            var modelMember = Mapper.FromDtoToMVCModelMap(member);
+            return View("EditMember", modelMember);
+        }
+
+        [HttpPost]
+        public ActionResult EditMember(Member member)
+        {
+            if (ModelState.IsValid)
+            {
+                memberProvider.UpdateMember(Mapper.FromMVCModelToDtoMap(member));
+                return RedirectToAction("GetMembers", "Member");
+            }
+            return View(member);
+        }
+
+        [HttpGet]
+        public ActionResult RemoveMember(int id)
+        {
+            memberProvider.RemoveMember(id);
+            return RedirectToAction("GetMembers", "Member");
         }
     }
 }

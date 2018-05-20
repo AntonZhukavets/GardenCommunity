@@ -133,5 +133,22 @@ namespace GardenCommunity.Web.Mappers
             };
             return dTOMember;
         }
+
+        public static DTO.Area FromMVCModelToDtoMap(Area area)
+        {
+            if(area==null)
+            {
+                throw new ArgumentNullException("area");
+            }
+            var dTOArea = new DTO.Area()
+            {
+                Id = area.Id,
+                Square = area.Square,
+                IsPrivate = area.IsPrivate,
+                HasElectricity = area.HasElectricity,
+                ParentAreaId = area.ParentAreaId
+            };
+            return dTOArea;
+        }
     }
 }
