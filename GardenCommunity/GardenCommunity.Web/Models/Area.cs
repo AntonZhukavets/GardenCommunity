@@ -17,7 +17,9 @@ namespace GardenCommunity.Web.Models
         public Area ParentArea { get; set; }
 
         [Display(Name = "Parent area id")]
-        public int? ParentAreaId { get; set; }
-        public ICollection<Member> Member { get; set; }        
+        public int? ParentAreaId { get; set; }        
+        public ICollection<Member> Members { get; set; }
+        [Display(Name = "Owner")]
+        public int MemberId { get; set; }
     }
 }

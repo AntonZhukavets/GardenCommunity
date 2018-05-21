@@ -12,7 +12,7 @@ namespace GardenCommunity.DAL
         {
             using (var db = new GardenCommunityDB())
             {
-                return db.Areas.ToList();
+                return db.Areas.Include("Members").ToList();
             }
         }
 
@@ -52,6 +52,13 @@ namespace GardenCommunity.DAL
             }
             using (var db = new GardenCommunityDB())
             {
+                if(area.Members!=null)
+                {
+                    foreach(var member in area.Members)
+                    {                       
+                        db.Members.Attach(member);
+                    }
+                }
                 db.Areas.Add(area);
                 db.SaveChanges();
             }
@@ -86,6 +93,7 @@ namespace GardenCommunity.DAL
                 if (targetArea != null)
                 {
                     db.Areas.Remove(targetArea);
+                    db.SaveChanges();
                 }
             }
         }

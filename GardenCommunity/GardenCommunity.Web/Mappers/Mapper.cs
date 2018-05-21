@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GardenCommunity.Web.Models;
 using DTO = GardenCommunity.Business.DTO;
 
@@ -32,6 +33,14 @@ namespace GardenCommunity.Web.Mappers
             {
                 throw new ArgumentNullException("area");
             }
+            //var members = new List<Member>();
+            //if(area.Members!=null)
+            //{
+            //    foreach(var member in area.Members)
+            //    {
+            //        members.Add(Mapper.FromDtoToMVCModelMap(member));
+            //    }
+            //}
             var mVCModelArea = new Area()
             {
                 Id = area.Id,
@@ -40,6 +49,24 @@ namespace GardenCommunity.Web.Mappers
                 IsPrivate = area.IsPrivate,
                 ParentAreaId = area.ParentAreaId                
             };
+            if(area.Members!=null)
+            {
+                mVCModelArea.Members = new List<Member>();
+                foreach(var member in area.Members)
+                {
+                    mVCModelArea.Members.Add(new Member()
+                    {
+                        Id = member.Id,
+                        LastName = member.LastName,
+                        FirstName = member.FirstName,
+                        MiddleName = member.MiddleName,
+                        Address = member.Address,
+                        Phone = member.Phone,
+                        AdditionalInfo = member.AdditionalInfo,
+                        IsActiveMember = member.IsActiveMember
+                    });
+                }
+            }
             return mVCModelArea;
         }
 
@@ -146,7 +173,8 @@ namespace GardenCommunity.Web.Mappers
                 Square = area.Square,
                 IsPrivate = area.IsPrivate,
                 HasElectricity = area.HasElectricity,
-                ParentAreaId = area.ParentAreaId
+                ParentAreaId = area.ParentAreaId,
+                MemberId=area.MemberId
             };
             return dTOArea;
         }

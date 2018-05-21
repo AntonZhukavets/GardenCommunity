@@ -14,10 +14,13 @@ namespace GardenCommunity.Web.Controllers
     public class AreaController : Controller
     {
         private readonly IAreaProvider areaProvider;
+        private readonly IMemberProvider memberProvider;
         public AreaController()
         {
             this.areaProvider = new AreaProvider(new DBManagerArea());
+            this.memberProvider = new MemberProvider(new DBManagerMember());
         }
+
         [HttpGet]
         public ActionResult GetAreas()
         {
@@ -32,16 +35,38 @@ namespace GardenCommunity.Web.Controllers
 
         [HttpGet]
         public ActionResult AddArea()
-        {
+        {            
+            var members = memberProvider.GetActiveMembers();            
+            if(members!=null)
+            {
+                var owners = new Dictionary<int, string>();
+                owners.Add(0, string.Empty);
+                foreach(var member in members)
+                {
+                    owners.Add(member.Id, member.LastName + " " + member.FirstName + " " + member.MiddleName);
+                    var modelOwners = new SelectList(owners, "Key", "Value");
+                    ViewBag.owners = modelOwners;
+                }                
+            }                
             return View("AddArea");
         }
 
         [HttpPost]
         public ActionResult AddArea(Area area)
-        {
+        {            
             if (ModelState.IsValid)
-            {
-                areaProvider.AddArea(Mapper.FromMVCModelToDtoMap(area));
+            {              
+                var DTOArea = Mapper.FromMVCModelToDtoMap(area);
+                if (area.MemberId != 0)
+                {
+                    var member = memberProvider.GetMember(area.MemberId);
+                    DTOArea.Members.Add(member);
+                }    
+                else
+                {
+                    DTOArea.Members = null;
+                }
+                areaProvider.AddArea(DTOArea);
                 return RedirectToAction("GetAreas", "Area");
             }
             return View(area);

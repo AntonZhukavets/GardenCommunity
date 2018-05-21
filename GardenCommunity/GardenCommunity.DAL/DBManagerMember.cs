@@ -8,11 +8,22 @@ namespace GardenCommunity.DAL
 {
     public class DBManagerMember : IDBManagerMember
     {
-        public IEnumerable<Member> GetMembers()
+        public IEnumerable<Member> GetMembers(int id)
         {
             using (var db = new GardenCommunityDB())
             {
-                return db.Members.Include("Areas").ToList();
+                switch (id)
+                {
+                    case 1:
+                        return db.Members.Include("Areas").Where(x=>x.IsActiveMember==true).ToList();                       
+                    case 2:
+                        return db.Members.Include("Areas").ToList();
+                    case 3:
+                        return db.Members.Include("Areas").Where(x => x.IsActiveMember == false).ToList();
+                    default:
+                        return db.Members.Include("Areas").ToList();
+                }
+                
             }
         }
 
@@ -64,7 +75,7 @@ namespace GardenCommunity.DAL
             using (var db = new GardenCommunityDB())
             {
                 var deletableMember = db.Members.Where(x => x.Id == id).First();
-                db.Members.Remove(deletableMember);
+                deletableMember.IsActiveMember = false;
                 db.SaveChanges();
             }
         }
@@ -82,24 +93,16 @@ namespace GardenCommunity.DAL
                 if(area.ParentAreaId!=null)
                 {
                     members.AddRange(GetMembersByAreaId(area.ParentAreaId.Value));
-                }
-                //var childAreas = db.Areas.Include("Members").Where(x => x.ParentAreaId == id).ToList();
-                //if(childAreas != null)
-                //{
-                //    foreach(var childArea in childAreas)
-                //    {
-                //        GetMembersByAreaId(childArea.Id);
-                //    }
-                //}
-                //int parentAreaId;
-
-
-                //if (area.MemberId==null)
-                //{
-                //    parentAreaId = area.ParentAreaId.Value;
-                //    return GetMemberByAreaId(parentAreaId);
-                //}                            
+                }                                          
                 return members;
+            }
+        }
+
+        public IEnumerable<Member> GetActiveMembers()
+        {
+            using (var db = new GardenCommunityDB())
+            {
+                return db.Members.Where(x => x.IsActiveMember == true).ToList();
             }
         }
     }

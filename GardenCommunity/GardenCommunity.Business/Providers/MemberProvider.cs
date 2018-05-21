@@ -45,9 +45,9 @@ namespace GardenCommunity.Business.Providers
             return null;
         }
 
-        public IEnumerable<Member> GetMembers()
+        public IEnumerable<Member> GetMembers(int id)
         {            
-            var dALMembers = dBManagerMember.GetMembers();
+            var dALMembers = dBManagerMember.GetMembers(id);
             if (dALMembers != null)
             {
                 var members = new List<Member>();
@@ -72,6 +72,21 @@ namespace GardenCommunity.Business.Providers
                 throw new ArgumentNullException("member");
             }
             dBManagerMember.UpdateMember(Mapper.FromDtoToDalMap(member));
+        }
+
+        public IEnumerable<Member> GetActiveMembers()
+        {
+            var dALMembers = dBManagerMember.GetActiveMembers();
+            if (dALMembers != null)
+            {
+                var members = new List<Member>();
+                foreach (var dALMember in dALMembers)
+                {
+                    members.Add(Mapper.FromDalToDtoMap(dALMember));
+                }
+                return members;
+            }
+            return null;            
         }
     }
 }

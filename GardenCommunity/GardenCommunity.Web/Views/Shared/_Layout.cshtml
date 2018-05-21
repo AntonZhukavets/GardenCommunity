@@ -12,10 +12,10 @@
         <div class="container">            
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Members", "GetMembers", "Member")</li>
+                    <li>@Html.ActionLink("Members", "GetMembers", "Member", new { @id = 1 }, null )</li>
                     <li>@Html.ActionLink("Areas", "GetAreas", "Area")</li>
                     <li>@Html.ActionLink("Payments", "GetPayments", "Payment")</li>
-                    <li>@Html.ActionLink("Indications", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Indications", "GetIndications", "Indication")</li>
                     <li>@Html.ActionLink("Rates", "GetRates", "Rate")</li>
                 </ul>
             </div>

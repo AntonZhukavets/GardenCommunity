@@ -13,7 +13,7 @@ namespace GardenCommunity.ConsoleApp
         static void Main(string[] args)
         {
             var memberProvider = new MemberProvider(new DBManagerMember());
-            var members = memberProvider.GetMembers();
+            var members = memberProvider.GetMembers(3);
             foreach (var member in members)
             {
 

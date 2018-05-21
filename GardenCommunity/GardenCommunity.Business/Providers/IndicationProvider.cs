@@ -24,6 +24,27 @@ namespace GardenCommunity.Business.Providers
             dBManagerIndication.AddIndication(Mapper.FromDtoToDalMap(indication));
         }
 
+        public Indication GetIndication(int id)
+        {
+            var indication = dBManagerIndication.GetIndication(id);
+            return Mapper.FromDalToDtoMap(indication);
+        }
+
+        public IEnumerable<Indication> GetIndications()
+        {
+            var dALIndications = dBManagerIndication.GetIndications();
+            if (dALIndications != null)
+            {
+                var dTOIndications = new List<Indication>();
+                foreach (var dALIndication in dALIndications)
+                {
+                    dTOIndications.Add(Mapper.FromDalToDtoMap(dALIndication));
+                }
+                return dTOIndications;
+            }
+            return null;
+        }
+
         public IEnumerable<Indication> GetIndicationsByMemberId(int id)
         {
             var dALIndications = dBManagerIndication.GetIndicationsByMemberId(id);

@@ -10,7 +10,8 @@ namespace GardenCommunity.Business.Interfaces
         void AddMember(Member member);
         void UpdateMember(Member member);
         void RemoveMember(int id);
-        IEnumerable<Member> GetMembers();
+        IEnumerable<Member> GetMembers(int id);
+        IEnumerable<Member> GetActiveMembers();
         IEnumerable<Member> GetMembersByAreaId(int id);
         Member GetMember(int id);        
     }

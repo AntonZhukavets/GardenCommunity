@@ -11,6 +11,7 @@ namespace GardenCommunity.DAL.Interfaces
         void RemoveMember(int id);
         Member GetMember(int id);        
         IEnumerable<Member> GetMembersByAreaId(int id);
-        IEnumerable<Member> GetMembers();
+        IEnumerable<Member> GetMembers(int id);
+        IEnumerable<Member> GetActiveMembers();
     }
 }

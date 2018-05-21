@@ -13,20 +13,30 @@ namespace GardenCommunity.Web.Controllers
         private readonly IMemberProvider memberProvider;
         public MemberController()
         {
+            var membersFiltr = new Dictionary<int, string>();
+            membersFiltr.Add(1, "Active");
+            membersFiltr.Add(2, "All");
+            membersFiltr.Add(3, "Inactive");
+            var filtrSlectList = new SelectList(membersFiltr, "Key", "Value");
+            ViewBag.ddl_membersFiltr = filtrSlectList;
             this.memberProvider = new MemberProvider(new DBManagerMember());
         }
         
         [HttpGet]
-        public ActionResult GetMembers()
+        public ActionResult GetMembers(int? id)
         {
-            var members = memberProvider.GetMembers();
+            if(!id.HasValue)
+            {
+                id = 1;
+            }
+            var members = memberProvider.GetMembers(id.Value);
             var modelMembers = new List<Member>();
             foreach(var member in members)
             {
                 modelMembers.Add(Mapper.FromDtoToMVCModelMap(member));
             }
-            return View(modelMembers);
-        }
+            return View(modelMembers);            
+        }    
 
         [HttpGet]
         public ActionResult AddMember()

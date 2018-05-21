@@ -12,20 +12,20 @@ namespace GardenCommunity.Business.Mappers
         {
             var areas = new List<DataAccess.Area>();
             var payments = new List<DataAccess.Payment>();
-            if (member.Areas != null)
-            {
-                foreach (var area in member.Areas)
-                {
-                    areas.Add(FromDtoToDalMap(area));
-                }
-            }
-            if (member.Payments != null)
-            {
-                foreach (var payment in member.Payments)
-                {
-                    payments.Add(FromDtoToDalMap(payment));
-                }
-            }
+            //if (member.Areas != null)
+            //{
+            //    foreach (var area in member.Areas)
+            //    {
+            //        areas.Add(FromDtoToDalMap(area));
+            //    }
+            //}
+            //if (member.Payments != null)
+            //{
+            //    foreach (var payment in member.Payments)
+            //    {
+            //        payments.Add(FromDtoToDalMap(payment));
+            //    }
+            //}
             var dataAccessMember = new DataAccess.Member()
             {
                 Id = member.Id,
@@ -35,15 +35,23 @@ namespace GardenCommunity.Business.Mappers
                 Address = member.Address,
                 Phone = member.Phone,
                 AdditionalInfo = member.AdditionalInfo,
-                Areas = areas,
-                IsActiveMember = member.IsActiveMember,
-                Payments = payments
+                //Areas = areas,
+                IsActiveMember = member.IsActiveMember
+                //Payments = payments
             };
             return dataAccessMember;
         }
 
         public static DataAccess.Area FromDtoToDalMap(Area area)
         {
+            var members = new List<DataAccess.Member>();
+            if(area.Members!=null)
+            {
+                foreach(var member in area.Members)
+                {
+                    members.Add(Mapper.FromDtoToDalMap(member));
+                }
+            }
             var dataAccessArea = new DataAccess.Area()
             {
                 Id = area.Id,
@@ -51,7 +59,7 @@ namespace GardenCommunity.Business.Mappers
                 HasElectricity = area.HasElectricity,
                 IsPrivate = area.IsPrivate,
                 Square = area.Square,
-                //MemberId = area.MemberId
+                Members = members
             };
             return dataAccessArea;
         }
@@ -140,17 +148,35 @@ namespace GardenCommunity.Business.Mappers
             };
             return dTOMember;
         }
+
         public static Area FromDalToDtoMap(DataAccess.Area area)
-        {
+        {           
             var dTOArea = new Area()
             {
                 Id = area.Id,
                 IsPrivate = area.IsPrivate,
                 HasElectricity = area.HasElectricity,
                 Square = area.Square,
-                ParentAreaId = area.ParentAreaId
-
+                ParentAreaId = area.ParentAreaId              
             };
+            if (area.Members != null)
+            {
+                dTOArea.Members = new List<Member>(); 
+                foreach(var member in area.Members)
+                {
+                    dTOArea.Members.Add(new Member()
+                    {
+                        Id = member.Id,
+                        FirstName = member.FirstName,
+                        LastName = member.LastName,
+                        MiddleName = member.MiddleName,
+                        AdditionalInfo = member.AdditionalInfo,
+                        Address = member.Address,
+                        Phone = member.Phone,
+                        IsActiveMember = member.IsActiveMember
+                    });
+                }
+            }
             return dTOArea;
         }
 

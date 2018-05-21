@@ -57,5 +57,21 @@ namespace GardenCommunity.DAL
                 db.SaveChanges();
             }
         }
+
+        public Indication GetIndication(int id)
+        {
+            using (var db = new GardenCommunityDB())
+            {                 
+                return db.Indications.First(x => x.Id == id);
+            }
+        }
+
+        public IEnumerable<Indication> GetIndications()
+        {
+            using (var db = new GardenCommunityDB())
+            {
+                return db.Indications.ToList();
+            }
+        }
     }
 }

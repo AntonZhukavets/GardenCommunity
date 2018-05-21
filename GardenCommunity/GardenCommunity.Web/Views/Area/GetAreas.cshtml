@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Avalible areas</h2>
+<h2>Avaliable areas</h2>
 
 <p>
     @Html.ActionLink("Add new area", "AddArea", "Area", null , new { @class = "btn btn-primary" })
@@ -17,6 +17,7 @@
         <th scope="col">@Html.DisplayNameFor(model => model.IsPrivate)</th>
         <th scope="col">@Html.DisplayNameFor(model => model.HasElectricity)</th>
         <th scope="col">@Html.DisplayNameFor(model => model.ParentAreaId)</th>
+        <th scope="col">@Html.DisplayNameFor(model => model.MemberId)</th>
         <th></th>
         <th></th>
     </tr>
@@ -29,6 +30,12 @@
         <td>@Html.DisplayFor(modelItem => item.IsPrivate)</td>
         <td>@Html.DisplayFor(modelItem => item.HasElectricity)</td>
         <td>@Html.DisplayFor(modelItem => item.ParentAreaId)</td>
+        <td>
+            @foreach (var member in item.Members)
+            {
+                @Html.Label(member.LastName + " " + member.FirstName + " " + member.MiddleName )
+            }
+        </td>
         <td>@Html.ActionLink("Edit", "EditArea", "Area", new { @id = item.Id }, new { @class = "btn btn-primary" })</td>
         <td>@Html.ActionLink("Remove", "RemoveArea", "Area", new { @id = item.Id }, new { @class = "btn btn-primary", @onclick = "return confirm('Are you sure you wish to remove this area?');" })</td>
 

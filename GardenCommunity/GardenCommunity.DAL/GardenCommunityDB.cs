@@ -12,14 +12,7 @@ namespace GardenCommunity.DAL
     { 
         public GardenCommunityDB()
         {
-            try
-            {
-                Database.CreateIfNotExists();
-            }
-            catch (SqlException ex)
-            {
-                throw ex;
-            }
+            Database.CreateIfNotExists();      
         }
         public DbSet<Area> Areas { get; set; }
         public DbSet<Member> Members { get; set; }
