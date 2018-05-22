@@ -24,6 +24,36 @@ namespace GardenCommunity.Web.Mappers
                 IsActiveMember = member.IsActiveMember,
                 AdditionalInfo = member.AdditionalInfo
             };
+            if(member.Areas!=null)
+            {
+                mVCModelMember.Areas = new List<Area>();
+                foreach(var area in member.Areas)
+                {
+                    mVCModelMember.Areas.Add(new Area()
+                    {
+                        Id = area.Id,
+                        Square = area.Square,
+                        IsPrivate = area.IsPrivate,
+                        HasElectricity = area.HasElectricity,
+                        ParentAreaId = area.ParentAreaId
+                    });
+                }
+            }
+            if(member.Payments!=null)
+            {
+                mVCModelMember.Payments = new List<Payment>();
+                foreach (var payment in member.Payments)
+                {
+                    mVCModelMember.Payments.Add(new Payment()
+                    {
+                        Id = payment.Id,
+                        DateOfPayment = payment.DateOfPayment,
+                        PaidFor = payment.PaidFor,
+                        ToPay = payment.ToPay,
+                        RateId = payment.RateId
+                    });
+                }
+            }
             return mVCModelMember;
         }
 

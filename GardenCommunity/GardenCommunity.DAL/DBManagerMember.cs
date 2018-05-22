@@ -31,7 +31,7 @@ namespace GardenCommunity.DAL
         {
             using (var db = new GardenCommunityDB())
             {
-                var member = db.Members.Where(x => x.Id == id).First();
+                var member = db.Members.Include("Areas").First(x => x.Id == id);
                 return member;
             }
         }

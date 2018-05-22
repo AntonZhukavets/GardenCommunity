@@ -1,14 +1,16 @@
 ﻿@model GardenCommunity.Web.Models.Member
 
 @{
+    /**/
+
     ViewBag.Title = "EditMember";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("EditMember","Member",FormMethod.Post))
+@using (Html.BeginForm("EditMember", "Member", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Edit member</h4>
         <hr />
@@ -73,14 +75,84 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+
+    </div>
+    <table class="table">
+        <tr>
+            <th scope="col">@Html.Label("Id")</th>
+            <th scope="col">@Html.Label("Square")</th>
+            <th scope="col">@Html.Label("Is Private")</th>
+            <th scope="col">@Html.Label("Has Electricity")</th>
+            <th scope="col">@Html.Label("Parent area Id")</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Areas)
+        {
+            <tr id="tr_@item.Id">
+                <th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
+                <td>@Html.DisplayFor(modelItem => item.Square)</td>
+                <td>@Html.DisplayFor(modelItem => item.IsPrivate)</td>
+                <td>@Html.DisplayFor(modelItem => item.HasElectricity)</td>
+                <td>@Html.DisplayFor(modelItem => item.ParentAreaId)</td>
+                <td>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="button" value="Remove" class="btn btn-primary" id="@item.Id" />
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" id="btn_save" />
         </div>
     </div>
+    @Html.TextBoxFor(model => model.AreasForDelete, htmlAttributes: new { @hidden = "hidden" })
 }
+
 
 <div>
     @Html.ActionLink("Back to List", "GetMembers", "Member")
 </div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        $("input[type='button']").click(function () {
+            if (confirm('Are you sure you wish to remove this area from member ?')) {
+                var id = $(this).attr('id');
+                $('#tr_' + id).hide();
+                var str = $('#AreasForDelete').val() + id + ";";
+                $('#AreasForDelete').val(str);
+            }
+
+            @*var id = $(this).attr('id');
+            var data = [];
+            data.push({ id: id });
+            var url = '@Url.Action("InitAreasIdForDelete", "Member")';
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: { array: data },
+                datatype: 'json',
+                ContentType: 'application/json;utf-8',
+                success: function (result) {
+                    alert(result);
+                },
+                error: function (e) {
+                    alert(e);
+                }
+            });*@
+        });
+
+        //$('#btn_save').click(function () {
+        //    alert("hello");
+        //})
+    </script>
+}

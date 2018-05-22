@@ -1,0 +1,96 @@
+﻿@model GardenCommunity.Web.Models.Member
+
+@{
+    ViewBag.Title = "GetMember";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h4>Member's detailes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MiddleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdditionalInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdditionalInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActiveMember)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActiveMember)
+        </dd>
+
+    </dl>
+</div>
+
+<table class="table">
+    <tr>
+        <th scope="col">@Html.Label("Id")</th>
+        <th scope="col">@Html.Label("Square")</th>
+        <th scope="col">@Html.Label("Is Private")</th>
+        <th scope="col">@Html.Label("Has Electricity")</th>
+        <th scope="col">@Html.Label("Parent area Id")</th>       
+    </tr>
+
+    @foreach (var item in Model.Areas)
+    {
+        <tr>
+            <th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
+            <td>@Html.DisplayFor(modelItem => item.Square)</td>
+            <td>@Html.DisplayFor(modelItem => item.IsPrivate)</td>
+            <td>@Html.DisplayFor(modelItem => item.HasElectricity)</td>
+            <td>@Html.DisplayFor(modelItem => item.ParentAreaId)</td>         
+        </tr>
+    }
+
+</table>
+
+<p>
+    @Html.ActionLink("Edit", "EditMember", "Member", new { @id = Model.Id }, null) |
+    @Html.ActionLink("Back to List", "GetMembers", "Member")
+</p>

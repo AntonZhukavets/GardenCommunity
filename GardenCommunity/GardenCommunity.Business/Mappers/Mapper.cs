@@ -116,23 +116,7 @@ namespace GardenCommunity.Business.Mappers
         }
 
         public static Member FromDalToDtoMap(DataAccess.Member member)
-        {
-            var areas = new List<Area>();
-            var payments = new List<Payment>();
-            if (member.Areas != null)
-            {
-                foreach (var area in member.Areas)
-                {
-                    areas.Add(FromDalToDtoMap(area));
-                }
-            }
-            if (member.Payments != null)
-            {
-                foreach (var payment in member.Payments)
-                {
-                    payments.Add(FromDalToDtoMap(payment));
-                }
-            }
+        {           
             var dTOMember = new Member()
             {
                 Id = member.Id,
@@ -142,10 +126,38 @@ namespace GardenCommunity.Business.Mappers
                 Address = member.Address,
                 Phone = member.Phone,
                 IsActiveMember = member.IsActiveMember,
-                AdditionalInfo = member.AdditionalInfo,
-                Areas = areas,
-                Payments = payments
+                AdditionalInfo = member.AdditionalInfo                              
             };
+            if(member.Areas != null)
+            {
+                dTOMember.Areas = new List<Area>();
+                foreach(var area in member.Areas)
+                {
+                    dTOMember.Areas.Add(new Area()
+                    {
+                        Id = area.Id,
+                        Square = area.Square,
+                        IsPrivate = area.IsPrivate,
+                        HasElectricity = area.HasElectricity,
+                        ParentAreaId = area.ParentAreaId
+                    });
+                }
+            }
+            if(member.Payments != null)
+            {
+                dTOMember.Payments = new List<Payment>();
+                foreach(var payment in member.Payments)
+                {
+                    dTOMember.Payments.Add(new Payment()
+                    {
+                        Id = payment.Id,
+                        DateOfPayment = payment.DateOfPayment,
+                        PaidFor = payment.PaidFor,
+                        ToPay = payment.ToPay,
+                        RateId = payment.RateId
+                    });
+                }
+            }
             return dTOMember;
         }
 

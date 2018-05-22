@@ -36,5 +36,6 @@ namespace GardenCommunity.Web.Models
         public bool IsActiveMember { get; set; }
         public ICollection<Area> Areas { get; set; }
         public ICollection<Payment> Payments { get; set; }
+        public string AreasForDelete { get; set; }
     }
 }

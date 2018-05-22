@@ -18,5 +18,6 @@ namespace GardenCommunity.Business.DTO
         public bool IsActiveMember { get; set; }
         public ICollection<Area> Areas { get; set; }
         public ICollection<Payment> Payments { get; set; }
+        
     }
 }
