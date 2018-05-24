@@ -11,15 +11,15 @@ namespace GardenCommunity.DAL.DBConfiguration
             Property(p => p.FirstName).IsRequired().HasMaxLength(100);
             Property(p => p.Address).IsRequired().HasMaxLength(150);
             Property(p => p.Phone).IsRequired().HasMaxLength(20);
-
-            HasMany(x => x.Areas)
-            .WithMany(x => x.Members)
-            .Map(m =>
-            {
-                m.ToTable("MembersAreas");
-                m.MapLeftKey("MemberId");
-                m.MapRightKey("AreaId");
-            });
+            
+            //HasMany(x => x.Areas)
+            //.WithMany(x => x.Members)
+            //.Map(m =>
+            //{
+            //    m.ToTable("MembersAreas");
+            //    m.MapLeftKey("MemberId");
+            //    m.MapRightKey("AreaId");
+            //});
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using GardenCommunity.Business.DTO;
-using System;
 using System.Collections.Generic;
 using DataAccess = GardenCommunity.DAL.Entities;
 
@@ -9,23 +8,7 @@ namespace GardenCommunity.Business.Mappers
     public static class Mapper
     {
         public static DataAccess.Member FromDtoToDalMap(Member member)
-        {
-            var areas = new List<DataAccess.Area>();
-            var payments = new List<DataAccess.Payment>();
-            //if (member.Areas != null)
-            //{
-            //    foreach (var area in member.Areas)
-            //    {
-            //        areas.Add(FromDtoToDalMap(area));
-            //    }
-            //}
-            //if (member.Payments != null)
-            //{
-            //    foreach (var payment in member.Payments)
-            //    {
-            //        payments.Add(FromDtoToDalMap(payment));
-            //    }
-            //}
+        {           
             var dataAccessMember = new DataAccess.Member()
             {
                 Id = member.Id,
@@ -34,34 +17,35 @@ namespace GardenCommunity.Business.Mappers
                 MiddleName = member.MiddleName,
                 Address = member.Address,
                 Phone = member.Phone,
-                AdditionalInfo = member.AdditionalInfo,
-                //Areas = areas,
-                IsActiveMember = member.IsActiveMember
-                //Payments = payments
+                AdditionalInfo = member.AdditionalInfo,                
+                IsActiveMember = member.IsActiveMember               
             };
             return dataAccessMember;
         }
 
         public static DataAccess.Area FromDtoToDalMap(Area area)
-        {
-            var members = new List<DataAccess.Member>();
-            if(area.Members!=null)
-            {
-                foreach(var member in area.Members)
-                {
-                    members.Add(Mapper.FromDtoToDalMap(member));
-                }
-            }
+        {          
             var dataAccessArea = new DataAccess.Area()
             {
                 Id = area.Id,
                 ParentAreaId = area.ParentAreaId,
                 HasElectricity = area.HasElectricity,
                 IsPrivate = area.IsPrivate,
-                Square = area.Square,
-                Members = members
+                Square = area.Square                
             };
-            return dataAccessArea;
+            if(area.Members!=null)
+            {               
+                foreach(var member in area.Members)
+                {
+                    var dataAccessMember = FromDtoToDalMap(member);
+                    dataAccessArea.MembersAreas.Add(new DataAccess.MembersAreas()
+                    {
+                        Member = dataAccessMember
+                    });
+                }
+                
+            }
+            return dataAccessArea;           
         }
 
         public static DataAccess.Payment FromDtoToDalMap(Payment payment)
@@ -116,7 +100,7 @@ namespace GardenCommunity.Business.Mappers
         }
 
         public static Member FromDalToDtoMap(DataAccess.Member member)
-        {           
+        {
             var dTOMember = new Member()
             {
                 Id = member.Id,
@@ -126,27 +110,30 @@ namespace GardenCommunity.Business.Mappers
                 Address = member.Address,
                 Phone = member.Phone,
                 IsActiveMember = member.IsActiveMember,
-                AdditionalInfo = member.AdditionalInfo                              
+                AdditionalInfo = member.AdditionalInfo
             };
-            if(member.Areas != null)
+            if (member.MembersAreas != null)
             {
                 dTOMember.Areas = new List<Area>();
-                foreach(var area in member.Areas)
+                foreach (var memberArea in member.MembersAreas)
                 {
-                    dTOMember.Areas.Add(new Area()
+                    if (memberArea.Area != null)
                     {
-                        Id = area.Id,
-                        Square = area.Square,
-                        IsPrivate = area.IsPrivate,
-                        HasElectricity = area.HasElectricity,
-                        ParentAreaId = area.ParentAreaId
-                    });
+                        dTOMember.Areas.Add(new Area()
+                        {
+                            Id = memberArea.Area.Id,
+                            Square = memberArea.Area.Square,
+                            IsPrivate = memberArea.Area.IsPrivate,
+                            HasElectricity = memberArea.Area.HasElectricity,
+                            ParentAreaId = memberArea.Area.ParentAreaId
+                        });
+                    }
                 }
             }
-            if(member.Payments != null)
+            if (member.Payments != null)
             {
                 dTOMember.Payments = new List<Payment>();
-                foreach(var payment in member.Payments)
+                foreach (var payment in member.Payments)
                 {
                     dTOMember.Payments.Add(new Payment()
                     {
@@ -158,38 +145,41 @@ namespace GardenCommunity.Business.Mappers
                     });
                 }
             }
-            return dTOMember;
+            return dTOMember;            
         }
 
         public static Area FromDalToDtoMap(DataAccess.Area area)
-        {           
+        {
             var dTOArea = new Area()
             {
                 Id = area.Id,
                 IsPrivate = area.IsPrivate,
                 HasElectricity = area.HasElectricity,
                 Square = area.Square,
-                ParentAreaId = area.ParentAreaId              
+                ParentAreaId = area.ParentAreaId
             };
-            if (area.Members != null)
+            if (area.MembersAreas != null)
             {
-                dTOArea.Members = new List<Member>(); 
-                foreach(var member in area.Members)
+                dTOArea.Members = new List<Member>();
+                foreach (var memberArea in area.MembersAreas)
                 {
-                    dTOArea.Members.Add(new Member()
+                    if (memberArea.Member != null)
                     {
-                        Id = member.Id,
-                        FirstName = member.FirstName,
-                        LastName = member.LastName,
-                        MiddleName = member.MiddleName,
-                        AdditionalInfo = member.AdditionalInfo,
-                        Address = member.Address,
-                        Phone = member.Phone,
-                        IsActiveMember = member.IsActiveMember
-                    });
+                        dTOArea.Members.Add(new Member()
+                        {
+                            Id = memberArea.Member.Id,
+                            FirstName = memberArea.Member.FirstName,
+                            LastName = memberArea.Member.LastName,
+                            MiddleName = memberArea.Member.MiddleName,
+                            AdditionalInfo = memberArea.Member.AdditionalInfo,
+                            Address = memberArea.Member.Address,
+                            Phone = memberArea.Member.Phone,
+                            IsActiveMember = memberArea.Member.IsActiveMember
+                        });
+                    }
                 }
             }
-            return dTOArea;
+            return dTOArea;            
         }
 
         public static Payment FromDalToDtoMap(DataAccess.Payment payment)

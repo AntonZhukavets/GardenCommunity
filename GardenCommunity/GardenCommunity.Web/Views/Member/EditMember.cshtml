@@ -77,6 +77,7 @@
 
 
     </div>
+    <h3>Now in ownership</h3>
     <table class="table">
         <tr>
             <th scope="col">@Html.Label("Id")</th>
@@ -89,20 +90,23 @@
 
         @foreach (var item in Model.Areas)
         {
-            <tr id="tr_@item.Id">
-                <th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
-                <td>@Html.DisplayFor(modelItem => item.Square)</td>
-                <td>@Html.DisplayFor(modelItem => item.IsPrivate)</td>
-                <td>@Html.DisplayFor(modelItem => item.HasElectricity)</td>
-                <td>@Html.DisplayFor(modelItem => item.ParentAreaId)</td>
-                <td>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="button" value="Remove" class="btn btn-primary" id="@item.Id" />
+            if (item.MemberId != 1)
+            {
+                <tr id="tr_@item.Id">
+                    <th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
+                    <td>@Html.DisplayFor(modelItem => item.Square)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IsPrivate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.HasElectricity)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ParentAreaId)</td>
+                    <td>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="button" value="Remove" class="btn btn-primary" id="@item.Id" />
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
+                    </td>
+                </tr>
+            }
         }
 
     </table>

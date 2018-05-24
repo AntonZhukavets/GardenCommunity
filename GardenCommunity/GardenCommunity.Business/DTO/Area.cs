@@ -12,6 +12,7 @@ namespace GardenCommunity.Business.DTO
         public int? ParentAreaId { get; set; }
         public ICollection<Member> Members { get; set; }
         public int MemberId { get; set; }
+        public bool IsFree { get; set; }
         public Area()
         {
             Members = new List<Member>();

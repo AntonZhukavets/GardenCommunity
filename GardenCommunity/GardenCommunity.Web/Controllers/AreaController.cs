@@ -3,10 +3,8 @@ using GardenCommunity.Business.Providers;
 using GardenCommunity.DAL;
 using GardenCommunity.Web.Mappers;
 using GardenCommunity.Web.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace GardenCommunity.Web.Controllers
@@ -67,8 +65,7 @@ namespace GardenCommunity.Web.Controllers
                 var DTOArea = Mapper.FromMVCModelToDtoMap(area);
                 if (area.MemberId != 0)
                 {
-                    var member = memberProvider.GetMember(area.MemberId);
-                    DTOArea.IsPrivate = true;
+                    var member = memberProvider.GetMember(area.MemberId);                    
                     DTOArea.Members.Add(member);
                 }    
                 else
@@ -95,7 +92,7 @@ namespace GardenCommunity.Web.Controllers
                 {
                     owners.Add(member.Id, member.LastName + " " + member.FirstName + " " + member.MiddleName);                                    
                 }
-                var selectedItem = modelArea.Members.FirstOrDefault();               
+                var selectedItem = modelArea.Members.Last();               
                 var selected = 0;
                 if (selectedItem != null )
                 {
@@ -115,10 +112,10 @@ namespace GardenCommunity.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(area.MemberId!=0)
-                {
-                    area.IsPrivate = true;
-                }
+                //if(area.MemberId!=0)
+                //{
+                //    area.IsPrivate = true;
+                //}
                 areaProvider.UpdateArea(Mapper.FromMVCModelToDtoMap(area), area.MemberId);
                 return RedirectToAction("GetAreas", "Area");
             }

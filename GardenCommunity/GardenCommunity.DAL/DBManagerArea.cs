@@ -12,35 +12,53 @@ namespace GardenCommunity.DAL
         {
             using (var db = new GardenCommunityDB())
             {
-                return db.Areas.Include("Members").ToList();
+                var areas = db.Areas.Include("MembersAreas").ToList();
+                if (areas != null)
+                {
+                    foreach (var area in areas)
+                    {
+                        if(area.MembersAreas!=null)
+                        foreach (var memberArea in area.MembersAreas)
+                        {
+                                memberArea.Member = db.Members.First(x => x.Id == memberArea.MemberId);
+                        }
+                    }
+                }
+                return areas;                
             }
         }
 
         public IEnumerable<Area> GetAreasByMemberId(int memberId)
         {
-            using (var db = new GardenCommunityDB())
-            {
-                var member = db.Members.Include("Areas").Where(x => x.Id == memberId).FirstOrDefault();                
-                if (member != null && member.Areas.Count > 0)
-                {
-                    var membersAreas = new List<Area>();
-                    membersAreas.AddRange(member.Areas);
-                    foreach (var area in member.Areas)
-                    {
-                        var childAreas = db.Areas.Where(x => x.ParentAreaId.Value == area.Id).ToList();
-                        membersAreas.AddRange(childAreas);
-                    }
-                    return membersAreas;
-                }
-                return null;
-            }
+            //using (var db = new GardenCommunityDB())
+            //{
+            //    var member = db.Members.Include("MembersAreas").Where(x => x.Id == memberId).FirstOrDefault();
+            //    if (member != null && member.MembersAreas.Count > 0)
+            //    {
+            //        var membersAreas = new List<Area>();
+            //        membersAreas.AddRange(member.MembersAreas);
+            //        foreach (var area in member.Areas)
+            //        {
+            //            var childAreas = db.Areas.Where(x => x.ParentAreaId.Value == area.Id).ToList();
+            //            membersAreas.AddRange(childAreas);
+            //        }
+            //        return membersAreas;
+            //    }
+            //    return null;
+            //}
+            return null;
         }
 
         public Area GetArea(int id)
         {
             using (var db = new GardenCommunityDB())
             {
-                return db.Areas.Include("Members").Where(x => x.Id == id).First();
+                var area = db.Areas.Include("MembersAreas").Where(x => x.Id == id).First();                
+                foreach (var memberArea in area.MembersAreas)
+                {
+                    memberArea.Member = db.Members.First(x => x.Id == memberArea.MemberId);
+                }
+                return area;
             }
         }
 
@@ -52,45 +70,52 @@ namespace GardenCommunity.DAL
             }
             using (var db = new GardenCommunityDB())
             {
-                if(area.Members!=null)
+                if (area.MembersAreas != null)
                 {
-                    foreach(var member in area.Members)
-                    {                       
-                        db.Members.Attach(member);
+                    foreach (var memberArea in area.MembersAreas)
+                    {
+                        db.Members.Attach(memberArea.Member);
                     }
                 }
                 db.Areas.Add(area);
                 db.SaveChanges();
             }
-            
         }
 
         public void UpdateArea(Area area, int memberId)
-        {           
+        {
             if (area == null)
             {
                 throw new ArgumentNullException("area");
             }
             using (var db = new GardenCommunityDB())
             {
-                var targetArea = db.Areas.Include("Members").Where(x => x.Id == area.Id).First();
+                var targetArea = db.Areas.Include("MembersAreas").First(x => x.Id == area.Id);
                 if (targetArea != null)
                 {
                     targetArea.Square = area.Square;
                     targetArea.IsPrivate = area.IsPrivate;
                     targetArea.HasElectricity = area.HasElectricity;
                     targetArea.ParentAreaId = area.ParentAreaId;
-                    //var member = targetArea.Members.FirstOrDefault(x => x.IsActiveMember);
-                    if (memberId != 0)
+                    var member = db.Members.Include("MembersAreas").First(x => x.Id == memberId);
+                    member.MembersAreas.Add(new MembersAreas()
                     {
-                        //if (member != null)
-                        //{
-                        //    targetArea.Members.Remove(member);
-                        //}
-                        var newMember = db.Members.First(x => x.Id == memberId);
-                        targetArea.Members.Add(newMember);
-                        db.Members.Attach(newMember);
-                    }                   
+                        Member = member,
+                        MemberId = member.Id,
+                        Area = targetArea,
+                        AreaId = targetArea.Id
+                    });
+                    ////var member = targetArea.Members.FirstOrDefault(x => x.IsActiveMember);
+                    //if (memberId != 0)
+                    //{
+                    //    //if (member != null)
+                    //    //{
+                    //    //    targetArea.Members.Remove(member);
+                    //    //}
+                    //    var newMember = db.Members.First(x => x.Id == memberId);
+                    //    //targetArea.Members.Add(newMember);
+                    //    db.Members.Attach(newMember);
+                    //}
                     db.SaveChanges();
                 }
             }

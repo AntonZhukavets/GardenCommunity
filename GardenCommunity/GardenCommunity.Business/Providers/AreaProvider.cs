@@ -21,8 +21,8 @@ namespace GardenCommunity.Business.Providers
             {
                 throw new ArgumentException("area");                
             }
-            dBManagerArea.AddArea(Mapper.FromDtoToDalMap(area));
-
+            var dALArea = Mapper.FromDtoToDalMap(area);
+            dBManagerArea.AddArea(dALArea);
         }
 
         public Area GetArea(int id)

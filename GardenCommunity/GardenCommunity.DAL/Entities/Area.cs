@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GardenCommunity.DAL.Entities
 {
@@ -11,7 +10,10 @@ namespace GardenCommunity.DAL.Entities
         public bool HasElectricity { get; set; }
         public Area ParentArea { get; set; }
         public int? ParentAreaId { get; set; }
-        public ICollection<Member> Members { get; set; }        
-        //public int? MemberId { get; set; }
+        public ICollection<MembersAreas> MembersAreas { get; set; }          
+        public Area()
+        {
+            MembersAreas = new List<MembersAreas>();
+        }
     }
 }

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using GardenCommunity.Business.DTO;
+﻿using GardenCommunity.Business.DTO;
 using GardenCommunity.Business.Interfaces;
 using GardenCommunity.Business.Mappers;
 using GardenCommunity.DAL.Interfaces;
+using System;
+using System.Collections.Generic;
 
 namespace GardenCommunity.Business.Providers
 {

@@ -21,6 +21,7 @@ namespace GardenCommunity.Web.Models
         public ICollection<Member> Members { get; set; }
         [Display(Name = "Owner")]
         public int MemberId { get; set; }
-        public int CurrentOwnerId { get; set; }
+        public bool IsFree { get; set; }
+
     }
 }

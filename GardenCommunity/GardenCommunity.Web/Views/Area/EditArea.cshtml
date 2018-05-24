@@ -64,7 +64,8 @@
         </div>
     </div>
     @Html.TextBoxFor(model => model.MemberId, htmlAttributes: new { @hidden = "hidden" });
-    
+
+    <h3>Current owner:</h3>
     <table class="table">
         <thead>
             <tr>
@@ -79,7 +80,37 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Members)
+
+            <tr>
+                <th scope="row">@Html.DisplayFor(modelItem => Model.Members.Last().Id)</th>
+                <td>@Html.DisplayFor(modelItem => Model.Members.Last().LastName)</td>
+                <td>@Html.DisplayFor(modelItem => Model.Members.Last().FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => Model.Members.Last().MiddleName)</td>
+                <td>@Html.DisplayFor(modelItem => Model.Members.Last().Address)</td>
+                <td>@Html.DisplayFor(modelItem => Model.Members.Last().Phone)</td>
+                <td>@Html.DisplayFor(modelItem => Model.Members.Last().AdditionalInfo)</td>
+                <td>@Html.DisplayFor(modelItem => Model.Members.Last().IsActiveMember)</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <h3>Past owners:</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">@Html.Label("Id")</th>
+                <th scope="col">@Html.Label("Last name")</th>
+                <th scope="col">@Html.Label("First name")</th>
+                <th scope="col">@Html.Label("Middle name")</th>
+                <th scope="col">@Html.Label("Address")</th>
+                <th scope="col">@Html.Label("Phone")</th>
+                <th scope="col">@Html.Label("Additional info")</th>
+                <th scope="col">@Html.Label("Is active member")</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Members.Take(Model.Members.Count - 1))
             {
                 <tr>
                     <th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>

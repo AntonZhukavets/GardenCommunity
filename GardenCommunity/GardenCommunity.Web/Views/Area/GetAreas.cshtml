@@ -30,13 +30,7 @@
         <td>@Html.DisplayFor(modelItem => item.HasElectricity)</td>
         <td>@Html.DisplayFor(modelItem => item.ParentAreaId)</td>
         <td>
-            @foreach (var member in item.Members)
-            {               
-                if(member.IsActiveMember)
-                {                    
-                    @Html.ActionLink(member.LastName + " " + member.FirstName + " " + member.MiddleName, "GetMember", "Member", routeValues: new { @id = member.Id }, htmlAttributes: null )
-                }               
-            }
+            @Html.ActionLink(item.Members.Last().LastName + " " + item.Members.Last().FirstName + " " + item.Members.Last().MiddleName, "GetMember", "Member", routeValues: new { @id = item.Members.Last().Id }, htmlAttributes: null )
         </td>
         <td>
             @Html.ActionLink("Details", "GetArea", "Area", new { @id = item.Id }, new { @class = "btn btn-primary" })

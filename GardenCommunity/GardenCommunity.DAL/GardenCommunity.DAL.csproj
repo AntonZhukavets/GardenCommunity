@@ -64,11 +64,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Areas.cs">
-      <DependentUpon>GardenCommunityDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DBConfiguration\AreaConfiguration.cs" />
     <Compile Include="DBConfiguration\MemberConfiguration.cs" />
+    <Compile Include="DBConfiguration\MembersAreasConfiguration.cs" />
     <Compile Include="DBConfiguration\PaymentConfiguration.cs" />
     <Compile Include="DBConfiguration\RateConfiguration.cs" />
     <Compile Include="DBManagerArea.cs" />
@@ -78,58 +76,25 @@
     <Compile Include="DBManagerRate.cs" />
     <Compile Include="Entities\Indication.cs" />
     <Compile Include="Entities\Member.cs" />
+    <Compile Include="Entities\MembersAreas.cs" />
     <Compile Include="Entities\Payment.cs" />
     <Compile Include="Entities\Rate.cs" />
-    <Compile Include="GardenCommunityDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GardenCommunityDataModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GardenCommunityDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GardenCommunityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GardenCommunityDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GardenCommunityDataModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="GardenCommunityDB.cs" />
     <Compile Include="Entities\Area.cs" />
-    <Compile Include="Indications.cs">
-      <DependentUpon>GardenCommunityDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Interfaces\IDBManagerArea.cs" />
     <Compile Include="Interfaces\IDBManagerIndication.cs" />
     <Compile Include="Interfaces\IDBManagerMember.cs" />
     <Compile Include="Interfaces\IDBManagerPayment.cs" />
     <Compile Include="Interfaces\IDBManagerRate.cs" />
-    <Compile Include="Members.cs">
-      <DependentUpon>GardenCommunityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805141833173_Create_DataBase_1.cs" />
-    <Compile Include="Migrations\201805141833173_Create_DataBase_1.Designer.cs">
-      <DependentUpon>201805141833173_Create_DataBase_1.cs</DependentUpon>
+    <Compile Include="Migrations\201805240808354_DataBase_Created_1.cs" />
+    <Compile Include="Migrations\201805240808354_DataBase_Created_1.Designer.cs">
+      <DependentUpon>201805240808354_DataBase_Created_1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Payments.cs">
-      <DependentUpon>GardenCommunityDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rates.cs">
-      <DependentUpon>GardenCommunityDataModel.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="GardenCommunityDataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>GardenCommunityDataModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="GardenCommunityDataModel.edmx.diagram">
-      <DependentUpon>GardenCommunityDataModel.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -148,20 +113,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GardenCommunityDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GardenCommunityDataModel.edmx</DependentUpon>
-      <LastGenOutput>GardenCommunityDataModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="GardenCommunityDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GardenCommunityDataModel.edmx</DependentUpon>
-      <LastGenOutput>GardenCommunityDataModel.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805141833173_Create_DataBase_1.resx">
-      <DependentUpon>201805141833173_Create_DataBase_1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805240808354_DataBase_Created_1.resx">
+      <DependentUpon>201805240808354_DataBase_Created_1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

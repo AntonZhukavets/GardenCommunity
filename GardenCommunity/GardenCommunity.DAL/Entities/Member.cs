@@ -17,7 +17,11 @@ namespace GardenCommunity.DAL.Entities
         public string Phone { get; set; }
         public string AdditionalInfo { get; set; }
         public bool IsActiveMember { get; set; }
-        public ICollection<Area> Areas { get; set; }
-        public ICollection<Payment> Payments { get; set; }       
+        public ICollection<MembersAreas> MembersAreas { get; set; }
+        public ICollection<Payment> Payments { get; set; }
+        public Member()
+        {
+            MembersAreas = new List<MembersAreas>();
+        }
     }
 }

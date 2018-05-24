@@ -16,13 +16,17 @@ namespace GardenCommunity.DAL
                 switch (id)
                 {
                     case 1:
-                        return db.Members.Include("Areas").Where(x=>x.IsActiveMember==true).ToList();                       
+                        var activeMembers = db.Members.Where(x => x.IsActiveMember == true).ToList();                        
+                        return activeMembers;
                     case 2:
-                        return db.Members.Include("Areas").ToList();
+                        var members = db.Members.ToList();                        
+                        return members;
                     case 3:
-                        return db.Members.Include("Areas").Where(x => x.IsActiveMember == false).ToList();
+                        var inActiveMembers = db.Members.Where(x => x.IsActiveMember == false).ToList();                       
+                        return inActiveMembers;
                     default:
-                        return db.Members.Include("Areas").ToList();
+                        var defaultMembers = db.Members.ToList();                       
+                        return defaultMembers;
                 }
                 
             }
@@ -32,7 +36,12 @@ namespace GardenCommunity.DAL
         {
             using (var db = new GardenCommunityDB())
             {
-                var member = db.Members.Include("Areas").First(x => x.Id == id);
+                var member = db.Members.Include("MembersAreas").First(x => x.Id == id);
+                foreach (var memberArea in member.MembersAreas)
+                {
+                    memberArea.Area = db.Areas.First(x => x.Id == memberArea.AreaId);
+                }
+                var membersAreas = db.MembersAreas.Include("Member").Include("Area").Where(x => x.MemberId == id).ToList();
                 return member;
             }
         }
@@ -57,25 +66,27 @@ namespace GardenCommunity.DAL
                 throw new ArgumentNullException("member");
             }
             using (var db = new GardenCommunityDB())
-            {                
-                var updatableMember = db.Members.Include("Areas").Where(x => x.Id == member.Id).First();
+            {
+                var updatableMember = db.Members.Include("MembersAreas").First(x => x.Id == member.Id);
                 updatableMember.FirstName = member.FirstName;
                 updatableMember.LastName = member.LastName;
                 updatableMember.MiddleName = member.MiddleName;
                 updatableMember.Address = member.Address;
                 updatableMember.Phone = member.Phone;
-                updatableMember.IsActiveMember = member.IsActiveMember;                
+                updatableMember.IsActiveMember = member.IsActiveMember;
                 if (areasForRemove != null)
                 {
-                    var gardenCommunity = db.Members.Include("Areas").First(x => x.Id == gardenCommunityId);
+                    var gardenCommunity = db.Members.Include("MembersAreas").First(x => x.Id == gardenCommunityId);
                     foreach (var id in areasForRemove)
                     {
-                        var area = updatableMember.Areas.First(x => x.Id == id);                        
-                        //updatableMember.Areas.First(x => x.Id == id).IsPrivate = false;
-                        area.IsPrivate = false;
-                        //updatableMember.Areas.Remove(db.Areas.First(x => x.Id == id));
-                        gardenCommunity.Areas.Add(area);                        
-                        db.Areas.Attach(area);
+                        var memberArea = db.MembersAreas.First(x => x.AreaId == id);                        
+                        gardenCommunity.MembersAreas.Add(new MembersAreas()
+                        {
+                            Area = memberArea.Area,
+                            Member = gardenCommunity,
+                            AreaId=memberArea.AreaId,
+                            MemberId=gardenCommunity.Id
+                        });                        
                     }
                 }
                 db.SaveChanges();
@@ -86,11 +97,18 @@ namespace GardenCommunity.DAL
         {
             using (var db = new GardenCommunityDB())
             {
-                var deletableMember = db.Members.Include("Areas").Where(x => x.Id == id).First();
+                var deletableMember = db.Members.Include("MembersAreas").First(x => x.Id == id);
+                var gardenCommunity = db.Members.Include("MembersAreas").First(x => x.Id == gardenCommunityId);
                 deletableMember.IsActiveMember = false;
-                foreach(var area in deletableMember.Areas)
+                foreach (var memberArea in deletableMember.MembersAreas)
                 {
-                    area.IsPrivate = false;
+                    gardenCommunity.MembersAreas.Add(new MembersAreas()
+                    {
+                        Member = gardenCommunity,
+                        MemberId = gardenCommunity.Id,
+                        Area = memberArea.Area,
+                        AreaId = memberArea.AreaId
+                    });
                 }
                 db.SaveChanges();
             }
@@ -98,20 +116,21 @@ namespace GardenCommunity.DAL
 
         public IEnumerable<Member> GetMembersByAreaId(int id)
         {
-            using (var db = new GardenCommunityDB())
-            {
-                var members = new List<Member>();
-                var area = db.Areas.Include("Members").Where(x => x.Id == id).First();
-                if(area.Members!=null)
-                {
-                    members.AddRange(area.Members);
-                }
-                if(area.ParentAreaId!=null)
-                {
-                    members.AddRange(GetMembersByAreaId(area.ParentAreaId.Value));
-                }                                          
-                return members;
-            }
+            //using (var db = new GardenCommunityDB())
+            //{
+            //    var members = new List<Member>();
+            //    var area = db.Areas.Include("Members").Where(x => x.Id == id).First();
+            //    if(area.Members!=null)
+            //    {
+            //        members.AddRange(area.Members);
+            //    }
+            //    if(area.ParentAreaId!=null)
+            //    {
+            //        members.AddRange(GetMembersByAreaId(area.ParentAreaId.Value));
+            //    }                                          
+            //    return members;
+            //}
+            return null;
         }
 
         public IEnumerable<Member> GetActiveMembers()

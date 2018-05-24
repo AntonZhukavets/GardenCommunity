@@ -5,10 +5,10 @@ namespace GardenCommunity.DAL.DBConfiguration
 {
     class AreaConfiguration : EntityTypeConfiguration<Area>
     {
-        public AreaConfiguration()
-        {
-            //HasOptional(x => x.Member)
-            //   .WithMany(x => x.Areas)
+        public AreaConfiguration()        {
+            
+            //HasOptional(x => x.MembersAreas)
+            //   .WithMany(x => x.)
             //   .HasForeignKey(x => x.MemberId);
         }
     }
