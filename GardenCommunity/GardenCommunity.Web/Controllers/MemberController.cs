@@ -69,20 +69,24 @@ namespace GardenCommunity.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(!string.IsNullOrEmpty(member.AreasForDelete))
+                if (!string.IsNullOrEmpty(member.AreasForDelete))
                 {
 
                     var strings = member.AreasForDelete.Split(';');
-                    var areaIdList = new List<int>();
-                    foreach(var item in strings)
+                    var areasForRemove = new List<int>();
+                    foreach (var item in strings)
                     {
-                        if(!string.IsNullOrEmpty(item))
+                        if (!string.IsNullOrEmpty(item))
                         {
-                            areaIdList.Add(Convert.ToInt32(item));
-                        }                        
+                            areasForRemove.Add(Convert.ToInt32(item));
+                        }
                     }
+                    memberProvider.UpdateMember(Mapper.FromMVCModelToDtoMap(member), areasForRemove);
                 }
-                memberProvider.UpdateMember(Mapper.FromMVCModelToDtoMap(member));                
+                else
+                {
+                    memberProvider.UpdateMember(Mapper.FromMVCModelToDtoMap(member), null);
+                }
                 return RedirectToAction("GetMembers", "Member");
                 
             }

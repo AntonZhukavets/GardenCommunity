@@ -8,7 +8,7 @@ namespace GardenCommunity.Business.Interfaces
     public interface IMemberProvider
     {
         void AddMember(Member member);
-        void UpdateMember(Member member);
+        void UpdateMember(Member member, IEnumerable<int> areasForRemove);
         void RemoveMember(int id);
         IEnumerable<Member> GetMembers(int id);
         IEnumerable<Member> GetActiveMembers();

@@ -65,13 +65,13 @@ namespace GardenCommunity.Business.Providers
             dBManagerArea.RemoveArea(id);
         }
 
-        public void UpdateArea(Area area)
+        public void UpdateArea(Area area, int memberId)
         {
             if(area==null)
             {
                 throw new ArgumentNullException("area");
             }
-            dBManagerArea.UpdateArea(Mapper.FromDtoToDalMap(area));
+            dBManagerArea.UpdateArea(Mapper.FromDtoToDalMap(area), memberId);
         }
     }
 }

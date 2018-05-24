@@ -9,7 +9,7 @@ namespace GardenCommunity.DAL.Interfaces
     {
         Area GetArea(int id);
         void AddArea(Area area);
-        void UpdateArea(Area area);
+        void UpdateArea(Area area, int memberId);
         void RemoveArea(int id);
         IEnumerable<Area> GetAreas();
         IEnumerable<Area> GetAreasByMemberId(int memberId);       

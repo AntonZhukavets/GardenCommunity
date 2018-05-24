@@ -8,6 +8,7 @@ namespace GardenCommunity.DAL
 {
     public class DBManagerMember : IDBManagerMember
     {
+        private const int gardenCommunityId= 1;
         public IEnumerable<Member> GetMembers(int id)
         {
             using (var db = new GardenCommunityDB())
@@ -49,23 +50,34 @@ namespace GardenCommunity.DAL
             }
         }
 
-        public void UpdateMember(Member member)
+        public void UpdateMember(Member member, IEnumerable<int> areasForRemove)
         {
             if (member == null)
             {
                 throw new ArgumentNullException("member");
             }
             using (var db = new GardenCommunityDB())
-            {
-                var updatableMember = db.Members.Where(x => x.Id == member.Id).First();
+            {                
+                var updatableMember = db.Members.Include("Areas").Where(x => x.Id == member.Id).First();
                 updatableMember.FirstName = member.FirstName;
                 updatableMember.LastName = member.LastName;
                 updatableMember.MiddleName = member.MiddleName;
                 updatableMember.Address = member.Address;
                 updatableMember.Phone = member.Phone;
-                updatableMember.IsActiveMember = member.IsActiveMember;
-                updatableMember.Payments = member.Payments;
-                updatableMember.Areas = member.Areas;
+                updatableMember.IsActiveMember = member.IsActiveMember;                
+                if (areasForRemove != null)
+                {
+                    var gardenCommunity = db.Members.Include("Areas").First(x => x.Id == gardenCommunityId);
+                    foreach (var id in areasForRemove)
+                    {
+                        var area = updatableMember.Areas.First(x => x.Id == id);                        
+                        //updatableMember.Areas.First(x => x.Id == id).IsPrivate = false;
+                        area.IsPrivate = false;
+                        //updatableMember.Areas.Remove(db.Areas.First(x => x.Id == id));
+                        gardenCommunity.Areas.Add(area);                        
+                        db.Areas.Attach(area);
+                    }
+                }
                 db.SaveChanges();
             }
         }
@@ -74,8 +86,12 @@ namespace GardenCommunity.DAL
         {
             using (var db = new GardenCommunityDB())
             {
-                var deletableMember = db.Members.Where(x => x.Id == id).First();
+                var deletableMember = db.Members.Include("Areas").Where(x => x.Id == id).First();
                 deletableMember.IsActiveMember = false;
+                foreach(var area in deletableMember.Areas)
+                {
+                    area.IsPrivate = false;
+                }
                 db.SaveChanges();
             }
         }

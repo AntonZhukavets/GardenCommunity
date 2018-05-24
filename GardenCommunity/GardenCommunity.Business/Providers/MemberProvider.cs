@@ -65,13 +65,13 @@ namespace GardenCommunity.Business.Providers
             dBManagerMember.RemoveMember(id);
         }
 
-        public void UpdateMember(Member member)
+        public void UpdateMember(Member member, IEnumerable<int> areasForRemove)
         {
             if (member == null)
             {
                 throw new ArgumentNullException("member");
             }
-            dBManagerMember.UpdateMember(Mapper.FromDtoToDalMap(member));
+            dBManagerMember.UpdateMember(Mapper.FromDtoToDalMap(member), areasForRemove);
         }
 
         public IEnumerable<Member> GetActiveMembers()

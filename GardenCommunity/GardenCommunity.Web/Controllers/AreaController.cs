@@ -34,6 +34,14 @@ namespace GardenCommunity.Web.Controllers
         }
 
         [HttpGet]
+        public ActionResult GetArea(int id)
+        {
+            var area = areaProvider.GetArea(id);
+            var modelArea = Mapper.FromDtoToMVCModelMap(area);            
+            return View(modelArea);
+        }
+
+        [HttpGet]
         public ActionResult AddArea()
         {            
             var members = memberProvider.GetActiveMembers();            
@@ -43,10 +51,10 @@ namespace GardenCommunity.Web.Controllers
                 owners.Add(0, string.Empty);
                 foreach(var member in members)
                 {
-                    owners.Add(member.Id, member.LastName + " " + member.FirstName + " " + member.MiddleName);
-                    var modelOwners = new SelectList(owners, "Key", "Value");
-                    ViewBag.owners = modelOwners;
-                }                
+                    owners.Add(member.Id, member.LastName + " " + member.FirstName + " " + member.MiddleName);                    
+                }
+                var modelOwners = new SelectList(owners, "Key", "Value");
+                ViewBag.owners = modelOwners;
             }                
             return View("AddArea");
         }
@@ -60,6 +68,7 @@ namespace GardenCommunity.Web.Controllers
                 if (area.MemberId != 0)
                 {
                     var member = memberProvider.GetMember(area.MemberId);
+                    DTOArea.IsPrivate = true;
                     DTOArea.Members.Add(member);
                 }    
                 else
@@ -77,15 +86,40 @@ namespace GardenCommunity.Web.Controllers
         {
             var area = areaProvider.GetArea(id);
             var modelArea = Mapper.FromDtoToMVCModelMap(area);
+            var members = memberProvider.GetActiveMembers();
+            if (members != null)
+            {
+                var owners = new Dictionary<int, string>();
+                owners.Add(0, string.Empty);
+                foreach (var member in members)
+                {
+                    owners.Add(member.Id, member.LastName + " " + member.FirstName + " " + member.MiddleName);                                    
+                }
+                var selectedItem = modelArea.Members.FirstOrDefault();               
+                var selected = 0;
+                if (selectedItem != null )
+                {
+                    selected = selectedItem.Id;
+                }                
+                var modelOwners = new SelectList(owners, "Key", "Value", selected);           
+                ViewBag.owners = modelOwners;
+                
+            }
+            
             return View("EditArea", modelArea);
         }
+
 
         [HttpPost]
         public ActionResult EditArea(Area area)
         {
             if (ModelState.IsValid)
             {
-                areaProvider.UpdateArea(Mapper.FromMVCModelToDtoMap(area));
+                if(area.MemberId!=0)
+                {
+                    area.IsPrivate = true;
+                }
+                areaProvider.UpdateArea(Mapper.FromMVCModelToDtoMap(area), area.MemberId);
                 return RedirectToAction("GetAreas", "Area");
             }
             return View(area);

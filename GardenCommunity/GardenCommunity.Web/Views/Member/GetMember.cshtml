@@ -67,7 +67,7 @@
 
     </dl>
 </div>
-
+<h3>Now in ownership</h3>
 <table class="table">
     <tr>
         <th scope="col">@Html.Label("Id")</th>
@@ -79,6 +79,7 @@
 
     @foreach (var item in Model.Areas)
     {
+        
         <tr>
             <th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
             <td>@Html.DisplayFor(modelItem => item.Square)</td>
@@ -86,6 +87,7 @@
             <td>@Html.DisplayFor(modelItem => item.HasElectricity)</td>
             <td>@Html.DisplayFor(modelItem => item.ParentAreaId)</td>         
         </tr>
+        
     }
 
 </table>
