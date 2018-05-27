@@ -1,7 +1,11 @@
 GardenCommunity/GardenCommunity.Web/obj/
 GardenCommunity/GardenCommunity.Web/bin/
+GardenCommunity/GardenCommunity.Common/bin/
+GardenCommunity/GardenCommunity.Common/obj/
 GardenCommunity/GardenCommunity.Business/bin/
 GardenCommunity/GardenCommunity.Business/obj/
+GardenCommunity/GardenCommunity.Business.4.6/bin/
+GardenCommunity/GardenCommunity.Business.4.6/obj/
 GardenCommunity/GardenCommunity.ConsoleApp/bin/Debug/
 GardenCommunity/GardenCommunity.ConsoleApp/obj/Debug/
 GardenCommunity/GardenCommunity.DAL/bin/

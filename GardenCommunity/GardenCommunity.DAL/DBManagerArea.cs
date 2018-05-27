@@ -12,18 +12,19 @@ namespace GardenCommunity.DAL
         {
             using (var db = new GardenCommunityDB())
             {
-                var areas = db.Areas.Include("MembersAreas").ToList();
-                if (areas != null)
-                {
+                //db.MembersAreas.Include("Area").Include("Member").Where(x=>x.MemberId == id).ToList() ??
+                var areas = db.Areas.Include("MembersAreas").ToList() ?? new List<Area>(); //example
+                //if (areas != null)
+                //{
                     foreach (var area in areas)
                     {
                         if(area.MembersAreas!=null)
                         foreach (var memberArea in area.MembersAreas)
                         {
-                                memberArea.Member = db.Members.First(x => x.Id == memberArea.MemberId);
+                             memberArea.Member = db.Members.First(x => x.Id == memberArea.MemberId);
                         }
                     }
-                }
+                //}
                 return areas;                
             }
         }

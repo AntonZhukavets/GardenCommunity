@@ -37,11 +37,32 @@ namespace GardenCommunity.DAL
             using (var db = new GardenCommunityDB())
             {
                 var member = db.Members.Include("MembersAreas").First(x => x.Id == id);
+                //foreach (var memberArea in member.MembersAreas)
+                //{
+                //    //memberArea.Area = db.Areas.First(x => x.Id == memberArea.AreaId);
+                //    var areas = db.MembersAreas.Include("Area").Where(x => x.AreaId == memberArea.AreaId).ToList();
+                //    if (areas.Last().MemberId == id)
+                //    {
+                //        memberArea.Area = .Add(new MembersAreas()
+                //        {
+                //            Member = member,
+                //            MemberId = member.Id,
+                //            Area = areas.Last().Area,
+                //            AreaId = areas.Last().AreaId
+                //        });
+                //    }
+
+                //}   
+                var areaList = new List<Area>();
                 foreach (var memberArea in member.MembersAreas)
                 {
-                    memberArea.Area = db.Areas.First(x => x.Id == memberArea.AreaId);
+                    var areas = db.MembersAreas.Include("Area").Where(x => x.AreaId == memberArea.AreaId).ToList();
+                    if (areas.Last().MemberId == member.Id)
+                    {
+                        areaList.Add(areas.Last().Area);
+                    }
                 }
-                var membersAreas = db.MembersAreas.Include("Member").Include("Area").Where(x => x.MemberId == id).ToList();
+                //?????
                 return member;
             }
         }

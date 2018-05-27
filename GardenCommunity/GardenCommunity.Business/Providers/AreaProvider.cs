@@ -1,77 +1,56 @@
-﻿using System;
+﻿using GardenCommunity.Business.Interfaces;
+using GardenCommunity.Common.Entities;
+using GardenCommunity.Common.Mappers;
+using GardenCommunity.DataAccess.Interfaces;
+using System;
 using System.Collections.Generic;
-using GardenCommunity.Business.DTO;
-using GardenCommunity.Business.Interfaces;
-using GardenCommunity.Business.Mappers;
-using GardenCommunity.DAL.Interfaces;
 
 namespace GardenCommunity.Business.Providers
 {
     public class AreaProvider : IAreaProvider
     {
-        private readonly IDBManagerArea dBManagerArea;
+        private readonly IDBManagerArea dBManagerArea;        
         public AreaProvider(IDBManagerArea dBManagerArea)
         {
-            this.dBManagerArea = dBManagerArea;
+            this.dBManagerArea = dBManagerArea;            
         }
-
-        public void AddArea(Area area)
+        public int AddArea(Area area)
         {
-            if(area==null)
-            {
-                throw new ArgumentException("area");                
-            }
-            var dALArea = Mapper.FromDtoToDalMap(area);
-            dBManagerArea.AddArea(dALArea);
+            var Area = area ?? throw new ArgumentNullException("area");
+            return dBManagerArea.AddArea(Mapper.FromBusinessToDataAccessMap(area));
         }
 
         public Area GetArea(int id)
         {
-            return Mapper.FromDalToDtoMap(dBManagerArea.GetArea(id));
+            var area = dBManagerArea.GetArea(id);
+            return Mapper.FromDataAccessToBusinessMap(area);
         }
 
         public IEnumerable<Area> GetAreas()
-        {            
+        {
+            var areas = new List<Area>();
             var dALAreas = dBManagerArea.GetAreas();
-            if (dALAreas != null)
+            foreach(var dalArea in dALAreas)
             {
-                var dTOAreas = new List<Area>();
-                foreach (var dALArea in dALAreas)
-                {
-                    dTOAreas.Add(Mapper.FromDalToDtoMap(dALArea));
-                }
-                return dTOAreas;
+                areas.Add(Mapper.FromDataAccessToBusinessMap(dalArea));
             }
-            return null;            
+            return areas; 
         }
 
         public IEnumerable<Area> GetAreasByMemberId(int id)
-        {           
-            var dALAreas = dBManagerArea.GetAreasByMemberId(id);
-            if (dALAreas != null)
-            {
-                var dTOAreas = new List<Area>();
-                foreach (var dALArea in dALAreas)
-                {
-                    dTOAreas.Add(Mapper.FromDalToDtoMap(dALArea));
-                }
-                return dTOAreas;
-            }
-            return null;            
+        {
+            throw new NotImplementedException();
         }
 
-        public void RemoveArea(int id)
+        public int RemoveArea(int id)
         {
-            dBManagerArea.RemoveArea(id);
+            return dBManagerArea.RemoveArea(id);
         }
 
-        public void UpdateArea(Area area, int memberId)
+        public int UpdateArea(Area area, int memberId)
         {
-            if(area==null)
-            {
-                throw new ArgumentNullException("area");
-            }
-            dBManagerArea.UpdateArea(Mapper.FromDtoToDalMap(area), memberId);
+            var Area = area ?? throw new ArgumentNullException();
+            return dBManagerArea.UpdateArea(Mapper.FromBusinessToDataAccessMap(area), memberId);
         }
     }
 }

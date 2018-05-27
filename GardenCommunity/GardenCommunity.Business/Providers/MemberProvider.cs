@@ -1,92 +1,60 @@
-﻿using System;
+﻿using GardenCommunity.Business.Interfaces;
+using GardenCommunity.Common.Entities;
+using GardenCommunity.Common.Mappers;
+using GardenCommunity.DataAccess.Interfaces;
+using System;
 using System.Collections.Generic;
-using GardenCommunity.Business.DTO;
-using GardenCommunity.Business.Interfaces;
-using GardenCommunity.Business.Mappers;
-using GardenCommunity.DAL.Interfaces;
+using System.Text;
 
 namespace GardenCommunity.Business.Providers
 {
     public class MemberProvider : IMemberProvider
     {
-        private readonly IDBManagerMember dBManagerMember;        
+        private readonly IDBManagerMember dBManagerMember;
         public MemberProvider(IDBManagerMember dBManagerMember)
         {
             this.dBManagerMember = dBManagerMember;
         }
-
-        public void AddMember(Member member)
+        public int AddMember(Member member)
         {
-            if(member==null)
-            {
-                throw new ArgumentNullException("member");
-            }
-            dBManagerMember.AddMember(Mapper.FromDtoToDalMap(member));
-        }
-
-        public Member GetMember(int id)
-        {
-            var member = dBManagerMember.GetMember(id);
-            return Mapper.FromDalToDtoMap(member);
-        }
-
-        public IEnumerable<Member> GetMembersByAreaId(int id)
-        {
-            var dALMembers = dBManagerMember.GetMembersByAreaId(id);
-            if (dALMembers != null)
-            {
-                var members = new List<Member>();
-                foreach (var dALMember in dALMembers)
-                {
-                    members.Add(Mapper.FromDalToDtoMap(dALMember));
-                }
-                return members;
-            }
-            return null;
-        }
-
-        public IEnumerable<Member> GetMembers(int id)
-        {            
-            var dALMembers = dBManagerMember.GetMembers(id);
-            if (dALMembers != null)
-            {
-                var members = new List<Member>();
-                foreach (var dALMember in dALMembers)
-                {
-                    members.Add(Mapper.FromDalToDtoMap(dALMember));
-                }
-                return members;
-            }
-            return null;
-        }
-
-        public void RemoveMember(int id)
-        {
-            dBManagerMember.RemoveMember(id);
-        }
-
-        public void UpdateMember(Member member, IEnumerable<int> areasForRemove)
-        {
-            if (member == null)
-            {
-                throw new ArgumentNullException("member");
-            }
-            dBManagerMember.UpdateMember(Mapper.FromDtoToDalMap(member), areasForRemove);
+            var Member = member ?? throw new ArgumentNullException("member");
+            return dBManagerMember.AddMember(Mapper.FromBusinessToDataAccessMap(member));
         }
 
         public IEnumerable<Member> GetActiveMembers()
         {
+            var members = new List<Member>();
             var dALMembers = dBManagerMember.GetActiveMembers();
-            if (dALMembers != null)
+            foreach(var dALMember in dALMembers)
             {
-                var members = new List<Member>();
-                foreach (var dALMember in dALMembers)
-                {
-                    members.Add(Mapper.FromDalToDtoMap(dALMember));
-                }
-                return members;
+                members.Add(Mapper.FromDataAccessToBusinessMap(dALMember));
             }
-            return null;            
+            return members;
+        }
+
+        public Member GetMember(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Member> GetMembers(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Member> GetMembersByAreaId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int RemoveMember(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int UpdateMember(Member member, IEnumerable<int> areasForRemove)
+        {
+            throw new NotImplementedException();
         }
     }
 }

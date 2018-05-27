@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace GardenCommunity.Business.DTO
 {
@@ -10,9 +12,9 @@ namespace GardenCommunity.Business.DTO
         public bool HasElectricity { get; set; }
         public Area ParentArea { get; set; }
         public int? ParentAreaId { get; set; }
-        public ICollection<Member> Members { get; set; }
-        public int MemberId { get; set; }
-        public bool IsFree { get; set; }
+        public ICollection<Member> Members { get; set; }   
+        public DateTime OwnedFrom { get; set; }
+        public DateTime OwnedTo { get; set; }
         public Area()
         {
             Members = new List<Member>();

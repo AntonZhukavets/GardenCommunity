@@ -1,0 +1,9 @@
+D:\project_2\GardenCommunity\GardenCommunity.DataAccess\bin\Debug\netcoreapp2.0\GardenCommunity.DataAccess.deps.json
+D:\project_2\GardenCommunity\GardenCommunity.DataAccess\bin\Debug\netcoreapp2.0\GardenCommunity.DataAccess.dll
+D:\project_2\GardenCommunity\GardenCommunity.DataAccess\bin\Debug\netcoreapp2.0\GardenCommunity.DataAccess.pdb
+D:\project_2\GardenCommunity\GardenCommunity.DataAccess\obj\Debug\netcoreapp2.0\GardenCommunity.DataAccess.csprojAssemblyReference.cache
+D:\project_2\GardenCommunity\GardenCommunity.DataAccess\obj\Debug\netcoreapp2.0\GardenCommunity.DataAccess.csproj.CoreCompileInputs.cache
+D:\project_2\GardenCommunity\GardenCommunity.DataAccess\obj\Debug\netcoreapp2.0\GardenCommunity.DataAccess.AssemblyInfoInputs.cache
+D:\project_2\GardenCommunity\GardenCommunity.DataAccess\obj\Debug\netcoreapp2.0\GardenCommunity.DataAccess.AssemblyInfo.cs
+D:\project_2\GardenCommunity\GardenCommunity.DataAccess\obj\Debug\netcoreapp2.0\GardenCommunity.DataAccess.dll
+D:\project_2\GardenCommunity\GardenCommunity.DataAccess\obj\Debug\netcoreapp2.0\GardenCommunity.DataAccess.pdb

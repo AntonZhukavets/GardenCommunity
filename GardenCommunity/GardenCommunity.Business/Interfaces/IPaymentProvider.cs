@@ -1,14 +1,14 @@
-﻿using System;
+﻿using GardenCommunity.Common.Entities;
+using System;
 using System.Collections.Generic;
-using GardenCommunity.Business.DTO;
 
 namespace GardenCommunity.Business.Interfaces
 {
     public interface IPaymentProvider
     {
-        void AddPayment(Payment payment);
-        void UpdatePayment(Payment payment);
-        void RemovePayment(int id);
+        int AddPayment(Payment payment);
+        int UpdatePayment(Payment payment);
+        int RemovePayment(int id);
         Payment GetPayment(int id);
         IEnumerable<Payment> GetPaymentsByMemberId(int id);
         IEnumerable<Payment> GetPaymentsByMemberId(int id, DateTime beginDate, DateTime endDate);

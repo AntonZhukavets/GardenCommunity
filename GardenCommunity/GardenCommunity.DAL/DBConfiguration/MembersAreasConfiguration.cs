@@ -7,9 +7,7 @@ namespace GardenCommunity.DAL.DBConfiguration
     {
         public MembersAreasConfiguration()
         {
-            HasKey(x => x.Id);
-            //HasKey(x => x.MemberId);
-            //HasKey(x => x.AreaId);
+            HasKey(x => x.Id);            
             HasRequired(x => x.Member).WithMany(x => x.MembersAreas).HasForeignKey(x => x.MemberId);
             HasRequired(x => x.Area).WithMany(x => x.MembersAreas).HasForeignKey(x => x.AreaId);
         }
