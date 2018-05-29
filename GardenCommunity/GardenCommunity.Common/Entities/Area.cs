@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DAL = GardenCommunity.DataAccess.Entities;
 
 namespace GardenCommunity.Common.Entities
 {
@@ -19,5 +20,11 @@ namespace GardenCommunity.Common.Entities
         {
             Members = new List<Member>();
         }
+
+        public static explicit operator DAL.Area(Area input){
+            return new DAL.Area {
+      Id = input.Id
+};
+    }
     }
 }

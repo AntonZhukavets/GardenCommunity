@@ -4,7 +4,6 @@ using GardenCommunity.Common.Mappers;
 using GardenCommunity.DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace GardenCommunity.Business.Providers
 {
@@ -34,27 +33,41 @@ namespace GardenCommunity.Business.Providers
 
         public Member GetMember(int id)
         {
-            throw new NotImplementedException();
+            var member = dBManagerMember.GetMember(id);
+            return Mapper.FromDataAccessToBusinessMap(member);
         }
 
         public IEnumerable<Member> GetMembers(int id)
         {
-            throw new NotImplementedException();
+            var members = new List<Member>();
+            var dALMembers = dBManagerMember.GetMembers(id);
+            foreach (var dALMember in dALMembers)
+            {
+                members.Add(Mapper.FromDataAccessToBusinessMap(dALMember));
+            }
+            return members;
         }
 
         public IEnumerable<Member> GetMembersByAreaId(int id)
         {
-            throw new NotImplementedException();
+            var members = new List<Member>();
+            var dALMembers = dBManagerMember.GetMembersByAreaId(id);
+            foreach (var dALMember in dALMembers)
+            {
+                members.Add(Mapper.FromDataAccessToBusinessMap(dALMember));
+            }
+            return members;
         }
 
         public int RemoveMember(int id)
         {
-            throw new NotImplementedException();
+            return dBManagerMember.RemoveMember(id);
         }
 
         public int UpdateMember(Member member, IEnumerable<int> areasForRemove)
         {
-            throw new NotImplementedException();
+            var Member = member ?? throw new ArgumentNullException("member");
+            return dBManagerMember.UpdateMember(Mapper.FromBusinessToDataAccessMap(member), areasForRemove);
         }
     }
 }

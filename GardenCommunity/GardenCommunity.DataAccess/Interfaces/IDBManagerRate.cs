@@ -11,6 +11,6 @@ namespace GardenCommunity.DataAccess.Interfaces
         int UpdateRate(Rate rate);
         int RemoveRate(int id);
         Rate GetRate(int id);
-        IEnumerable<Rate> GetRates(DateTime beginDate, DateTime endTime);
+        IEnumerable<Rate> GetRates(DateTime beginDate, DateTime endDate);
     }
 }

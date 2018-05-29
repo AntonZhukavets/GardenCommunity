@@ -14,6 +14,7 @@ namespace GardenCommunity.Business.Providers
         {
             this.dBManagerArea = dBManagerArea;            
         }
+
         public int AddArea(Area area)
         {
             var Area = area ?? throw new ArgumentNullException("area");

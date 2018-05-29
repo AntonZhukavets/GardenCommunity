@@ -1,4 +1,4 @@
-﻿using GardenCommunity.Business.DTO;
+﻿using GardenCommunity.Common.Entities;
 using System.Collections.Generic;
 
 namespace GardenCommunity.Business.Interfaces

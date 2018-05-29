@@ -34,7 +34,9 @@ namespace GardenCommunity.DataAccess
         {
             using (var db = new GardenCommunityContext())
             {
+                //?  ??? db.MembersAreas.Include(x => x.Member).Include(x => x.Area).Where(x => x.MemberId == id).Select(x=>x.Member);
                 var member = db.Members.First(x => x.Id == id);
+                // db.Members.Include(x=>x.MembersAreas).ThenInclude(x=>x.)
                 member.MembersAreas = db.MembersAreas.Include(x => x.Area).Where(x => x.MemberId == id).ToList() ?? new List<MembersAreas>();
                 return member;
             }
