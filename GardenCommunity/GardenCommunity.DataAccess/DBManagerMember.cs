@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace GardenCommunity.DataAccess
 {
-    class DBManagerMember : IDBManagerMember
+    public class DBManagerMember : IDBManagerMember
     {
         private Member member;
         private const int gardenCommunityId = 1;

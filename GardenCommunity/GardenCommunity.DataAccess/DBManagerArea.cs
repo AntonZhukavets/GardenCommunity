@@ -33,7 +33,7 @@ namespace GardenCommunity.DataAccess
             using (var db = new GardenCommunityContext())
             {
                 var area = db.Areas.First(x => x.Id == id);
-                var membersAreas = db.MembersAreas.Where(x => x.AreaId == id).ToList() ?? new List<MembersAreas>();
+                var membersAreas = db.MembersAreas.Include(x=>x.Member).Where(x => x.AreaId == id).ToList() ?? new List<MembersAreas>();
                 area.MembersAreas = membersAreas;
                 return area;
             }
@@ -47,7 +47,7 @@ namespace GardenCommunity.DataAccess
                 //var membersAreas = db.MembersAreas.Include("Area").Include("Member").Select(x => x.Area).ToList();
                 foreach(var area in areas)
                 {
-                    area.MembersAreas = db.MembersAreas.Where(x => x.AreaId == area.Id).ToList();
+                    area.MembersAreas = db.MembersAreas.Include(x=>x.Member).Where(x => x.AreaId == area.Id).ToList();
                 }
                 return areas;
             }

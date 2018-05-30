@@ -174,7 +174,7 @@ namespace GardenCommunity.Common.Mappers
                 Square = area.Square,
                 HasElectricity = area.HasElectricity,
                 IsPrivate = area.IsPrivate,
-                ParentAreaId = area.ParentAreaId
+                ParentAreaId = area.ParentAreaId                
             };
             var members = new List<Member>();
             foreach(var memberArea in area.MembersAreas)

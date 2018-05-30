@@ -7,6 +7,12 @@ namespace GardenCommunity.DataAccess.Entities
     /// </summary>
     public class MembersAreas
     {
+        public MembersAreas()
+        {
+            this.Member = new Member();
+            this.Area = new Area();
+        }
+
         /// <summary>
         /// Gets or sets MemberId column in table MembersAreas
         /// </summary>
