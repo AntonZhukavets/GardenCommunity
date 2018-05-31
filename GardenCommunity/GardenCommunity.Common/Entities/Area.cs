@@ -6,6 +6,11 @@ namespace GardenCommunity.Common.Entities
 {
     public class Area
     {
+        public Area()
+        {
+            Members = new List<Member>();
+        }
+
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Square is required")]
@@ -28,13 +33,10 @@ namespace GardenCommunity.Common.Entities
         public int MemberId { get; set; }
 
         [Display(Name = "Owned from")]
-        public DateTime OwnedFrom { get; set; }
+        public DateTime? OwnedFrom { get; set; }
 
         [Display(Name = "Owned to")]
-        public DateTime OwnedTo { get; set; }
-        public Area()
-        {
-            Members = new List<Member>();
-        }       
+        public DateTime? OwnedTo { get; set; }        
+              
     }    
 }

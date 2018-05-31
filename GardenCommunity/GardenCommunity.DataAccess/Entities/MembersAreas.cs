@@ -41,7 +41,7 @@ namespace GardenCommunity.DataAccess.Entities
         /// <summary>
         /// Gets or sets OwnedFrom column in table MembersAreas
         /// </summary>
-        public DateTime OwnedFrom { get; set; }
+        public DateTime? OwnedFrom { get; set; }
 
         /// <summary>
         /// Gets or sets OwnedTo column in table MembersAreas

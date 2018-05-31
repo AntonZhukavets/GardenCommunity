@@ -1,0 +1,145 @@
+﻿@model GardenCommunity.Common.Entities.Area
+
+@{
+    ViewData["Title"] = "EditArea";
+}
+
+@using (Html.BeginForm("EditArea", "Area", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Edit area</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Square, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Square, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Square, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsPrivate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsPrivate)
+                    @Html.ValidationMessageFor(model => model.IsPrivate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HasElectricity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.HasElectricity)
+                    @Html.ValidationMessageFor(model => model.HasElectricity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ParentAreaId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ParentAreaId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ParentAreaId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.MemberId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 form-inline">
+                @Html.DropDownList("owner", ViewBag.owners as SelectList, new { @class = "form-control" })
+                <input type="button" value="Change" class="btn btn-primary" id="btn_change" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    @Html.TextBoxFor(model => model.MemberId, htmlAttributes: new { @hidden = "hidden" });
+
+    <h3>Current owner:</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">@Html.Label("Id")</th>
+                <th scope="col">@Html.Label("Last name")</th>
+                <th scope="col">@Html.Label("First name")</th>
+                <th scope="col">@Html.Label("Middle name")</th>
+                <th scope="col">@Html.Label("Address")</th>
+                <th scope="col">@Html.Label("Phone")</th>
+                <th scope="col">@Html.Label("Additional info")</th>
+                <th scope="col">@Html.Label("Is active member")</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <th scope="row">@Html.DisplayFor(modelItem => Model.Members.Last().Id)</th>
+                <td>@Html.DisplayFor(modelItem => Model.Members.Last().LastName)</td>
+                <td>@Html.DisplayFor(modelItem => Model.Members.Last().FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => Model.Members.Last().MiddleName)</td>
+                <td>@Html.DisplayFor(modelItem => Model.Members.Last().Address)</td>
+                <td>@Html.DisplayFor(modelItem => Model.Members.Last().Phone)</td>
+                <td>@Html.DisplayFor(modelItem => Model.Members.Last().AdditionalInfo)</td>
+                <td>@Html.DisplayFor(modelItem => Model.Members.Last().IsActiveMember)</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <h3>Past owners:</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">@Html.Label("Id")</th>
+                <th scope="col">@Html.Label("Last name")</th>
+                <th scope="col">@Html.Label("First name")</th>
+                <th scope="col">@Html.Label("Middle name")</th>
+                <th scope="col">@Html.Label("Address")</th>
+                <th scope="col">@Html.Label("Phone")</th>
+                <th scope="col">@Html.Label("Additional info")</th>
+                <th scope="col">@Html.Label("Is active member")</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Members.Take(Model.Members.Count - 1))
+            {
+                <tr>
+                    <th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
+                    <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MiddleName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                    <td>@Html.DisplayFor(modelItem => item.AdditionalInfo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IsActiveMember)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "GetAreas", "Area")
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        $('#btn_change').click(function () {
+            if (confirm('Are you sure you wish to change owner?')) {
+                $('#MemberId').val($('#owner').val());
+            }
+
+        });
+    </script>
+}

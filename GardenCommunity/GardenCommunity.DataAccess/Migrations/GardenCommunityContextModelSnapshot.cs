@@ -101,7 +101,7 @@ namespace GardenCommunity.DataAccess.Migrations
 
                     b.Property<int>("MemberId");
 
-                    b.Property<DateTime>("OwnedFrom");
+                    b.Property<DateTime?>("OwnedFrom");
 
                     b.Property<DateTime?>("OwnedTo");
 

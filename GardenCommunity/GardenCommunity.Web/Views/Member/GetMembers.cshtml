@@ -1,0 +1,68 @@
+﻿@model IEnumerable<GardenCommunity.Common.Entities.Member>
+
+@{
+    ViewData["Title"] = "GetMembers";
+}
+
+<h2>Avaliable members</h2>
+@Html.ActionLink("Add new member", "AddMember", "Member", null, new { @class = "btn btn-primary" })
+<br />
+<br />
+<div class="form-group" id="membersFiltr">
+    @Html.Label(string.Empty, "Show members", htmlAttributes: new { @class = "control-label col-md-1" })
+    <div class="col-md-2">
+        @Html.DropDownList("ddl_membersFiltr", ViewBag.ddl_membersFiltr as SelectList, new { @class = "form-control" })
+    </div>
+    @Html.ActionLink("Show", "GetMembers", "Member", null, new { @class = "btn btn-primary", @id = "showMembers" })
+</div>
+<br />
+<br />
+
+    <table class="table">
+        
+            <tr>
+                <th scope="col">@Html.DisplayNameFor(model => model.Id)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.LastName)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.FirstName)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.MiddleName)</th>              
+                <th scope="col"></th>                
+            </tr>        
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
+                    <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MiddleName)</td>                   
+                    <td>
+                        @Html.ActionLink("Details", "GetMember", "Member", new { @id = item.Id }, new { @class = "btn btn-primary" })
+                        @if (item.IsActiveMember == true)
+                        {
+                            @Html.ActionLink("Edit", "EditMember", "Member", new { @id = item.Id }, new { @class = "btn btn-primary" })
+                        }
+                        @if (item.IsActiveMember == true)
+                        {
+                            @Html.ActionLink("Remove", "RemoveMember", "Member", new { @id = item.Id }, new { @class = "btn btn-primary", @onclick = "return confirm('Are you sure you wish to remove this member?');" })
+                        }
+                    </td>
+                </tr>
+            }        
+    </table>
+
+<span id="getMembersLink" >/Member/GetMembers/</span>
+@section Scripts {
+
+<script type="text/javascript">
+    $('#ddl_membersFiltr').click(function () {
+
+        var href = $('#getMembersLink').text() + $('#ddl_membersFiltr').val();
+        $('#showMembers').attr('href', href);
+    });
+    
+    $(function () {
+        var href = $('#getMembersLink').text() + '1';
+        $('#showMembers').attr('href', href);
+    })
+
+</script>
+}

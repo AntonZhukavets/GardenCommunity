@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GardenCommunity.Business.Interfaces;
 using GardenCommunity.Business.Providers;
@@ -13,6 +14,7 @@ namespace GardenCommunity.Web.Controllers
     {
         private readonly IAreaProvider areaProvider;
         private readonly IMemberProvider memberProvider;
+        private const int gardenCommunityId = 1;
         public AreaController()
         {
             this.areaProvider = new AreaProvider(new DBManagerArea());
@@ -53,15 +55,13 @@ namespace GardenCommunity.Web.Controllers
         {
             if (ModelState.IsValid)
             {                
-                if (area.MemberId != 0)
+                if (area.MemberId == 0)
                 {
-                    var member = memberProvider.GetMember(area.MemberId);
-                    area.Members.Add(member);
+                    area.MemberId = gardenCommunityId;
                 }
-                else
-                {
-                    area.Members = null;
-                }
+                area.OwnedFrom = DateTime.Now;
+                var member = memberProvider.GetMember(area.MemberId);
+                area.Members.Add(member);
                 areaProvider.AddArea(area);
                 return RedirectToAction("GetAreas", "Area");
             }

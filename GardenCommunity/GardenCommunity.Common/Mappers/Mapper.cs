@@ -219,7 +219,7 @@ namespace GardenCommunity.Common.Mappers
                     HasElectricity = memberArea.Area.HasElectricity,
                     IsPrivate = memberArea.Area.IsPrivate,
                     OwnedFrom = memberArea.OwnedFrom,
-                    OwnedTo = memberArea.OwnedTo.Value,
+                    OwnedTo = memberArea.OwnedTo,
                     ParentAreaId = memberArea.Area.ParentAreaId
                 });
             }

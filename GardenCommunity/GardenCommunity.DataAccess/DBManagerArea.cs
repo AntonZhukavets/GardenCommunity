@@ -18,10 +18,8 @@ namespace GardenCommunity.DataAccess
                 db.Areas.Add(area);
                 foreach(var memberArea in area.MembersAreas)
                 {
-                    if(memberArea.MemberId == 0)
-                    {
-                        memberArea.MemberId = gardenCommunityId;
-                    }
+                    db.Members.Attach(memberArea.Member);
+                    db.MembersAreas.Add(memberArea);
                 }
                 db.SaveChanges();
             }
