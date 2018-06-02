@@ -11,9 +11,9 @@ namespace GardenCommunity.Web.Controllers
     {
         private readonly IRateProvider rateProvider;
 
-        public RateController()
+        public RateController(IRateProvider rateProvider)
         {
-            this.rateProvider = new RateProvider(new DBManagerRate());
+            this.rateProvider = rateProvider;
         }
 
         [HttpGet]

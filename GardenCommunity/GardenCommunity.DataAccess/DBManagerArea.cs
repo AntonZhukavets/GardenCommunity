@@ -80,12 +80,14 @@ namespace GardenCommunity.DataAccess
                 if(memberId != 0)
                 {
                     var member = db.Members.First(x => x.Id == memberId);
+                    db.Members.Attach(member);
                     db.MembersAreas.Add(new MembersAreas()
                     {
                         Member = member,
                         MemberId = member.Id,
                         Area = area,
-                        AreaId = area.Id
+                        AreaId = area.Id,
+                        OwnedFrom=DateTime.Now
                     });
                 }
                 db.SaveChanges();

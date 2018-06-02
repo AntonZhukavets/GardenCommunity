@@ -12,9 +12,9 @@ namespace GardenCommunity.Web.Controllers
     public class MemberController : Controller
     {
         private readonly IMemberProvider memberProvider;
-        public MemberController()
-        {           
-            this.memberProvider = new MemberProvider(new DBManagerMember());
+        public MemberController(IMemberProvider memberProvider)
+        {
+            this.memberProvider = memberProvider;
         }
 
         [HttpGet]

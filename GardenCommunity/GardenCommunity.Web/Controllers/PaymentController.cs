@@ -9,9 +9,9 @@ namespace GardenCommunity.Web.Controllers
     public class PaymentController : Controller
     {
         private readonly IPaymentProvider paymentProvider;
-        public PaymentController()
+        public PaymentController(IPaymentProvider paymentProvider)
         {
-            this.paymentProvider = new PaymentProvider(new DBManagerPayment());
+            this.paymentProvider = paymentProvider;
         }
 
         [HttpGet]

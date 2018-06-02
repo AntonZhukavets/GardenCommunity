@@ -13,9 +13,9 @@ namespace GardenCommunity.Web.Controllers
     public class IndicationController : Controller
     {
         private readonly IIndicationProvider indicationProvider;
-        public IndicationController()
+        public IndicationController(IIndicationProvider indicationProvider)
         {
-            this.indicationProvider = new IndicationProvider(new DBManagerIndication());
+            this.indicationProvider = indicationProvider;
         }
 
         [HttpGet]

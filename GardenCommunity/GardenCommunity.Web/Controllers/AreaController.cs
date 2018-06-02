@@ -15,10 +15,10 @@ namespace GardenCommunity.Web.Controllers
         private readonly IAreaProvider areaProvider;
         private readonly IMemberProvider memberProvider;
         private const int gardenCommunityId = 1;
-        public AreaController()
+        public AreaController(IAreaProvider areaProvider, IMemberProvider memberProvider)
         {
-            this.areaProvider = new AreaProvider(new DBManagerArea());
-            this.memberProvider = new MemberProvider(new DBManagerMember());
+            this.areaProvider = areaProvider;
+            this.memberProvider = memberProvider;
         }
 
         [HttpGet]
