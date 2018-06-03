@@ -8,6 +8,10 @@ namespace GardenCommunity.DataAccess.Entities
     /// </summary>
     public class Rate
     {
+        public Rate()
+        {
+            this.Payments = new List<Payment>();
+        }
         /// <summary>
         /// Gets or sets Id column in table Rates
         /// </summary>

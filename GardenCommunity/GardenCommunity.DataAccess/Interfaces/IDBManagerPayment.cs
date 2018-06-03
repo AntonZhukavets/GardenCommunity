@@ -10,6 +10,7 @@ namespace GardenCommunity.DataAccess.Interfaces
         int UpdatePayment(Payment payment);
         int RemovePayment(int id);
         Payment GetPayment(int id);
+        Payment GetLastPaymentByMemberId(int id);
         IEnumerable<Payment> GetPayments();
         IEnumerable<Payment> GetPayments(DateTime beginDate, DateTime endDate);
         IEnumerable<Payment> GetPaymentsByMemberId(int id);

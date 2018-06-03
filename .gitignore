@@ -4,7 +4,7 @@ GardenCommunity/GardenCommunity.Common/bin/
 GardenCommunity/GardenCommunity.Common/obj/
 GardenCommunity/GardenCommunity.Business/bin/
 GardenCommunity/GardenCommunity.Business/obj/
-GardenCommunity/GardenCommunity.ConsoleApp/
-GardenCommunity/GardenCommunity.Business.4.6/
-GardenCommunity/GardenCommunity.DAL/
-GardenCommunity/GardenCommunity.Web_Old/
+GardenCommunity/GardenCommunity.DependencyResolver/bin
+GardenCommunity/GardenCommunity.DependencyResolver/obj
+GardenCommunity/GardenCommunity.DataAccess/bin/
+GardenCommunity/GardenCommunity.DataAccess/obj/

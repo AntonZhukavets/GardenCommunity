@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using GardenCommunity.Business.Interfaces;
 using GardenCommunity.Business.Providers;
 using GardenCommunity.Common.Entities;
 using GardenCommunity.DataAccess;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace GardenCommunity.Web.Controllers
 {
@@ -16,13 +18,28 @@ namespace GardenCommunity.Web.Controllers
             this.rateProvider = rateProvider;
         }
 
+        [HttpGet]        
+        public IActionResult GetRate(int id)
+        {
+            var rate = rateProvider.GetRate(id);            
+            return Json(rate);
+        }
+
         [HttpGet]
         public IActionResult GetRates()
-        {
+        {            
             var beginDate = new DateTime(2017, 1, 1);
             var endDate = new DateTime(2018, 12, 31);
             var rates = rateProvider.GetRates(beginDate, endDate);
             return View(rates);
+        }
+
+        [HttpPost]        
+        public JsonResult GetRates(DateTime dateOfPayment)
+        {
+            var beginDate = new DateTime(dateOfPayment.Year, dateOfPayment.Month, 1);
+            var rates = rateProvider.GetRates(beginDate, DateTime.Now);
+            return Json(rates);
         }
 
         [HttpGet]

@@ -59,6 +59,11 @@ namespace GardenCommunity.Business.Providers
             return members;
         }
 
+        public Member GetMemberWithPayments(int id)
+        {
+            return Mapper.FromDataAccessToBusinessMap(dBManagerMember.GetMemberWithPayments(id));
+        }
+
         public int RemoveMember(int id)
         {
             return dBManagerMember.RemoveMember(id);

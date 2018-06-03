@@ -100,5 +100,6 @@ namespace GardenCommunity.Web.Controllers
             memberProvider.RemoveMember(id);
             return RedirectToAction("GetMembers", "Member");
         }
+        
     }
 }

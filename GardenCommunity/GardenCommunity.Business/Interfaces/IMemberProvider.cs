@@ -12,5 +12,6 @@ namespace GardenCommunity.Business.Interfaces
         IEnumerable<Member> GetActiveMembers();
         IEnumerable<Member> GetMembersByAreaId(int id);
         Member GetMember(int id);
+        Member GetMemberWithPayments(int id);
     }
 }

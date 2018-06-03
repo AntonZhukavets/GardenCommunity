@@ -1,5 +1,6 @@
 ﻿using GardenCommunity.DataAccess.Entities;
 using GardenCommunity.DataAccess.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,7 @@ namespace GardenCommunity.DataAccess
             using (var db = new GardenCommunityContext())
             {
                 var rates = db.Rates
+                    .Include(x=>x.Payments)
                     .Where(x => x.Date >= beginDate && x.Date <= endDate)
                     .ToList() ?? new List<Rate>();
                 return rates;

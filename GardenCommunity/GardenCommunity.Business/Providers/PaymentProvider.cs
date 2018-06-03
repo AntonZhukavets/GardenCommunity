@@ -22,6 +22,12 @@ namespace GardenCommunity.Business.Providers
             return dBManagerPayment.AddPayment(Mapper.FromBusinessToDataAccessMap(payment));           
         }
 
+        public Payment GetLastPaymentByMemberId(int id)
+        {
+            var payment = dBManagerPayment.GetLastPaymentByMemberId(id);
+            return Mapper.FromDataAccessToBusinessMap(payment);
+        }
+
         public Payment GetPayment(int id)
         {
             var payment = dBManagerPayment.GetPayment(id);

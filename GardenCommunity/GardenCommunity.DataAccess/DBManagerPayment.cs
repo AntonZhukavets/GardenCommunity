@@ -21,6 +21,20 @@ namespace GardenCommunity.DataAccess
             }            
         }
 
+        public Payment GetLastPaymentByMemberId(int id)
+        {
+            using (var db = new GardenCommunityContext())
+            {
+                var payment = db.Payments
+                    .Include(x => x.Member)
+                    .Include(x => x.Rate)
+                    .Include(x => x.Indication)
+                    .Where(x => x.MemberId == id)
+                    .LastOrDefault() ?? new Payment();
+                return payment;
+            }
+        }
+
         public Payment GetPayment(int id)
         {
             using (var db = new GardenCommunityContext())
@@ -56,6 +70,7 @@ namespace GardenCommunity.DataAccess
                 var payments = db.Payments
                     .Include(x => x.Member)
                     .Include(x => x.Rate)
+                    .Include(x=>x.Indication)
                     .Where(x => x.MemberId == id)
                     .ToList() ?? new List<Payment>();
                 return payments;

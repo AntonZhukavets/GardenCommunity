@@ -123,5 +123,14 @@ namespace GardenCommunity.DataAccess
                 return member.Id;
             }
         }
+
+        public Member GetMemberWithPayments(int id)
+        {
+            using (var db = new GardenCommunityContext())
+            {
+                var member = db.Members.Include(x => x.Payments).First(x => x.Id == id);
+                return member;
+            }
+        }
     }
 }

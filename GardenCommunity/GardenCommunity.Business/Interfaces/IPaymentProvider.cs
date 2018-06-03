@@ -14,5 +14,6 @@ namespace GardenCommunity.Business.Interfaces
         IEnumerable<Payment> GetPaymentsByMemberId(int id, DateTime beginDate, DateTime endDate);
         IEnumerable<Payment> GetPayments();
         IEnumerable<Payment> GetPayments(DateTime beginDate, DateTime endDate);
+        Payment GetLastPaymentByMemberId(int id);
     }
 }

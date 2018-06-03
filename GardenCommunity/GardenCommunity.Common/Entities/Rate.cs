@@ -6,6 +6,10 @@ namespace GardenCommunity.Common.Entities
 {
     public class Rate
     {
+        public Rate()
+        {
+            this.Payments = new List<Payment>();    
+        }
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Name is rquired")]

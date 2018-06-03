@@ -10,6 +10,7 @@ namespace GardenCommunity.DataAccess.Interfaces
         int UpdateMember(Member member, IEnumerable<int> areasForRemove);
         int RemoveMember(int id);
         Member GetMember(int id);
+        Member GetMemberWithPayments(int id);
         IEnumerable<Member> GetMembersByAreaId(int id);
         IEnumerable<Member> GetMembers(int id);
         IEnumerable<Member> GetActiveMembers();

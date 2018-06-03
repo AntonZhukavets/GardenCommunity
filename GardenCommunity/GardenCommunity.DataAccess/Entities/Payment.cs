@@ -7,6 +7,12 @@ namespace GardenCommunity.DataAccess.Entities
     /// </summary>
     public class Payment
     {
+        public Payment()
+        {
+            this.Indication = new Indication();
+            this.Rate = new Rate();
+            this.Member = new Member();
+        }
         /// <summary>
         /// Gets or sets Id column in table Payments
         /// </summary>
