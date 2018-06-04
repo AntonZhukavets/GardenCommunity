@@ -12,9 +12,13 @@ namespace GardenCommunity.DataAccess
     {
         public int AddPayment(Payment payment)
         {
-            var Payment = payment ?? throw new ArgumentNullException("payment");
+            var Payment = payment ?? throw new ArgumentNullException("payment");            
             using (var db = new GardenCommunityContext())
             {
+                var member = db.Members.First(x => x.Id == payment.MemberId);
+                db.Members.Attach(member);
+                var rate = db.Rates.First(x => x.Id == payment.RateId);
+                db.Rates.Attach(rate);
                 db.Payments.Add(payment);
                 db.SaveChanges();
                 return payment.Id;

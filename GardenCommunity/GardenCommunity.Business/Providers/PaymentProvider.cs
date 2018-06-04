@@ -22,6 +22,12 @@ namespace GardenCommunity.Business.Providers
             return dBManagerPayment.AddPayment(Mapper.FromBusinessToDataAccessMap(payment));           
         }
 
+        public double CalculetePayment(double lastIndication, double currentIndication, double rateValue, double finePercent, double bankCollectionPercent, double loosesPercent)
+        {
+            var result = (currentIndication*(1+loosesPercent) - lastIndication) * rateValue * (1 + finePercent + bankCollectionPercent);
+            return result;
+        }
+
         public Payment GetLastPaymentByMemberId(int id)
         {
             var payment = dBManagerPayment.GetLastPaymentByMemberId(id);

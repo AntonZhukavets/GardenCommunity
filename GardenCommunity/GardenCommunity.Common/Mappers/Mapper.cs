@@ -257,8 +257,20 @@ namespace GardenCommunity.Common.Mappers
                 Date = payment.Rate.Date,
                 FinePercent = payment.Rate.FinePercent
             };
+            var dTOMember = new Member()
+            {
+                Id = payment.Member.Id,
+                FirstName = payment.Member.FirstName,
+                LastName = payment.Member.LastName,
+                MiddleName = payment.Member.MiddleName,
+                AdditionalInfo = payment.Member.AdditionalInfo,
+                Address = payment.Member.Address,
+                Phone = payment.Member.Phone,
+                IsActiveMember = payment.Member.IsActiveMember
+            };
             dTOPayment.Indication = dTOIndication;
             dTOPayment.Rate = dTORate;
+            dTOPayment.Member = dTOMember;
             return dTOPayment;
         }
 

@@ -1,0 +1,54 @@
+﻿@model GardenCommunity.Common.Entities.Rate
+
+@{
+    ViewData["Title"] = "GetRate";
+}
+
+<h2>GetRate</h2>
+
+<div>
+    <h4>Rate</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RateName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RateName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RateValue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RateValue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BankCollectionPercent)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BankCollectionPercent)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FinePercent)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FinePercent)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

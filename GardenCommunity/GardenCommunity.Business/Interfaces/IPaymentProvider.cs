@@ -15,5 +15,6 @@ namespace GardenCommunity.Business.Interfaces
         IEnumerable<Payment> GetPayments();
         IEnumerable<Payment> GetPayments(DateTime beginDate, DateTime endDate);
         Payment GetLastPaymentByMemberId(int id);
+        double CalculetePayment(double lastIndication, double currentIndication, double rateValue, double finePercent, double bankCollectionPercent, double loosesPercent);
     }
 }

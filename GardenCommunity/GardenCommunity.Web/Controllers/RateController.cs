@@ -4,6 +4,7 @@ using GardenCommunity.Business.Interfaces;
 using GardenCommunity.Business.Providers;
 using GardenCommunity.Common.Entities;
 using GardenCommunity.DataAccess;
+using GardenCommunity.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -18,12 +19,19 @@ namespace GardenCommunity.Web.Controllers
             this.rateProvider = rateProvider;
         }
 
-        [HttpGet]        
+        [HttpGet]
         public IActionResult GetRate(int id)
         {
-            var rate = rateProvider.GetRate(id);            
-            return Json(rate);
+            var rate = rateProvider.GetRate(id);
+            if (Request.IsAjaxRequest())
+            {
+                return Json(rate);
+            }
+            return View("GetRate", rate);
         }
+
+
+            
 
         [HttpGet]
         public IActionResult GetRates()

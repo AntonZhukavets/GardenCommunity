@@ -36,6 +36,13 @@
         </div>
     </div>
     <div class="form-group">
+        @Html.LabelFor(model => model.Rate.RateValue, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.Rate.RateValue, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.Rate.RateValue, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
         @Html.LabelFor(model => model.Rate.BankCollectionPercent, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
             @Html.EditorFor(model => model.Rate.BankCollectionPercent, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
@@ -53,7 +60,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Indication.LastIndication, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
-            @Html.EditorFor(model => model.Indication.LastIndication, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Indication.LastIndication, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
             @Html.ValidationMessageFor(model => model.Indication.LastIndication, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -61,7 +68,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.PaidFor, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
-            @Html.EditorFor(model => model.PaidFor, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.PaidFor, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
             @Html.ValidationMessageFor(model => model.PaidFor, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -135,7 +142,8 @@
                 type: 'GET',
                 traditional: true,                
                 async: true,
-                    success: function (result) {                       
+                    success: function (result) {
+                        $('#Rate_RateValue').val(result.rateValue);
                         $('#Rate_BankCollectionPercent').val(result.bankCollectionPercent);
                         $('#Rate_FinePercent').val(result.finePercent);
                     }
@@ -152,11 +160,40 @@
                 traditional: true,                
                 async: true,
                     success: function (result) {                       
-                        $('#Rate_BankCollectionPercent').val(result.bankCollectionPercent);
-                        $('#Rate_FinePercent').val(result.finePercent);
+                        $('#Indication_LastIndication').val(result.indication.currentIndication);
+                        $('#PaidFor').val(result.paidFor);
+                        $('#Indication_LoosesPercent').val(result.indication.loosesPercent);
                     }
             });
 
+        });
+
+        $('#Indication_CurrentIndication').on('input', function () {
+            var input = $('#Indication_CurrentIndication').val(); 
+            var value = input/ 1;
+            if (isNaN(value)) {                               
+                var validInput = input.substr(0, input.length - 1);
+                $('#Indication_CurrentIndication').val(validInput);               
+            }
+            else {
+                var rateValue = $('#Rate_RateValue').val();
+                var lastIndication = $('#Indication_LastIndication').val();
+                var loosesPercent = $('#Indication_LoosesPercent').val();
+                var bankCollectionPercent = $('#Rate_BankCollectionPercent').val();
+                var finePercent = $('#Rate_FinePercent').val();
+                if (value >= lastIndication) {
+                    $.ajax({
+                        url: '@Url.Action("CalculatePayment", "Payment")',
+                        type: 'GET',
+                        traditional: true,
+                        async: true,
+                        data: { currentIndication: value, lastIndication: lastIndication, loosesPercent: loosesPercent, bankCollection: bankCollectionPercent, rateValue: rateValue, finePercent: finePercent },
+                        success: function (result) {
+                            $('#ToPay').val(result);
+                        }
+                    });
+                }
+            }
         });
     </script>
 }

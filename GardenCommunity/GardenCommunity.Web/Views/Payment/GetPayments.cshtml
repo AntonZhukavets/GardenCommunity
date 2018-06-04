@@ -17,8 +17,7 @@
         <th>@Html.DisplayNameFor(model => model.ToPay)</th>
         <th>@Html.DisplayNameFor(model => model.RateId)</th>
         <th>@Html.DisplayNameFor(model => model.MemberId)</th>
-        <th></th>
-        <th></th>
+        <th></th>        
     </tr>
 
     @foreach (var item in Model)
@@ -28,11 +27,12 @@
             <td>@Html.DisplayFor(modelItem => item.DateOfPayment)</td>
             <td>@Html.DisplayFor(modelItem => item.PaidFor)</td>
             <td>@Html.DisplayFor(modelItem => item.ToPay)</td>
-            <td>@Html.DisplayFor(modelItem => item.RateId)</td>
-            <td>@Html.DisplayFor(modelItem => item.MemberId)</td>
-            <td>@Html.ActionLink("Edit", "EditPayment", "Payment", new { @id = item.Id }, new { @class = "btn btn-primary" })</td>
-            <td>@Html.ActionLink("Remove", "RemovePayment", "Payment", new { @id = item.Id }, new { @class = "btn btn-primary", @onclick = "return confirm('Are you sure you wish to remove this payment?');" })</td>
-
+            <td>@Html.ActionLink(item.Rate.RateName, "GetRate", "Rate", new { @id = item.RateId }, null)</td>
+            <td>@Html.ActionLink(item.Member.LastName + " " + item.Member.FirstName + " " + item.Member.MiddleName, "GetMember", "Member", new { @id = item.MemberId }, null) </td>
+            <td>
+                @Html.ActionLink("Details", "GetPayment", "Payment", new { @id = item.Id }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Remove", "RemovePayment", "Payment", new { @id = item.Id }, new { @class = "btn btn-primary", @onclick = "return confirm('Are you sure you wish to remove this payment?');" })
+            </td>
         </tr>
     }
 </table>

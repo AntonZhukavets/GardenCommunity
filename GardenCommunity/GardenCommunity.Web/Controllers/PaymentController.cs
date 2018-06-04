@@ -4,7 +4,9 @@ using GardenCommunity.Common.Entities;
 using GardenCommunity.DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GardenCommunity.Web.Controllers
 {
@@ -45,11 +47,21 @@ namespace GardenCommunity.Web.Controllers
         [HttpPost]
         public IActionResult AddPayment(Payment payment)
         {
-            if (ModelState.IsValid)
+            var members = memberProvider.GetActiveMembers();
+            var payers = new Dictionary<int, string>();
+            payers.Add(0, string.Empty);
+            foreach (var member in members)
+            {
+                payers.Add(member.Id, member.LastName + " " + member.FirstName + " " + member.MiddleName);
+            }
+            var modelPayers = new SelectList(payers, "Key", "Value", payment.MemberId);
+            ViewBag.payers = modelPayers;
+            if (payment.MemberId!=0 && payment.ToPay!=0 && payment.Indication.CurrentIndication >= payment.Indication.LastIndication && payment.Indication.CurrentIndication!=0 && payment.RateId!=0)
             {
                 paymentProvider.AddPayment(payment);
                 return RedirectToAction("GetPayments", "Payment");
             }
+            payment.DateOfPayment = DateTime.Now;
             return View(payment);
         }
 
@@ -83,6 +95,20 @@ namespace GardenCommunity.Web.Controllers
         {
             var payment = paymentProvider.GetLastPaymentByMemberId(id);
             return Json(payment);
+        }
+
+        [HttpGet]
+        public double CalculatePayment()
+        {
+            double result = 0;
+            var lastIndication = Convert.ToDouble(Request.Query.First(x => x.Key == "lastIndication").Value);
+            var currentIndication = Convert.ToDouble(Request.Query.First(x => x.Key == "currentIndication").Value);
+            var rateValue = Convert.ToDouble(Request.Query.First(x => x.Key == "rateValue").Value);
+            var bankCollectionPercent = Convert.ToDouble(Request.Query.First(x => x.Key == "bankCollection").Value);
+            var finePercent = Convert.ToDouble(Request.Query.First(x => x.Key == "finePercent").Value);
+            var loosesPercent = Convert.ToDouble(Request.Query.First(x => x.Key == "loosesPercent").Value);
+            result = paymentProvider.CalculetePayment(lastIndication, currentIndication, rateValue, finePercent, bankCollectionPercent, loosesPercent);
+            return result;
         }
     }
 }
