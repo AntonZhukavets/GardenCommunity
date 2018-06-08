@@ -73,6 +73,13 @@
         </div>
     </div>
     <div class="form-group">
+        @Html.LabelFor(model => model.Indication.LoosesPercent, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.Indication.LoosesPercent, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Indication.LoosesPercent, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
         @Html.LabelFor(model => model.Indication.CurrentIndication, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
             @Html.EditorFor(model => model.Indication.CurrentIndication, new { htmlAttributes = new { @class = "form-control" } })
@@ -84,14 +91,6 @@
         <div class="col-md-4">
             @Html.EditorFor(model => model.ToPay, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.ToPay, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Indication.LoosesPercent, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.Indication.LoosesPercent, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Indication.LoosesPercent, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
@@ -138,17 +137,22 @@
             var id = $('#RateId').val();
             if (id != 0) {
                 $.ajax({
-                url: '@Url.Action("GetRate", "Rate")'+'/'+id,
-                type: 'GET',
-                traditional: true,                
-                async: true,
+                    url: '@Url.Action("GetRate", "Rate")' + '/' + id,
+                    type: 'GET',
+                    traditional: true,
+                    async: true,
                     success: function (result) {
                         $('#Rate_RateValue').val(result.rateValue);
                         $('#Rate_BankCollectionPercent').val(result.bankCollectionPercent);
                         $('#Rate_FinePercent').val(result.finePercent);
                     }
-            });
+                });
 
+            }
+            else {
+                $('#Rate_RateValue').val('');
+                $('#Rate_BankCollectionPercent').val('');
+                $('#Rate_FinePercent').val('');
             }
         });
 
@@ -158,42 +162,75 @@
                 url: '@Url.Action("GetLastPaymentByMemberId", "Payment")'+'/'+id,
                 type: 'GET',
                 traditional: true,                
-                async: true,
+                async: false,
                     success: function (result) {                       
                         $('#Indication_LastIndication').val(result.indication.currentIndication);
-                        $('#PaidFor').val(result.paidFor);
-                        $('#Indication_LoosesPercent').val(result.indication.loosesPercent);
+                        $('#PaidFor').val(result.paidFor);                        
                     }
             });
-
+            $('#Indication_CurrentIndication').val('');
+            $('#Indication_LoosesPercent').val('');
         });
-
-        $('#Indication_CurrentIndication').on('input', function () {
-            var input = $('#Indication_CurrentIndication').val(); 
-            var value = input/ 1;
-            if (isNaN(value)) {                               
+        function inputValidator(id) {
+            var input = id.val();
+            var value = input / 1;
+            if (isNaN(value)) {
                 var validInput = input.substr(0, input.length - 1);
-                $('#Indication_CurrentIndication').val(validInput);               
+                id.val(validInput);                 
+                return false;
+            }            
+            return true;
+
+        }
+        function changeValues() {
+            var rateId = parseInt($('RateId').val());
+            var rateValue = $('#Rate_RateValue').val();
+            var currentIndication = $('#Indication_CurrentIndication').val();
+            var lastIndication = $('#Indication_LastIndication').val();
+            var loosesPercent = $('#Indication_LoosesPercent').val();
+            var bankCollectionPercent = $('#Rate_BankCollectionPercent').val();
+            var finePercent = $('#Rate_FinePercent').val();
+            if (parseFloat(currentIndication) > parseFloat(lastIndication) && rateValue != '' && loosesPercent != '' && rateId != 0) {
+                $.ajax({
+                    url: '@Url.Action("CalculatePayment", "Payment")',
+                    type: 'GET',
+                    traditional: true,
+                    async: false,
+                    data: { currentIndication: currentIndication, lastIndication: lastIndication, loosesPercent: loosesPercent, bankCollection: bankCollectionPercent, rateValue: rateValue, finePercent: finePercent },
+                    success: function (result) {
+                        $('#ToPay').val(result);
+                    }
+                });
             }
             else {
-                var rateValue = $('#Rate_RateValue').val();
-                var lastIndication = $('#Indication_LastIndication').val();
-                var loosesPercent = $('#Indication_LoosesPercent').val();
-                var bankCollectionPercent = $('#Rate_BankCollectionPercent').val();
-                var finePercent = $('#Rate_FinePercent').val();
-                if (value >= lastIndication) {
-                    $.ajax({
-                        url: '@Url.Action("CalculatePayment", "Payment")',
-                        type: 'GET',
-                        traditional: true,
-                        async: true,
-                        data: { currentIndication: value, lastIndication: lastIndication, loosesPercent: loosesPercent, bankCollection: bankCollectionPercent, rateValue: rateValue, finePercent: finePercent },
-                        success: function (result) {
-                            $('#ToPay').val(result);
-                        }
-                    });
-                }
+                $('#ToPay').val('');
             }
+
+                
+            
+        }
+        $('#Indication_CurrentIndication').on('input', function () {
+            if (inputValidator($('#Indication_CurrentIndication')) == true) {
+                changeValues();
+            }
+                         
         });
+
+        $('#RateId').change(function () { 
+            if ($('#RateId').val() != 0) {
+                changeValues();
+            }
+            else {
+                $('#ToPay').val('');
+            }
+
+        });
+        $('#Indication_LoosesPercent').on('input', function () { 
+            if (inputValidator($('#Indication_LoosesPercent')) == true) {                 
+                changeValues();
+            }            
+        });
+
+
     </script>
 }

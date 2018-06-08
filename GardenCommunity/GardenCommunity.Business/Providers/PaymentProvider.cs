@@ -24,7 +24,7 @@ namespace GardenCommunity.Business.Providers
 
         public double CalculetePayment(double lastIndication, double currentIndication, double rateValue, double finePercent, double bankCollectionPercent, double loosesPercent)
         {
-            var result = (currentIndication*(1+loosesPercent) - lastIndication) * rateValue * (1 + finePercent + bankCollectionPercent);
+            var result = (currentIndication*(1 + loosesPercent/100.0) - lastIndication) * rateValue * (1 + finePercent/100.0 + bankCollectionPercent/100.0);
             return result;
         }
 

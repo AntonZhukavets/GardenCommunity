@@ -100,15 +100,15 @@ namespace GardenCommunity.Web.Controllers
         [HttpGet]
         public double CalculatePayment()
         {
-            double result = 0;
-            var lastIndication = Convert.ToDouble(Request.Query.First(x => x.Key == "lastIndication").Value);
-            var currentIndication = Convert.ToDouble(Request.Query.First(x => x.Key == "currentIndication").Value);
-            var rateValue = Convert.ToDouble(Request.Query.First(x => x.Key == "rateValue").Value);
-            var bankCollectionPercent = Convert.ToDouble(Request.Query.First(x => x.Key == "bankCollection").Value);
-            var finePercent = Convert.ToDouble(Request.Query.First(x => x.Key == "finePercent").Value);
-            var loosesPercent = Convert.ToDouble(Request.Query.First(x => x.Key == "loosesPercent").Value);
+            double result = 0;            
+            var lastIndication = Convert.ToDouble(Request.Query.FirstOrDefault(x => x.Key == "lastIndication").Value);
+            var currentIndication = Convert.ToDouble(Request.Query.FirstOrDefault(x => x.Key == "currentIndication").Value);
+            var rateValue = Convert.ToDouble(Request.Query.FirstOrDefault(x => x.Key == "rateValue").Value);
+            var bankCollectionPercent = Convert.ToDouble(Request.Query.FirstOrDefault(x => x.Key == "bankCollection").Value);
+            var finePercent = Convert.ToDouble(Request.Query.FirstOrDefault(x => x.Key == "finePercent").Value);
+            var loosesPercent = Convert.ToDouble(Request.Query.FirstOrDefault(x => x.Key == "loosesPercent").Value);
             result = paymentProvider.CalculetePayment(lastIndication, currentIndication, rateValue, finePercent, bankCollectionPercent, loosesPercent);
-            return result;
+            return Math.Round(result,2);
         }
     }
 }

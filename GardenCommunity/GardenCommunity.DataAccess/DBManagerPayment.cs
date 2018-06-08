@@ -90,8 +90,11 @@ namespace GardenCommunity.DataAccess
         {
             using (var db = new GardenCommunityContext())
             {
-                var payment = db.Payments.First(x => x.Id == id);
-                db.Payments.Remove(payment);
+                var payment = db.Payments.Include(x=>x.Indication).First(x => x.Id == id);
+                var indication = db.Indications.First(x => x.Payment.Id == id);
+                db.Indications.Remove(indication);
+                db.Payments.Remove(payment);                 
+                db.SaveChanges();
                 return payment.Id;
             }
         }
