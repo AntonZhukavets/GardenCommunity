@@ -89,7 +89,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.ToPay, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
-            @Html.EditorFor(model => model.ToPay, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.ToPay, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
             @Html.ValidationMessageFor(model => model.ToPay, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -144,7 +144,7 @@
                     success: function (result) {
                         $('#Rate_RateValue').val(result.rateValue);
                         $('#Rate_BankCollectionPercent').val(result.bankCollectionPercent);
-                        $('#Rate_FinePercent').val(result.finePercent);
+                        $('#Rate_FinePercent').val(result.finePercent);                        
                     }
                 });
 
@@ -154,6 +154,9 @@
                 $('#Rate_BankCollectionPercent').val('');
                 $('#Rate_FinePercent').val('');
             }
+            $('#Indication_CurrentIndication').val('');
+            $('#Indication_LoosesPercent').val('');
+            $('#ToPay').val('');
         });
 
         $('#MemberId').change(function () {
@@ -165,11 +168,12 @@
                 async: false,
                     success: function (result) {                       
                         $('#Indication_LastIndication').val(result.indication.currentIndication);
-                        $('#PaidFor').val(result.paidFor);                        
+                        $('#PaidFor').val(result.toPay);                        
                     }
             });
             $('#Indication_CurrentIndication').val('');
-            $('#Indication_LoosesPercent').val('');
+            $('#Indication_LoosesPercent').val('');            
+            $('#ToPay').val('');
         });
         function inputValidator(id) {
             var input = id.val();
@@ -191,6 +195,7 @@
             var bankCollectionPercent = $('#Rate_BankCollectionPercent').val();
             var finePercent = $('#Rate_FinePercent').val();
             if (parseFloat(currentIndication) > parseFloat(lastIndication) && rateValue != '' && loosesPercent != '' && rateId != 0) {
+                
                 $.ajax({
                     url: '@Url.Action("CalculatePayment", "Payment")',
                     type: 'GET',
@@ -198,7 +203,7 @@
                     async: false,
                     data: { currentIndication: currentIndication, lastIndication: lastIndication, loosesPercent: loosesPercent, bankCollection: bankCollectionPercent, rateValue: rateValue, finePercent: finePercent },
                     success: function (result) {
-                        $('#ToPay').val(result);
+                        $('#ToPay').val(parseFloat(result));
                     }
                 });
             }
@@ -216,15 +221,15 @@
                          
         });
 
-        $('#RateId').change(function () { 
-            if ($('#RateId').val() != 0) {
-                changeValues();
-            }
-            else {
-                $('#ToPay').val('');
-            }
+        //$('#Rate_RateValue').change(function () { 
+        //    if ($('#Rate_RateValue').val() != '') {
+        //        changeValues();
+        //    }
+        //    else {
+        //        $('#ToPay').val('');
+        //    }
 
-        });
+        //});
         $('#Indication_LoosesPercent').on('input', function () { 
             if (inputValidator($('#Indication_LoosesPercent')) == true) {                 
                 changeValues();

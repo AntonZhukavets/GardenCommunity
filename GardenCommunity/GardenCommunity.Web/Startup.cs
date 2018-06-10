@@ -23,8 +23,11 @@ namespace GardenCommunity.Web
         public void ConfigureServices(IServiceCollection services)
         {         
             services.AddDataAccessServices();
-            services.AddBusinessServices();           
-            services.AddMvc();              
+            services.AddBusinessServices();
+            services.AddMvc(config =>
+            {
+                config.ModelBinderProviders.Insert(0, new InvarianDoubleModelBinderProvider());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

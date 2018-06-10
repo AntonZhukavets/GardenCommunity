@@ -1,0 +1,84 @@
+﻿@model IEnumerable<GardenCommunity.Common.Entities.Payment>
+
+@{
+    ViewData["Title"] = "GetReport";
+}
+
+<h2>Report</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MemberId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Indication.LastIndication)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Indication.CurrentIndication)
+                </th>
+                <th>
+                    @Html.Label("Consumption")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ToPay)
+                </th>            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.MemberId == 1)
+            { continue; }
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.ActionLink(item.Member.LastName + " " + item.Member.FirstName + " " + item.Member.MiddleName, "GetMember", "Member", new { @id = item.MemberId }, null)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Indication.LastIndication)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Indication.CurrentIndication)
+                </td>
+                <td>
+                    @Html.Label((item.Indication.CurrentIndication - item.Indication.LastIndication).ToString())
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToPay)
+                </td>
+            </tr>
+
+        }
+        <tr>
+            <td></td>
+            <td>@Html.Label("Total")</td>
+            <td></td>
+            <td></td>
+            <td>
+                @ViewBag.membersConsumption.ToString()
+            </td>
+            <td>
+                @ViewBag.membersTotalPay.ToString()
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>@Html.Label("Debd")</td>
+            <td></td>
+            <td></td>
+            <td>
+                @ViewBag.consumptionDebt.ToString()
+            </td>
+            <td>
+                @ViewBag.moneyDept.ToString()
+            </td>
+        </tr>
+    </tbody>
+</table>

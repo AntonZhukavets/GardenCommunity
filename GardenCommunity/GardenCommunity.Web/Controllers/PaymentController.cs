@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace GardenCommunity.Web.Controllers
@@ -81,7 +82,7 @@ namespace GardenCommunity.Web.Controllers
                 return RedirectToAction("GetPayments", "Payment");
             }
             return View(payment);
-        }
+        }        
 
         [HttpGet]
         public IActionResult RemovePayment(int id)
@@ -100,7 +101,7 @@ namespace GardenCommunity.Web.Controllers
         [HttpGet]
         public double CalculatePayment()
         {
-            double result = 0;            
+            double result = 0;             
             var lastIndication = Convert.ToDouble(Request.Query.FirstOrDefault(x => x.Key == "lastIndication").Value);
             var currentIndication = Convert.ToDouble(Request.Query.FirstOrDefault(x => x.Key == "currentIndication").Value);
             var rateValue = Convert.ToDouble(Request.Query.FirstOrDefault(x => x.Key == "rateValue").Value);
@@ -108,7 +109,7 @@ namespace GardenCommunity.Web.Controllers
             var finePercent = Convert.ToDouble(Request.Query.FirstOrDefault(x => x.Key == "finePercent").Value);
             var loosesPercent = Convert.ToDouble(Request.Query.FirstOrDefault(x => x.Key == "loosesPercent").Value);
             result = paymentProvider.CalculetePayment(lastIndication, currentIndication, rateValue, finePercent, bankCollectionPercent, loosesPercent);
-            return Math.Round(result,2);
+            return Math.Round(result, 2);
         }
     }
 }

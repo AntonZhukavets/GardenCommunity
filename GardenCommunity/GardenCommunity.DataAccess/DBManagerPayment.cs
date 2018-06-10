@@ -44,6 +44,7 @@ namespace GardenCommunity.DataAccess
             using (var db = new GardenCommunityContext())
             {
                 var payment = db.Payments
+                    .Include(x=>x.Indication)
                     .Include(x => x.Member)
                     .Include(x => x.Rate)
                     .First(x => x.Id == id);
@@ -56,6 +57,7 @@ namespace GardenCommunity.DataAccess
             using (var db = new GardenCommunityContext())
             {
                 var payments = db.Payments
+                    .Include(x=>x.Indication)
                     .Include(x => x.Member)
                     .Include(x => x.Rate).ToList() ?? new List<Payment>();
                 return payments;
@@ -64,7 +66,16 @@ namespace GardenCommunity.DataAccess
 
         public IEnumerable<Payment> GetPayments(DateTime beginDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            using (var db = new GardenCommunityContext())
+            {
+                var payments = db.Payments
+                    .Include(x => x.Indication)
+                    .Include(x => x.Member)
+                    .Include(x => x.Rate)
+                    .Where(x=>x.DateOfPayment>=beginDate && x.DateOfPayment<=endDate)
+                    .ToList() ?? new List<Payment>();
+                return payments;
+            }
         }
 
         public IEnumerable<Payment> GetPaymentsByMemberId(int id)
