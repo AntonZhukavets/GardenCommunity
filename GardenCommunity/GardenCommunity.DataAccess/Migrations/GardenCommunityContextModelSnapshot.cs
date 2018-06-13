@@ -166,6 +166,42 @@ namespace GardenCommunity.DataAccess.Migrations
                     b.ToTable("Rates");
                 });
 
+            modelBuilder.Entity("GardenCommunity.DataAccess.Entities.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("GardenCommunity.DataAccess.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<int>("RoleId");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("GardenCommunity.DataAccess.Entities.Area", b =>
                 {
                     b.HasOne("GardenCommunity.DataAccess.Entities.Area", "ParentArea")
@@ -200,6 +236,14 @@ namespace GardenCommunity.DataAccess.Migrations
                     b.HasOne("GardenCommunity.DataAccess.Entities.Rate", "Rate")
                         .WithMany("Payments")
                         .HasForeignKey("RateId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("GardenCommunity.DataAccess.Entities.User", b =>
+                {
+                    b.HasOne("GardenCommunity.DataAccess.Entities.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

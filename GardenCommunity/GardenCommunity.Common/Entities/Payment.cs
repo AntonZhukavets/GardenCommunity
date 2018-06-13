@@ -7,6 +7,12 @@ namespace GardenCommunity.Common.Entities
 {
     public class Payment
     {
+        public Payment()
+        {
+            this.Member = new Member();
+            this.Indication = new Indication();
+            this.Rate = new Rate();
+        }
         public int Id { get; set; }
         [Required(ErrorMessage = "Date is required")]
         [Display(Name = "Date of payment")]

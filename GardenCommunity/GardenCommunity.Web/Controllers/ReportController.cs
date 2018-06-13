@@ -24,14 +24,23 @@ namespace GardenCommunity.Web.Controllers
             var endDate = DateTime.Now;
             var beginDate = new DateTime(endDate.Year, endDate.Month, 1);
             var payments = paymentProvider.GetPayments(beginDate, endDate);
-            var gardenCommunityPayments = payments.Where(x => x.MemberId == 1).ToList() ?? new List<Payment>();
-            var gardenCommunityConsumption = gardenCommunityPayments.Last().Indication.CurrentIndication - gardenCommunityPayments.First().Indication.LastIndication;
-            var garedenCommunityTotalPay = gardenCommunityPayments.Sum(x => x.ToPay);
-            var membersPayments = payments.Except(payments.Where(x => x.MemberId == 1)).ToList() ?? new List<Payment>();
-            var membersConsumption = membersPayments.Sum(x => x.Indication.CurrentIndication) - membersPayments.Sum(x => x.Indication.LastIndication);
-            var membersTotalPay = membersPayments.Sum(x => x.ToPay);
-            var consumptionDebt = gardenCommunityConsumption - membersConsumption;
-            var moneyDept = garedenCommunityTotalPay - membersTotalPay;
+            double gardenCommunityConsumption = 0;
+            double garedenCommunityTotalPay = 0;
+            double membersConsumption = 0;
+            double membersTotalPay = 0;
+            double consumptionDebt = 0;
+            double moneyDept = 0;
+            if (payments.Count() > 0)
+            {
+                var gardenCommunityPayments = payments.Where(x => x.MemberId == 1).ToList() ?? new List<Payment>();
+                gardenCommunityConsumption = gardenCommunityPayments.Last().Indication.CurrentIndication - gardenCommunityPayments.First().Indication.LastIndication;
+                garedenCommunityTotalPay = gardenCommunityPayments.Sum(x => x.ToPay);
+                var membersPayments = payments.Except(payments.Where(x => x.MemberId == 1)).ToList() ?? new List<Payment>();
+                membersConsumption = membersPayments.Sum(x => x.Indication.CurrentIndication) - membersPayments.Sum(x => x.Indication.LastIndication);
+                membersTotalPay = membersPayments.Sum(x => x.ToPay);
+                consumptionDebt = gardenCommunityConsumption - membersConsumption;
+                moneyDept = garedenCommunityTotalPay - membersTotalPay;
+            }
             ViewBag.garedenCommunityTotalPay = garedenCommunityTotalPay;
             ViewBag.membersTotalPay = membersTotalPay;
             ViewBag.membersConsumption = membersConsumption;

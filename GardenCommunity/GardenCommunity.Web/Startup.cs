@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using GardenCommunity.DependencyResolver;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace GardenCommunity.Web
 {
@@ -24,6 +25,11 @@ namespace GardenCommunity.Web
         {         
             services.AddDataAccessServices();
             services.AddBusinessServices();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login/Login");
+                });
             services.AddMvc(config =>
             {
                 config.ModelBinderProviders.Insert(0, new InvarianDoubleModelBinderProvider());
@@ -43,6 +49,7 @@ namespace GardenCommunity.Web
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseAuthentication();
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
