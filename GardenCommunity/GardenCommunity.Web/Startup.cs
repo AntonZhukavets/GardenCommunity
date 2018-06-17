@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using GardenCommunity.DependencyResolver;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace GardenCommunity.Web
@@ -28,8 +25,11 @@ namespace GardenCommunity.Web
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login/Login");
+                    options.LoginPath = new PathString("/Login/Login");
+                    options.AccessDeniedPath = new PathString("/Login/AccessDenied");
+                    options.CookieName = "AppCookie";                    
                 });
+
             services.AddMvc(config =>
             {
                 config.ModelBinderProviders.Insert(0, new InvarianDoubleModelBinderProvider());
@@ -47,16 +47,15 @@ namespace GardenCommunity.Web
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-            }
-
-            app.UseAuthentication();
+            }            
+            
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Member}/{action=GetMembers}/{id?}");
             });
         }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GardenCommunity.Business.Interfaces;
 using GardenCommunity.Common.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 
@@ -19,6 +20,7 @@ namespace GardenCommunity.Web.Controllers
             this.memberProvider = memberProvider;
         }
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public IActionResult GetReport()
         {
             var endDate = DateTime.Now;

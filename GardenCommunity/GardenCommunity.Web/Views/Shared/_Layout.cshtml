@@ -21,11 +21,30 @@
         <div class="container">            
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Member" asp-action="GetMembers">Members</a></li>
-                    <li><a asp-area="" asp-controller="Area" asp-action="GetAreas">Areas</a></li>
-                    <li><a asp-area="" asp-controller="Payment" asp-action="GetPayments">Payments</a></li>
-                    <li><a asp-area="" asp-controller="Rate" asp-action="GetRates">Rates</a></li>
-                    <li><a asp-area="" asp-controller="Report" asp-action="GetReport">Report</a></li>
+                    <li>@Html.ActionLink("Members","GetMembers", "Member")</li>
+                    <li>@Html.ActionLink("Areas", "GetAreas", "Area")</li>
+                    <li>@Html.ActionLink("Payments", "GetPayments", "Payment")</li>
+                    <li>@Html.ActionLink("Rates", "GetRates", "Rate")</li>
+                    <li>@Html.ActionLink("Report", "GetReport", "Report")</li>                    
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (User.Identity.IsAuthenticated == true)
+                    {
+                        @if (User.IsInRole("Administrator") == true)
+                        {
+                            <li>@Html.ActionLink(User.Identity.Name, "GetUsers", "User")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink(User.Identity.Name, "EditUser", "User", new { @id = Convert.ToInt32(User.FindFirst(x=>x.Type == "UserId").Value) }, null)</li>
+                        }
+
+                        <li><a asp-area="" asp-controller="Login" asp-action="Logout">Logout</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-area="" asp-controller="Login" asp-action="Login">Login</a></li>
+                    }
                 </ul>
             </div>
         </div>

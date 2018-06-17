@@ -2,6 +2,7 @@
 using GardenCommunity.DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GardenCommunity.DataAccess
@@ -13,10 +14,15 @@ namespace GardenCommunity.DataAccess
             var User = user ?? throw new ArgumentNullException("user");
             using (var db = new GardenCommunityContext())
             {
-                var role = db.Roles.First(x => x.Id == user.RoleId);
-                db.Roles.Attach(role);
-                db.Add(user);
-                db.SaveChanges();
+                var someUser = db.Users
+                    .FirstOrDefault(x => x.UserName == user.UserName);
+                if (someUser == null)
+                {
+                    var role = db.Roles.First(x => x.Id == user.RoleId);
+                    db.Roles.Attach(role);
+                    db.Add(user);
+                    db.SaveChanges();
+                }
                 return user.Id;
             }
         }
@@ -40,6 +46,24 @@ namespace GardenCommunity.DataAccess
             using (var db = new GardenCommunityContext())
             {
                 return db.Users.Include(x => x.Role).First(x => x.Id == id);
+            }
+        }
+
+        public User GetUser(string userName, string password)
+        {
+            using (var db = new GardenCommunityContext())
+            {
+                return db.Users
+                    .Include(x=>x.Role)
+                    .FirstOrDefault(x => x.UserName == userName && x.Password == password);
+            }
+        }
+
+        public IEnumerable<User> GetUsers()
+        {
+            using (var db = new GardenCommunityContext())
+            {
+                return db.Users.Include(x => x.Role).ToList() ?? new List<User>();
             }
         }
 

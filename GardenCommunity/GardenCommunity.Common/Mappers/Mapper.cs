@@ -165,6 +165,30 @@ namespace GardenCommunity.Common.Mappers
             
         }
 
+        public static DAL.Role FromBusinessToDataAccessMap(Role role)
+        {
+            var Role = role ?? throw new ArgumentNullException("role");
+            var dataAccessRole = new DAL.Role()
+            {
+                Id = role.Id,
+                Name = role.Name
+            };
+            return dataAccessRole;
+        }
+
+        public static DAL.User FromBusinessToDataAccessMap(User user)
+        {
+            var User = user ?? throw new ArgumentNullException("user");
+            var dataAccessUser = new DAL.User()
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Password = user.Password,
+                RoleId = user.Role.Id
+            };
+            return dataAccessUser;
+        }
+
         public static Area FromDataAccessToBusinessMap(DAL.Area area)
         {
             var Area = area ?? throw new ArgumentNullException("area");
@@ -343,6 +367,34 @@ namespace GardenCommunity.Common.Mappers
             };
             dTOIndication.Payment = dTOPayment;
             return dTOIndication;
+        }
+
+        public static Role FromDataAccessToBusinessMap(DAL.Role role)
+        {
+            var Role = role ?? throw new ArgumentNullException("role");
+            var dTORole = new Role()
+            {
+                Id = role.Id,
+                Name = role.Name
+            };
+            return dTORole;
+        }
+
+        public static User FromDataAccessToBusinessMap(DAL.User user)
+        {
+            var User = user ?? throw new ArgumentNullException("user");
+            var dTOUser = new User()
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Password = user.Password,
+                Role = new Role()
+                {
+                    Id = user.Role.Id,
+                    Name = user.Role.Name
+                }
+            };
+            return dTOUser;
         }
     }
 }

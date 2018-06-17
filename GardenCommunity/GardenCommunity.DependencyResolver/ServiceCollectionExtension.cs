@@ -16,6 +16,8 @@ namespace GardenCommunity.DependencyResolver
             services.AddTransient<IDBManagerPayment, DBManagerPayment>();
             services.AddTransient<IDBManagerIndication, DBManagerIndication>();
             services.AddTransient<IDBManagerRate, DBManagerRate>();
+            services.AddTransient<IDBManagerUser, DBManagerUser>();
+            services.AddTransient<IDBManagerRole, DBManagerRole>();
             return services;
         }
         public static IServiceCollection AddBusinessServices(this IServiceCollection services)
@@ -25,6 +27,8 @@ namespace GardenCommunity.DependencyResolver
             services.AddTransient<IPaymentProvider, PaymentProvider>();
             services.AddTransient<IIndicationProvider, IndicationProvider>();
             services.AddTransient<IRateProvider, RateProvider>();
+            services.AddTransient<IUserProvider, UserProvider>();
+            services.AddTransient<IRoleProvider, RoleProvider>();
             return services;
         }
     }

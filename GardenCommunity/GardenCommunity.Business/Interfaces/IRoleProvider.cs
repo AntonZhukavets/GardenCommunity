@@ -9,6 +9,10 @@ namespace GardenCommunity.Business.Interfaces
     {
         Role GetRole(int id);
 
+        Role GetRole(string name);
+
+        IEnumerable<Role> GetRoles();
+
         int AddRole(Role role);
 
         int EditRole(Role role);
